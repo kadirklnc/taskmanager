@@ -1,0 +1,14 @@
+.mainContainer {
+    display: flex;
+}
+
+.sidebar {
+    /* Sidebar için ek stil eklenebilir */
+}
+
+.content {
+    margin-left: 12px; /* Sidebar'dan uzaklığı ayarlamak için sol boşluk ekleyin */
+    flex-grow: 1;
+    margin-right:25px /* sagdan olan uzaklik */
+}
+

@@ -1,0 +1,26 @@
+.header-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; /* Vertically centers items */
+    padding: 10px 20px; /* Adds horizontal padding */
+    background-color: #fff; /* Optional: background color for visibility */
+    border-bottom: 1px solid rgb(192, 192, 192);
+}
+
+.header-left,
+.header-right {
+    font-size: 2rem; /* Adjust font size as needed */
+}
+
+.header-left {
+    
+}
+
+.header-right {
+    /* Additional styles for the right side if needed */
+}
+
+.header-icon {
+    margin-left: 10px; /* Space between text and icon */
+    font-size: 1.2rem; /* Adjust icon size as needed */
+}

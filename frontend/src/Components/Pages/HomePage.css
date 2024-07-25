@@ -1,0 +1,64 @@
+.content-container {
+    margin-left: 12px;
+    /* Ensures the container follows the same margin as the content class */
+}
+
+.page-title {
+    margin-bottom: 15px;
+    /* Adjust the margin as needed */
+}
+
+.custom-card {
+    margin-bottom: 20px;
+    padding: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.custom-card .card-title {
+    margin-bottom: 40px; /* Başlık ve içeriği arasındaki boşluk */
+}
+.circle-container {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.circle-label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Genel buton stilleri (isteğe bağlı) */
+button {
+    margin-bottom: 15px;
+    margin-right:15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    gap:15px;
+    
+}
+
+.btn-new-request {
+    background-color: #052547;
+    color: #fff;
+    
+}
+
+
+.btn-new-department {
+    background-color: #007bff;
+    color: #fff;
+   
+}
+
+
+
+/* Yeni Çalışan Oluștur buton stili */
+.btn-new-employee {
+    background-color: #28a745;
+    color: #fff;
+    
+}
+

@@ -1,0 +1,65 @@
+.formContainer {
+    display: flex;
+    height: 100vh; 
+    
+}
+
+
+
+
+.login-image-container {
+    width: 50%; 
+    background-color: #f8f9fa; 
+    background-image: url("../../assets/chart.jpg"); 
+    background-size: cover; 
+    background-position: center; 
+}
+
+.form-container {
+    width: 50%; /* Sağ tarafın genişliği */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formInput {
+    margin-bottom: 20px; /* Girdiler arasında biraz boşluk bırakır */
+    width: 100%; /* Girdilerin tam genişlikte olmasını sağlar */
+    max-width: 400px; /* Girdilerin genişliğini sınırlandırır */
+}
+
+.formText {
+    font-weight: bold;
+    color: rgb(25, 198, 157);
+    font-size: 25px;
+}
+
+
+
+.customButton {
+    border-radius: 10px; /* Butona yuvarlak köşeler ekler */
+    width: 300px;
+    padding: 5px 20px; /* Butonun içindeki metni yatayda ve dikeyde doldurur */
+    background-color: rgba(255, 255, 255, 0.2); /* Hafif saydam arka plan rengi ekler */
+    color: #353434; /* Metin rengini beyaz yapar */
+    transition: background-color 0.3s, transform 0.3s; /* Arka plan rengi ve dönüşüm için geçiş efekti ekler */
+    margin-bottom: 35px; /* Butonun altına 10px boşluk ekler */
+    /* veya */
+    padding-bottom: 10px; /* Butonun alt kısmına 10px iç boşluk ekler */
+    /* Diğer stiller */
+}
+
+.customButtonGiris {
+    width: 300px; /* Genişliği ayarlar */
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: #fff; /* Yazı rengini ayarlar */
+}
+
+.customButton:hover {
+    box-shadow: 0 0 5px 1px rgba(5, 185, 245, 0.7); 
+}
+
+.bi-google {
+    font-size: 30px;
+}
