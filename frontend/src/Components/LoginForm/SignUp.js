@@ -3,9 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './SignUp.css';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const SignUp = () => {
-    const [companyName, setCompanyName] = useState('');
     const [email, setEmail] = useState('');
     const [surname, setSurname] = useState('');
     const [password, setPassword] = useState('');
@@ -13,7 +13,7 @@ const SignUp = () => {
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
-    const handleSignUp = () => {
+    const handleSignUp = async () => {
         const newErrors = {};
 
         
@@ -27,7 +27,23 @@ const SignUp = () => {
             return;
         }
 
-        navigate('/homepage'); // Navigate to /homepage if validation passes
+        
+        const data = {
+            email,
+            username: surname,
+            password,
+            role: ['user'] 
+        };
+
+        try {
+            const response = await axios.post('/api/auth/register', data);
+            console.log(response.data);
+            // navigate to the homepage or login
+            navigate('/homepage'); 
+        } catch (error) {
+            console.error('Signup error:', error);
+            setErrors({ submit: 'Signup failed. Please try again.' });
+        }
     };
 
     return (
@@ -38,16 +54,14 @@ const SignUp = () => {
                         <div className="col-md-10 col-lg-6 order-2 order-lg-1 d-flex flex-column align-items-center">
                             <h1 className="text-center fw-bold mb-5 mx-1 mx-md-4 mt-4">Kayıt Ol</h1>
 
-
-
                             <div className="mb-4">
-                                <label htmlFor="email" className="form-label">Ad *</label>
+                                <label htmlFor="name" className="form-label">Ad *</label>
                                 <div className="d-flex flex-row align-items-center">
                                     <i className="bi bi-person me-3" style={{ fontSize: '1.5rem' }}></i>
                                     <input
-                                        type="email"
-                                        id="email"
-                                        className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                                        type="text"
+                                        id="name"
+                                        className={`form-control ${errors.name ? 'is-invalid' : ''}`}
                                         placeholder="Adınızı Giriniz"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
@@ -110,6 +124,12 @@ const SignUp = () => {
                                 <label htmlFor="subscribeNewsletter" className="ms-2">Üyelik Sözleşmesi’ni okudum ve kabul ediyorum.</label>
                             </div>
 
+                            {errors.submit && (
+                                <p className="errorMessage" style={{ color: 'red', marginTop: '10px' }}>
+                                    {errors.submit}
+                                </p>
+                            )}
+
                             <Button variant="success" className='customButtonGiris' onClick={handleSignUp}>
                                 Kayıt Ol
                             </Button>
@@ -118,7 +138,6 @@ const SignUp = () => {
                         <div className="col-md-10 col-lg-6 order-1 order-lg-2 d-flex align-items-center">
                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" className="img-fluid" alt="Sign up illustration" />
                         </div>
-
                     </div>
                 </div>
             </div>
