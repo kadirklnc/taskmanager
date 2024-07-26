@@ -1,5 +1,6 @@
 package com.demo.demo.security;
 
+import com.demo.demo.config.SwaggerConfig;
 import com.demo.demo.security.jwt.AuthEntryPointJwt;
 import com.demo.demo.security.jwt.AuthTokenFilter;
 import com.demo.demo.security.services.UserDetailsServiceImpl;
@@ -7,6 +8,7 @@ import com.demo.demo.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -16,6 +18,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -27,13 +30,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@Import(SwaggerConfig.class)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static final String[] AUTH_WHITE_LIST = {
+      "/v3/api-docs/**",
+      "/swagger-ui/**",
+      "/v2/api-docs/**",
+      "/swagger-resource/**"
+    };
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;
-
-    @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -63,6 +71,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**");
+    }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -70,8 +88,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.exceptionHandling().authenticationEntryPoint(new AuthEntryPointJwt());
 
-        http.authorizeRequests().antMatchers(HttpMethod.POST,"api/auth/login").authenticated()
-                .and().authorizeRequests().anyRequest().permitAll();
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.POST, "api/auth/login").authenticated()
+                .antMatchers(AUTH_WHITE_LIST).permitAll()
+                .anyRequest().permitAll();
+
+
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
