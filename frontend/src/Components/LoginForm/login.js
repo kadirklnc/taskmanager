@@ -14,7 +14,10 @@ const Login = () => {
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post('/api/auth/signin', { email, password });
+            const response = await axios.post('http://localhost:8080/api/auth/login', {
+            username: email,
+            password: password
+        });
             console.log('API response:', response);
             // Assuming response contains a token or success message
             localStorage.setItem('token', response.data.token);
