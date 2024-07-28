@@ -6,7 +6,7 @@ import axios from 'axios';
 import './login.css';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = (username) => {
     const navigate = useNavigate(); 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -21,6 +21,8 @@ const Login = () => {
             console.log('API response:', response);
             // Assuming response contains a token or success message
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('username', email); // Store username
+
             navigate('/homepage'); 
         } catch (error) {
             console.error('Login error:', error);
@@ -50,6 +52,8 @@ const Login = () => {
                             placeholder="E-posta adresinizi giriniz" 
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            required
+                        
                         />
                     </Form.Group>
                     
@@ -60,6 +64,7 @@ const Login = () => {
                             placeholder="Şifrenizi giriniz" 
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                     </Form.Group>
                     

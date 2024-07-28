@@ -1,7 +1,7 @@
 import {React,useState} from 'react';
 import { Card, Button, Nav, NavLink } from 'react-bootstrap';
 import './Permit.css';
-import RequestModal from '../Modals/RequestModal';
+import RequestModal from '../../Modals/RequestModal';
 
 const LeaveRequest = () => {
 
@@ -19,7 +19,7 @@ const LeaveRequest = () => {
       <h3>İzin İşlemleri</h3>
       <Nav variant="tabs">
         <Nav.Item>
-          <NavLink to="/" exact className="nav-link">İzin Taleplerim</NavLink>
+          <NavLink to="/me" exact className="nav-link">İzin Taleplerim</NavLink>
         </Nav.Item>
         <Nav.Item>
           <NavLink to="/leave-approvals" className="nav-link">İzin Onayları</NavLink>

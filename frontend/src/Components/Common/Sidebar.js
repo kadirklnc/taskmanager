@@ -28,7 +28,7 @@ function SideBar() {
                             <CDBSidebarMenuItem icon="columns">Anasayfa</CDBSidebarMenuItem>
                         </NavLink>
                         <div className="menu-item-with-icon" onClick={toggleSubMenu}>
-                            <NavLink exact to="/homepage/permit" activeClassName="activeClicked">
+                            <NavLink exact  activeClassName="activeClicked">
                                 <CDBSidebarMenuItem icon="table">İzin İşlemleri</CDBSidebarMenuItem>
                             </NavLink>
                             <i className={`fa fa-chevron-${showSubMenu ? 'up' : 'down'} sidebar-menu-icon`}></i>
@@ -36,7 +36,7 @@ function SideBar() {
 
                         {showSubMenu ? (
                             <>
-                                <NavLink exact to="/homepage/permit/me" activeClassName="activeClicked">
+                                <NavLink exact to="/homepage/permit" activeClassName="activeClicked">
                                     <CDBSidebarMenuItem className='subMenuTest'>İzin Taleplerim</CDBSidebarMenuItem>
                                 </NavLink>
                                 <NavLink exact to="/homepage/permit/person" activeClassName="activeClicked">

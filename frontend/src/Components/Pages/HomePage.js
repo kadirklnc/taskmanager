@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, Button, Row, Col,Dropdown } from 'react-bootstrap';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
@@ -32,7 +31,6 @@ const HomePage = () => {
                 <Button variant="primary" size="sm" className="btn-new-request" onClick={handleShowModal}>
                    + Yeni Talep Oluștur
                 </Button>{' '}
-               
             </div>
 
             <Card className="custom-card">
