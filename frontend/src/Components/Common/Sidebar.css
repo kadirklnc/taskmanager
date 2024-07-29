@@ -1,13 +1,18 @@
 .sidebar-container {
    display: flex;
+    
    
 }
 .cdb-sidebar {
     background-color: #07012b; /* Background color for the entire sidebar */
 }
 
+.item{
+   
+    padding: 0;
+}
 .sidebar-content {
-    /* Add any styles for sidebar content if needed */
+  
     
 }
 

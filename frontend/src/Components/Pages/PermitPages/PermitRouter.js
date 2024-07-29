@@ -1,6 +1,6 @@
 import React from 'react'
-import { Nav, NavLink } from 'react-bootstrap';
-import { Outlet } from 'react-router-dom';
+import { Nav,  } from 'react-bootstrap';
+import { Outlet ,NavLink} from 'react-router-dom';
 
 export default function PermitRouter() {
     return (

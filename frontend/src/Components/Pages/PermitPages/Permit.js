@@ -1,4 +1,4 @@
-import {React,useState} from 'react';
+import { React, useState } from 'react';
 import { Card, Button, Nav, NavLink } from 'react-bootstrap';
 import './Permit.css';
 import RequestModal from '../../Modals/RequestModal';
@@ -6,7 +6,7 @@ import RequestModal from '../../Modals/RequestModal';
 const LeaveRequest = () => {
 
   const [showRequestModal, setShowRequestModal] = useState(false);
-  
+
   const handleShowRequestModal = () => setShowRequestModal(true);
   const handleCloseRequestModal = () => setShowRequestModal(false);
 
@@ -15,25 +15,8 @@ const LeaveRequest = () => {
   const nextEntitlementDate = '22 Temmuz 2025';
 
   return (
-    <div className="leave-request-container">
-      <h3>İzin İşlemleri</h3>
-      <Nav variant="tabs">
-        <Nav.Item>
-          <NavLink to="/me" exact className="nav-link">İzin Taleplerim</NavLink>
-        </Nav.Item>
-        <Nav.Item>
-          <NavLink to="/leave-approvals" className="nav-link">İzin Onayları</NavLink>
-        </Nav.Item>
-        <Nav.Item>
-          <NavLink to="/leave-employees" className="nav-link">İzinli Çalışanlar</NavLink>
-        </Nav.Item>
-        <Nav.Item>
-          <NavLink to="/annual-leave-durations" className="nav-link">Yıllık İzin Süreleri</NavLink>
-        </Nav.Item>
-        <Nav.Item>
-          <NavLink to="/all-leaves" className="nav-link">Tüm İzinler</NavLink>
-        </Nav.Item>
-      </Nav>
+    <div >
+
       <Card className="mt-3">
         <Card.Body>
           <Card.Title>Yıllık İzin</Card.Title>
@@ -55,7 +38,7 @@ const LeaveRequest = () => {
       </Card>
       <RequestModal show={showRequestModal} handleClose={handleCloseRequestModal} />
     </div>
-   
+
   );
 };
 

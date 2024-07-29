@@ -28,7 +28,7 @@ const HomePage = () => {
         <div className="content-container">
             <h1 className="page-title">Ana Sayfa</h1>
             <div className="button-container">
-                <Button variant="primary" size="sm" className="btn-new-request" onClick={handleShowModal}>
+                <Button size="sm" className="btn-new-request" onClick={handleShowModal}>
                    + Yeni Talep Oluștur
                 </Button>{' '}
             </div>
@@ -87,7 +87,21 @@ const HomePage = () => {
                 </Card.Body>
             </Card>
 
-            
+            <Card className="custom-card">
+                <Card.Body>
+                    <Card.Title>İzin Onayları</Card.Title>
+                    <Card.Text>
+                        Bu, mevcut kartın altında eklenen yeni bir karttır. Buraya metin veya diğer içerikleri ekleyebilirsiniz.
+                    </Card.Text>
+                </Card.Body>
+            </Card> <Card className="custom-card">
+                <Card.Body>
+                    <Card.Title>İzin Onayları</Card.Title>
+                    <Card.Text>
+                        Bu, mevcut kartın altında eklenen yeni bir karttır. Buraya metin veya diğer içerikleri ekleyebilirsiniz.
+                    </Card.Text>
+                </Card.Body>
+            </Card>
 
            
 

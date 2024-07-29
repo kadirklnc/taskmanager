@@ -1,6 +1,7 @@
 .content-container {
     margin-left: 12px;
-    /* Ensures the container follows the same margin as the content class */
+
+    margin-right:25px;
 }
 
 .page-title {
@@ -41,24 +42,17 @@ button {
 }
 
 .btn-new-request {
-    background-color: #052547;
+    background-color: #0ea620;
+    color: #fff;
+    border: none;
+    
+}
+.btn-new-request:hover{
+    background-color: #13b726;
     color: #fff;
     
 }
 
 
-.btn-new-department {
-    background-color: #007bff;
-    color: #fff;
-   
-}
 
-
-
-/* Yeni Çalışan Oluștur buton stili */
-.btn-new-employee {
-    background-color: #28a745;
-    color: #fff;
-    
-}
 

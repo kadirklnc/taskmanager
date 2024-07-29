@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Components/LoginForm/login';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Main from './Components/Common/Main';
@@ -18,89 +18,91 @@ import PermitAllow from './Components/Pages/PermitPages/PermitAllow';
 import PermitEmployees from './Components/Pages/PermitPages/PermitEmployees';
 import PermitYears from './Components/Pages/PermitPages/PermitYears';
 import AllPermits from './Components/Pages/PermitPages/AllPermits';
+import MyPage from './Components/Pages/MyPage';
 
 const router = createBrowserRouter([
+  
   {
     path: '/',
     element: <Login/>
   },
+
   {
     path: '/signup',
-    element: <SignUp/>
+    element: <SignUp/> // Add route for SignUp
   },
+
   {
     path: '/homepage',
     element: <Main/>,
     children:[
       {
-        path: '',
-        element: <HomePage/>
+        path:'',
+        element:<HomePage/>
       },
       {
-        path: 'permit',
-        element: <PermitRouter/>,
+        path:'mypage',
+        element:<MyPage/>
+      },
+      {
+        path:'permit',
+        element:<PermitRouter/>,
         children:[
           {
-            path: '',
+            path:'',
             element: <Permit/>
           },
           {
-            path: 'person',
-            element: <PermitAllow/>
+            path:'person',
+            element:<PermitAllow/>
           },
           {
-            path: 'people',
-            element: <PermitEmployees/>
+            path:'people',
+            element:<PermitEmployees/>
           },
           {
-            path: 'years',
-            element: <PermitYears/>
+            path:'years',
+            element:<PermitYears/>
           },
           {
-            path: 'all',
-            element: <AllPermits/>
+            path:'all',
+            element:<AllPermits/>
           }
         ]
-      },
-      {
-        path: 'employes',
-        element: <Employee/>
-      },
-      {
-        path: 'departmans',
-        element: <Departmans/>
-      },
-      {
-        path: 'organization',
-        element: <HomePage/>
-      },
-      {
-        path: 'inventory',
-        element: <HomePage/>
-      },
-      {
-        path: 'travel',
-        element: <HomePage/>
-      },
-      {
-        path: 'expense',
-        element: <HomePage/>
-      },
-      {
-        path: 'report',
-        element: <Report/>
-      },
-      {
-        path: 'settings',
-        element: <HomePage/>
+      },{
+        path:'employes',
+        element:<Employee/>
+      },{
+        path:'departmans',
+        element:<Departmans/>
+      },{
+        path:'organization',
+        element:<HomePage/>
+      },{
+        path:'inventory',
+        element:<HomePage/>
+      },{
+        path:'travel',
+        element:<HomePage/>
+      },{
+        path:'expense',
+        element:<HomePage/>
+      },{
+        path:'report',
+        element:<Report/>
+      },{
+        path:'settings',
+        element:<HomePage/>
       }
     ]
   }
-]);
+])
+
 
 function App() {
   return (
     <RouterProvider router={router} />
+
   );
 }
 
