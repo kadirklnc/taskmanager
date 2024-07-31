@@ -24,19 +24,24 @@ function SideBar() {
 
                 <CDBSidebarContent className="sidebar-content">
                     <CDBSidebarMenu>
-                        <NavLink exact to="/homepage" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="columns">Anasayfa</CDBSidebarMenuItem>
+                        <NavLink exact to="/homepage" activeClassName="activeClicked" >
+                            <CDBSidebarMenuItem icon="columns" className='item'>Anasayfa</CDBSidebarMenuItem>
                         </NavLink>
+
+                        <NavLink exact to="/homepage/mypage" activeClassName="activeClicked">
+                            <CDBSidebarMenuItem icon="user">Benim Sayfam</CDBSidebarMenuItem>
+                        </NavLink>
+
                         <div className="menu-item-with-icon" onClick={toggleSubMenu}>
-                            <NavLink exact to="/homepage/permit" activeClassName="activeClicked">
-                                <CDBSidebarMenuItem icon="table">İzin İşlemleri</CDBSidebarMenuItem>
+                            <NavLink exact  activeClassName="activeClicked">
+                                <CDBSidebarMenuItem icon="table" >İzin İşlemleri</CDBSidebarMenuItem>
                             </NavLink>
                             <i className={`fa fa-chevron-${showSubMenu ? 'up' : 'down'} sidebar-menu-icon`}></i>
                         </div>
 
                         {showSubMenu ? (
                             <>
-                                <NavLink exact to="/homepage/permit/me" activeClassName="activeClicked">
+                                <NavLink exact to="/homepage/permit" activeClassName="activeClicked">
                                     <CDBSidebarMenuItem className='subMenuTest'>İzin Taleplerim</CDBSidebarMenuItem>
                                 </NavLink>
                                 <NavLink exact to="/homepage/permit/person" activeClassName="activeClicked">
@@ -55,7 +60,7 @@ function SideBar() {
                         ) : (<></>)}
 
                         <NavLink exact to="/homepage/employes" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="user">Çalışanlar</CDBSidebarMenuItem>
+                            <CDBSidebarMenuItem icon="users">Çalışanlar</CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink exact to="/homepage/departmans" activeClassName="activeClicked">
                             <CDBSidebarMenuItem icon="chart-line">Departmanlar</CDBSidebarMenuItem>
@@ -81,9 +86,9 @@ function SideBar() {
                     </CDBSidebarMenu>
                 </CDBSidebarContent>
 
-                <CDBSidebarFooter className="sidebar-footer">
+                {/* <CDBSidebarFooter className="sidebar-footer">
                     Sidebar Footer
-                </CDBSidebarFooter>
+                </CDBSidebarFooter> */}
             </CDBSidebar>
         </div>
     )

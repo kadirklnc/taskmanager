@@ -8,13 +8,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Main from './Components/Common/Main';
 import HomePage from './Components/Pages/HomePage';
-import Permit from './Components/Pages/Permit'
+import Permit from './Components/Pages/PermitPages/Permit'
 import Report from './Components/Pages/Report'
 import SignUp from './Components/LoginForm/SignUp';
 import Employee from './Components/Pages/Empolyees';
 import Departmans from './Components/Pages/Departments';
+import PermitRouter from './Components/Pages/PermitPages/PermitRouter';
+import PermitAllow from './Components/Pages/PermitPages/PermitAllow';
+import PermitEmployees from './Components/Pages/PermitPages/PermitEmployees';
+import PermitYears from './Components/Pages/PermitPages/PermitYears';
+import AllPermits from './Components/Pages/PermitPages/AllPermits';
+import MyPage from './Components/Pages/MyPage';
 
 const router = createBrowserRouter([
+  
   {
     path: '/',
     element: <Login/>
@@ -34,8 +41,34 @@ const router = createBrowserRouter([
         element:<HomePage/>
       },
       {
+        path:'mypage',
+        element:<MyPage/>
+      },
+      {
         path:'permit',
-        element:<Permit/>
+        element:<PermitRouter/>,
+        children:[
+          {
+            path:'',
+            element: <Permit/>
+          },
+          {
+            path:'person',
+            element:<PermitAllow/>
+          },
+          {
+            path:'people',
+            element:<PermitEmployees/>
+          },
+          {
+            path:'years',
+            element:<PermitYears/>
+          },
+          {
+            path:'all',
+            element:<AllPermits/>
+          }
+        ]
       },{
         path:'employes',
         element:<Employee/>

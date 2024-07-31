@@ -7,21 +7,32 @@ import './login.css';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [roles, setRoles] = useState([]);
 
     const handleLogin = async () => {
         try {
             const response = await axios.post('http://localhost:8080/api/auth/login', {
-            username: email,
-            password: password
-        });
+                username: email,
+                password: password
+            });
             console.log('API response:', response);
-            // Assuming response contains a token or success message
+
             localStorage.setItem('token', response.data.token);
-            navigate('/homepage'); 
+            localStorage.setItem('username', email);
+
+            setRoles(response.data.roles);
+
+            if (response.data.roles.includes('ROLE_USER')) {
+                navigate('/homepage');
+            } else if (response.data.roles.includes('ROLE_MODERATOR')) {
+                navigate('/moderator');
+            } else if (response.data.roles.includes('ROLE_ADMIN')) {
+                navigate('/admin');
+            }
         } catch (error) {
             console.error('Login error:', error);
             setError('Login failed. Please check your email and password.');
@@ -29,7 +40,7 @@ const Login = () => {
     };
 
     const handleSignUp = () => {
-        navigate('/signup'); 
+        navigate('/signup');
     };
 
     return (
@@ -42,41 +53,43 @@ const Login = () => {
                     <div className="formInputHeader">
                         <p className="formText">DailyChart'a Hoş Geldiniz</p>
                     </div>
-                    
+
                     <Form.Group className="formInput">
                         <Form.Label>E-posta</Form.Label>
-                        <Form.Control 
-                            type="email" 
-                            placeholder="E-posta adresinizi giriniz" 
+                        <Form.Control
+                            type="email"
+                            placeholder="E-posta adresinizi giriniz"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
                     </Form.Group>
-                    
+
                     <Form.Group className="formInput">
                         <Form.Label>Şifre</Form.Label>
-                        <Form.Control 
-                            type="password" 
-                            placeholder="Şifrenizi giriniz" 
+                        <Form.Control
+                            type="password"
+                            placeholder="Şifrenizi giriniz"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                     </Form.Group>
-                    
+
                     <Button variant="success" className='customButtonGiris' onClick={handleLogin}>
                         Giriş Yap
                     </Button>
-                    
+
                     {error && <p className="errorMessage" style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
-                    
+
                     <p className="signUpPrompt" style={{ marginTop: '10px', textAlign: 'center' }}>
-                        Hala bir hesabın yok mu? 
+                        Hala bir hesabın yok mu?
                         <a href="#" onClick={handleSignUp} style={{ color: 'green' }}> Kayıt Ol!</a>
                     </p>
                 </Form>
             </div>
         </div>
     );
-}
+};
 
 export default Login;
