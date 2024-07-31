@@ -43,7 +43,7 @@ public class AuthManager implements AuthService {
     @Override
     public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
@@ -55,7 +55,6 @@ public class AuthManager implements AuthService {
 
         return ResponseEntity.ok((new JwtResponse(jwt,
                 userDetails.getId(),
-                userDetails.getUsername(),
                 userDetails.getEmail(),
                 roles)));
     }
@@ -63,41 +62,61 @@ public class AuthManager implements AuthService {
     @Override
     public ResponseEntity<?> registerUser(SignupRequest signupRequest) {
 
-        this.userBusinessRules.checkIfUsernameExists(signupRequest.getUsername());
-        this.userBusinessRules.checkIfEmailExists(signupRequest.getEmail());
+        // Check if email already exists
+        userBusinessRules.checkIfEmailExists(signupRequest.getEmail());
 
-        User user = new User(encoder.encode(signupRequest.getPassword()),signupRequest.getEmail(),signupRequest.getUsername());
+        // Ensure is_active is not null, set default to 1
+        Integer isActive = signupRequest.getIs_active();
+        if (isActive == null) {
+            isActive = 1; // Default value
+        }
 
+
+        // Create User entity
+        User user = new User(
+                signupRequest.getEmail(),
+                encoder.encode(signupRequest.getPassword()),
+                signupRequest.getName(),
+                signupRequest.getSurname(),
+                signupRequest.getDepartment(),
+                signupRequest.getGender(),
+                signupRequest.getDate(),
+                signupRequest.getPhone(),
+                signupRequest.getIs_active());
+
+        // Set roles
         Set<String> strRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
-        if (strRoles==null){
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER).orElseThrow(() -> new RuntimeException("Error: role is not found."));
+        if (strRoles == null) {
+            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
-        }else{
+        } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
-
                         break;
                     case "mod":
                         Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(modRole);
-
                         break;
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
+                        break;
                 }
             });
         }
+
         user.setRoles(roles);
         userRepository.save(user);
+
         return ResponseEntity.ok(new MessageResponse("User Registered Successfully"));
     }
 }

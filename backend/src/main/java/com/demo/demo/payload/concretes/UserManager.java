@@ -1,5 +1,6 @@
 package com.demo.demo.payload.concretes;
 
+import com.demo.demo.config.ModelMapperConfig;
 import com.demo.demo.models.ERole;
 import com.demo.demo.models.Role;
 import com.demo.demo.models.User;
@@ -36,58 +37,91 @@ public class UserManager implements UserService {
 
     @Override
     public List<GetAllUserResponse> getAll() {
-    List<User> users = userRepository.findAll();
-    List<GetAllUserResponse> userResponses = users.stream().map(user -> this.modelMapperService.forResponse().map(user,GetAllUserResponse.class)).collect(Collectors.toList());
-    return userResponses;
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(user -> {
+                    Set<Role> roles = user.getRoles();
+                    GetAllUserResponse response = modelMapperService.roleMapper().map(user, GetAllUserResponse.class);
+                    response.setRole(roles != null ? roles.stream()
+                            .map(role -> role.getName().name())
+                            .collect(Collectors.toSet()) : null);
+                    return response;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
     public GetByIdUserResponse getById(int id) {
-        User user =this.userRepository.findById(id).orElseThrow();
+        User user = this.userRepository.findById(id).orElseThrow();
 
-        GetByIdUserResponse response = this.modelMapperService.forResponse().map(user,GetByIdUserResponse.class);
-         return  response;
+        GetByIdUserResponse response = modelMapperService.roleMapper().map(user, GetByIdUserResponse.class);
+
+        Set<Role> roles = user.getRoles();
+        response.setRole(roles != null ? roles.stream()
+                .map(role -> role.getName().name())
+                .collect(Collectors.toSet()) : null);
+
+        return response;
     }
 
     @Override
     public ResponseEntity<?> add(CreateUserRequest createUserRequest) {
 
-        this.userBusinessRules.checkIfUsernameExists(createUserRequest.getUsername());
-        this.userBusinessRules.checkIfEmailExists(createUserRequest.getEmail());
+        // Check if email already exists
+        userBusinessRules.checkIfEmailExists(createUserRequest.getEmail());
+
+        // Ensure is_active is not null, set default to 1
+        Integer isActive = createUserRequest.getIs_active();
+        if (isActive == null) {
+            isActive = 1; // Default value
+        }
 
 
-        User user = new User(encoder.encode(createUserRequest.getPassword()),createUserRequest.getEmail(),createUserRequest.getUsername());
+        // Create User entity
+        User user = new User(
+                createUserRequest.getEmail(),
+                encoder.encode(createUserRequest.getPassword()),
+                createUserRequest.getName(),
+                createUserRequest.getSurname(),
+                createUserRequest.getDepartment(),
+                createUserRequest.getGender(),
+                createUserRequest.getDate(),
+                createUserRequest.getPhone(),
+                createUserRequest.getIs_active());
 
+        // Set roles
         Set<String> strRoles = createUserRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
-        if (strRoles==null){
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER).orElseThrow(() -> new RuntimeException("Error: role is not found."));
+        if (strRoles == null) {
+            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
-        }else{
+        } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
-
                         break;
                     case "mod":
                         Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(modRole);
-
                         break;
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
+                        break;
                 }
             });
         }
+
         user.setRoles(roles);
         userRepository.save(user);
+
         return ResponseEntity.ok(new MessageResponse("User Registered Successfully"));
     }
 
@@ -99,14 +133,37 @@ public class UserManager implements UserService {
             User user = userRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("Error: User is not found."));
 
-        if (updateUserRequest.getUsername() != null && !updateUserRequest.getUsername().trim().isEmpty()) {
-            userBusinessRules.checkIfUsernameExists(updateUserRequest.getUsername());
-            user.setUsername(updateUserRequest.getUsername());
-        }
 
         if (updateUserRequest.getEmail() != null && !updateUserRequest.getEmail().trim().isEmpty()) {
             userBusinessRules.checkIfEmailExists(updateUserRequest.getEmail());
             user.setEmail(updateUserRequest.getEmail());
+        }
+
+        if (updateUserRequest.getName() != null && !updateUserRequest.getName().trim().isEmpty()) {
+            user.setName(updateUserRequest.getName());
+        }
+        if (updateUserRequest.getGender() != null && !updateUserRequest.getName().trim().isEmpty()) {
+            user.setName(updateUserRequest.getName());
+        }
+
+        if (updateUserRequest.getSurname() != null && !updateUserRequest.getSurname().trim().isEmpty()) {
+            user.setSurname(updateUserRequest.getSurname());
+        }
+
+        if (updateUserRequest.getDepartment() != null && !updateUserRequest.getDepartment().trim().isEmpty()) {
+            user.setDepartment(updateUserRequest.getDepartment());
+        }
+
+        if (updateUserRequest.getGender() != null && !updateUserRequest.getGender().trim().isEmpty()) {
+            user.setGender(updateUserRequest.getGender());
+        }
+
+        if (updateUserRequest.getDate() != null && !updateUserRequest.getDate().trim().isEmpty()) {
+            user.setDate(updateUserRequest.getDate());
+        }
+
+        if (updateUserRequest.getPhone() != null && !updateUserRequest.getPhone().trim().isEmpty()) {
+            user.setPhone(updateUserRequest.getPhone());
         }
 
         if (updateUserRequest.getPassword() != null && !updateUserRequest.getPassword().trim().isEmpty()) {

@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/mod")
 public class ModeratorController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public ModeratorController(UserService userService) {
         this.userService = userService;
@@ -39,7 +39,7 @@ public class ModeratorController {
         this.userService.add(createUserRequest);
     }
 
-    @DeleteMapping("/deleteuser/{id}")
+    @DeleteMapping("/deleteUser/{id}")
     @PreAuthorize("hasAuthority('ROLE_MODERATOR')")
     public void delete(int id){
         this.userService.delete(id);
