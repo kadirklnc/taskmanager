@@ -1,9 +1,9 @@
 package com.demo.demo.payload.concretes;
 
-import com.demo.demo.config.ModelMapperConfig;
 import com.demo.demo.models.ERole;
 import com.demo.demo.models.Role;
 import com.demo.demo.models.User;
+import com.demo.demo.payload.request.PasswordChangeRequest;
 import com.demo.demo.payload.response.MessageResponse;
 import com.demo.demo.payload.rules.UserBusinessRules;
 import com.demo.demo.repository.RoleRepository;
@@ -16,6 +16,9 @@ import com.demo.demo.payload.response.GetByIdUserResponse;
 import com.demo.demo.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,7 @@ public class UserManager implements UserService {
     private UserBusinessRules userBusinessRules;
     private RoleRepository roleRepository;
     private PasswordEncoder encoder;
+
 
 
     @Override
@@ -203,6 +207,37 @@ public class UserManager implements UserService {
     @Override
     public void delete(int id) {
         this.userRepository.deleteById(id);
+    }
+
+    @Override
+    public void changePassword(int userId, PasswordChangeRequest request){
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!encoder.matches(request.getOldPass(), user.getPassword())) {
+            throw new RuntimeException("Old password is incorrect");
+        }
+
+        user.setPassword(encoder.encode(request.getNewPass()));
+        userRepository.save(user);
+    }
+
+    public void changeUserPass(PasswordChangeRequest passwordChangeRequest){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !(authentication.getPrincipal() instanceof UserDetails)) {
+            throw new RuntimeException("User is not authenticated");
+        }
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        User user = userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!encoder.matches(passwordChangeRequest.getOldPass(), user.getPassword())) {
+            throw new RuntimeException("Old password is incorrect");
+        }
+
+        user.setPassword(encoder.encode(passwordChangeRequest.getNewPass()));
+        userRepository.save(user);
     }
 }
 

@@ -1,6 +1,7 @@
 package com.demo.demo.payload.abstracts;
 
 import com.demo.demo.payload.request.CreateUserRequest;
+import com.demo.demo.payload.request.PasswordChangeRequest;
 import com.demo.demo.payload.request.UpdateUserRequest;
 import com.demo.demo.payload.response.GetAllUserResponse;
 import com.demo.demo.payload.response.GetByIdUserResponse;
@@ -16,4 +17,6 @@ public interface UserService {
     ResponseEntity<?> add(CreateUserRequest createUserRequest);
     ResponseEntity<?> update(int id, UpdateUserRequest updateUserRequest);
     void delete(int id);
+    void changePassword(int id ,PasswordChangeRequest passwordChangeRequest);
+    void changeUserPass(PasswordChangeRequest passwordChangeRequest);
 }
