@@ -41,13 +41,13 @@ button {
     
 }
 
-.btn-new-request {
+.btn-new-button {
     background-color: #0ea620;
     color: #fff;
     border: none;
     
 }
-.btn-new-request:hover{
+.btn-new-button:hover{
     background-color: #13b726;
     color: #fff;
     
