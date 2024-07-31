@@ -2,7 +2,7 @@ package com.demo.demo.models;
 
 
 import javax.persistence.*;
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,32 +12,45 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "hibernate_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hibernate_sequence")
     private int id;
-
-    private String username;
 
     private String email;
 
     private String password;
 
+    private String name;
+    private String surname;
+    private String department;
+    private String gender;
+    private String date;
+    private String phone;
+    private int is_active;
+
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(  name = "user_roles",
+    @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User(String password, String email, String username) {
+    public User() {
+        // Default constructor for JPA
+    }
 
-        this.password = password;
+    public User(String email, String password, String name, String surname, String department, String gender, String date, String phone, int is_active) {
         this.email = email;
-        this.username = username;
-
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.department = department;
+        this.gender = gender;
+        this.date = date;
+        this.phone = phone;
+        this.is_active = is_active;
     }
 
     public int getId() {
@@ -46,10 +59,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getEmail() {
@@ -68,15 +77,67 @@ public class User {
         this.password = password;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public int getIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(int is_active) {
+        this.is_active = is_active;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public String getUsername() {
-        return username;
     }
 }

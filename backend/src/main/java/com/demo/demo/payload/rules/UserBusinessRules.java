@@ -10,11 +10,6 @@ import org.springframework.stereotype.Service;
 public class UserBusinessRules {
     private UserRepository userRepository;
 
-    public void checkIfUsernameExists(String username){
-        if(this.userRepository.existsByUsername(username)){
-            throw new BusinessException("username allready Exists");
-        }
-    }
     public void checkIfEmailExists(String email){
         if(this.userRepository.existsByEmail(email)){
             throw new BusinessException("email allready Exists");

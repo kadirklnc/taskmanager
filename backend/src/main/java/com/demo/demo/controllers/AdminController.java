@@ -6,7 +6,6 @@ import com.demo.demo.payload.request.CreateUserRequest;
 import com.demo.demo.payload.request.UpdateUserRequest;
 import com.demo.demo.payload.response.GetAllUserResponse;
 import com.demo.demo.payload.response.GetByIdUserResponse;
-import com.demo.demo.repository.UserRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +16,7 @@ import java.util.List;
 public class AdminController {
 
     private final UserService userService;
+
 
     public AdminController(UserService userService) {
         this.userService = userService;
