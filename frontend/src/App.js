@@ -1,15 +1,16 @@
+// src/App.js
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Components/LoginForm/login';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { BrowserRouter as Router, Route, Routes, createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Main from './Components/Common/Main';
 import HomePage from './Components/Pages/HomePage';
-import Permit from './Components/Pages/PermitPages/Permit'
-import Report from './Components/Pages/Report'
+import Permit from './Components/Pages/PermitPages/Permit';
+import Report from './Components/Pages/Report';
 import SignUp from './Components/LoginForm/SignUp';
 import Employee from './Components/Pages/Empolyees';
 import Departmans from './Components/Pages/Departments';
@@ -19,90 +20,117 @@ import PermitEmployees from './Components/Pages/PermitPages/PermitEmployees';
 import PermitYears from './Components/Pages/PermitPages/PermitYears';
 import AllPermits from './Components/Pages/PermitPages/AllPermits';
 import MyPage from './Components/Pages/MyPage';
+import ProtectedRoute from './ProtectedRoute';
+import { AuthProvider } from './Context/AuthContext';
 
 const router = createBrowserRouter([
-  
   {
     path: '/',
-    element: <Login/>
+    element: <Login />
   },
-
   {
     path: '/signup',
-    element: <SignUp/> // Add route for SignUp
+    element: <SignUp />
   },
-
   {
     path: '/homepage',
-    element: <Main/>,
-    children:[
+    element: (
+      <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN']}>
+        <Main />
+      </ProtectedRoute>
+    ),
+    children: [
       {
-        path:'',
-        element:<HomePage/>
+        path: '',
+        element: <HomePage />
       },
       {
-        path:'mypage',
-        element:<MyPage/>
+        path: 'mypage',
+        element: <MyPage />
       },
       {
-        path:'permit',
-        element:<PermitRouter/>,
-        children:[
+        path: 'permit',
+        element: (
+          <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN']}>
+            <PermitRouter />
+          </ProtectedRoute>
+        ),
+        children: [
           {
-            path:'',
-            element: <Permit/>
+            path: '',
+            element: <Permit />
           },
           {
-            path:'person',
-            element:<PermitAllow/>
+            path: 'person',
+            element: <PermitAllow />
           },
           {
-            path:'people',
-            element:<PermitEmployees/>
+            path: 'people',
+            element: <PermitEmployees />
           },
           {
-            path:'years',
-            element:<PermitYears/>
+            path: 'years',
+            element: <PermitYears />
           },
           {
-            path:'all',
-            element:<AllPermits/>
+            path: 'all',
+            element: <AllPermits />
           }
         ]
-      },{
-        path:'employes',
-        element:<Employee/>
-      },{
-        path:'departmans',
-        element:<Departmans/>
-      },{
-        path:'organization',
-        element:<HomePage/>
-      },{
-        path:'inventory',
-        element:<HomePage/>
-      },{
-        path:'travel',
-        element:<HomePage/>
-      },{
-        path:'expense',
-        element:<HomePage/>
-      },{
-        path:'report',
-        element:<Report/>
-      },{
-        path:'settings',
-        element:<HomePage/>
+      },
+      {
+        path: 'employes',
+        element: (
+          <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN']}>
+            <Employee />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: 'departmans',
+        element: (
+          <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN']}>
+            <Departmans />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: 'organization',
+        element: <HomePage />
+      },
+      {
+        path: 'inventory',
+        element: <HomePage />
+      },
+      {
+        path: 'travel',
+        element: <HomePage />
+      },
+      {
+        path: 'expense',
+        element: <HomePage />
+      },
+      {
+        path: 'report',
+        element: (
+          <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN']}>
+            <Report />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: 'settings',
+        element: <HomePage />
       }
     ]
   }
-])
-
+]);
 
 function App() {
   return (
-    <RouterProvider router={router} />
-
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   );
 }
 

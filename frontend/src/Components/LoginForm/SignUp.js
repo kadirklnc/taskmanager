@@ -7,7 +7,7 @@ import axios from 'axios';
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
-    const [surname, setSurname] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isChecked, setIsChecked] = useState(false);
     const [errors, setErrors] = useState({});
@@ -16,9 +16,8 @@ const SignUp = () => {
     const handleSignUp = async () => {
         const newErrors = {};
 
-        
         if (!email) newErrors.email = true;
-        if (!surname) newErrors.surname = true;
+        if (!username) newErrors.username = true;
         if (!password) newErrors.password = true;
         if (!isChecked) newErrors.isChecked = true;
 
@@ -27,19 +26,17 @@ const SignUp = () => {
             return;
         }
 
-        
         const data = {
             email,
-            username: surname,
+            username,
             password,
             role: ['user'] 
         };
 
         try {
-            const response = await axios.post('/api/auth/register', data);
+            const response = await axios.post('http://localhost:8080/api/auth/register', data);
             console.log(response.data);
-            // navigate to the homepage or login
-            navigate('/homepage'); 
+            navigate('/homepage');
         } catch (error) {
             console.error('Signup error:', error);
             setErrors({ submit: 'Signup failed. Please try again.' });
@@ -55,31 +52,16 @@ const SignUp = () => {
                             <h1 className="text-center fw-bold mb-5 mx-1 mx-md-4 mt-4">Kayıt Ol</h1>
 
                             <div className="mb-4">
-                                <label htmlFor="name" className="form-label">Ad *</label>
+                                <label htmlFor="username" className="form-label">Kullanıcı Adı *</label>
                                 <div className="d-flex flex-row align-items-center">
                                     <i className="bi bi-person me-3" style={{ fontSize: '1.5rem' }}></i>
                                     <input
                                         type="text"
-                                        id="name"
-                                        className={`form-control ${errors.name ? 'is-invalid' : ''}`}
-                                        placeholder="Adınızı Giriniz"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="mb-4">
-                                <label htmlFor="surname" className="form-label">Soyad *</label>
-                                <div className="d-flex flex-row align-items-center">
-                                    <i className="bi bi-person me-3" style={{ fontSize: '1.5rem' }}></i>
-                                    <input
-                                        type="text"
-                                        id="surname"
-                                        className={`form-control ${errors.surname ? 'is-invalid' : ''}`}
-                                        placeholder="Soyad"
-                                        value={surname}
-                                        onChange={(e) => setSurname(e.target.value)}
+                                        id="username"
+                                        className={`form-control ${errors.username ? 'is-invalid' : ''}`}
+                                        placeholder="Kullanıcı Adınızı Giriniz"
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
                                     />
                                 </div>
                             </div>

@@ -1,16 +1,18 @@
 // ProtectedRoute.jsx
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
+import { AuthContext } from './Context/AuthContext';
 
-function ProtectedRoute({ children, requiredRole }) {
-  const token = localStorage.getItem('token');
-  const userRole = localStorage.getItem('role');
+function ProtectedRoute({ children, requiredRoles }) {
+  const { authState } = useContext(AuthContext);
+  const token = authState.token;
+  const userRole = authState.roles;
 
   if (!token) {
     return <Navigate to="/" />;
   }
 
-  if (requiredRole && userRole !== requiredRole) {
+  if (requiredRoles && !requiredRoles.some(role => userRole.includes(role))) {
     return <Navigate to="/unauthorized" />;
   }
 
