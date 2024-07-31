@@ -8,36 +8,20 @@ const Employee = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [employees, setEmployees] = useState([
         {
-            name: 'Izmir Vucaj',
-            position: 'Yönetim',
-            department: 'Yönetim',
-            email: 'izmirvucaj12@gmail.com',
+            name: 'Izmir',
+            surname: 'Vucaj',
             phone: '5058347165',
-            startDate: '17 Temmuz 2024',
-            idcard: 'Izmir Vucaj',
-            birthDate: '1 Kişi',
-            gender: 'İstanbul',
-            registrationNumber: '213456',
-            country: 'turkiye',
-            province: 'edirne',
-            district: 'merkez',
-            address: 'edirne',
+            date: '21.11.2001',
+            department: 'developer',
+            is_active: '1',
         },
         {
-            name: 'Zehra Gizem',
-            position: 'Yönetim',
-            department: 'Yönetim',
-            startDate: '17 Temmuz 2024',
-            idcard: 'Izmir Vucaj',
-            birthDate: '1 Kişi',
-            gender: 'İstanbul',
-            registrationNumber: '213456',
-            email: 'z12@gmail.com',
-            phone: '5058347121',
-            country: 'turkiye',
-            province: 'edirne',
-            district: 'merkez',
-            address: 'edirne',
+            name: 'Kadir',
+            surname: 'Kilinc',
+            phone: '5058347165',
+            date: '21.11.2001',
+            department: 'developer',
+            is_active: '1',
         },
     ]);
     const [showModal, setShowModal] = useState(false);
@@ -53,13 +37,13 @@ const Employee = () => {
         )
     );
 
-    const handleSelectEmployee = (email) => {
-        const selectedEmployee = employees.find(emp => emp.email === email);
+    const handleSelectEmployee = (name) => {
+        const selectedEmployee = employees.find(emp => emp.name === name);
         setCurrentEmployee({ ...selectedEmployee });
     };
 
     const handleSave = () => {
-        setEmployees(employees.map(emp => (emp.email === currentEmployee.email ? currentEmployee : emp)));
+        setEmployees(employees.map(emp => (emp.name === currentEmployee.name ? currentEmployee : emp)));
         setShowModal(false);
     };
 
@@ -83,38 +67,20 @@ const Employee = () => {
                     <thead>
                         <tr>
                             <th>Adı Soyadı</th>
-                            <th>Departman</th>
-                            <th>E-Posta</th>
                             <th>Telefon No</th>
-                            <th>Şirkete Giriş Tarihi</th>
-                            <th>Pozisyon</th>
-                            <th>Kimlik Kartı</th>
                             <th>Doğum Tarihi</th>
-                            <th>Cinsiyet</th>
-                            <th>Kayıt Numarası</th>
-                            <th>Ülke</th>
-                            <th>İl</th>
-                            <th>İlçe</th>
-                            <th>Adres</th>
+                            <th>Departman</th>
+                            <th>Aktif</th>
                         </tr>
                     </thead>
                     <tbody>
                         {filteredEmployees.map((employee, index) => (
                             <tr key={index}>
-                                <td>{employee.name}</td>
-                                <td>{employee.department}</td>
-                                <td>{employee.email}</td>
+                                <td>{employee.name} {employee.surname}</td>
                                 <td>{employee.phone}</td>
-                                <td>{employee.startDate}</td>
-                                <td>{employee.position}</td>
-                                <td>{employee.idcard}</td>
-                                <td>{employee.birthDate}</td>
-                                <td>{employee.gender}</td>
-                                <td>{employee.registrationNumber}</td>
-                                <td>{employee.country}</td>
-                                <td>{employee.province}</td>
-                                <td>{employee.district}</td>
-                                <td>{employee.address}</td>
+                                <td>{employee.date}</td>
+                                <td>{employee.department}</td>
+                                <td>{employee.is_active === '1' ? 'Evet' : 'Hayır'}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -138,8 +104,8 @@ const Employee = () => {
                             >
                                 <option value="" disabled>Çalışan Seç</option>
                                 {employees.map((employee, index) => (
-                                    <option key={index} value={employee.email}>
-                                        {employee.name}
+                                    <option key={index} value={employee.name}>
+                                        {employee.name} {employee.surname}
                                     </option>
                                 ))}
                             </Form.Control>
@@ -147,7 +113,7 @@ const Employee = () => {
                         {currentEmployee && (
                             <>
                                 <Form.Group>
-                                    <Form.Label>Adı Soyadı</Form.Label>
+                                    <Form.Label>Adı</Form.Label>
                                     <Form.Control
                                         type="text"
                                         name="name"
@@ -156,20 +122,11 @@ const Employee = () => {
                                     />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Label>Departman</Form.Label>
+                                    <Form.Label>Soyadı</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        name="department"
-                                        value={currentEmployee.department}
-                                        onChange={handleChange}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>E-Posta</Form.Label>
-                                    <Form.Control
-                                        type="email"
-                                        name="email"
-                                        value={currentEmployee.email}
+                                        name="surname"
+                                        value={currentEmployee.surname}
                                         onChange={handleChange}
                                     />
                                 </Form.Group>
@@ -183,94 +140,34 @@ const Employee = () => {
                                     />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Label>Şirkete Giriş Tarihi</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        name="startDate"
-                                        value={currentEmployee.startDate}
-                                        onChange={handleChange}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>Pozisyon</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        name="position"
-                                        value={currentEmployee.position}
-                                        onChange={handleChange}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>Kimlik Kartı</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        name="idcard"
-                                        value={currentEmployee.idcard}
-                                        onChange={handleChange}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
                                     <Form.Label>Doğum Tarihi</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        name="birthDate"
-                                        value={currentEmployee.birthDate}
+                                        name="date"
+                                        value={currentEmployee.date}
                                         onChange={handleChange}
                                     />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Label>Cinsiyet</Form.Label>
+                                    <Form.Label>Departman</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        name="gender"
-                                        value={currentEmployee.gender}
+                                        name="department"
+                                        value={currentEmployee.department}
                                         onChange={handleChange}
                                     />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Label>Kayıt Numarası</Form.Label>
+                                    <Form.Label>Aktif</Form.Label>
                                     <Form.Control
-                                        type="text"
-                                        name="registrationNumber"
-                                        value={currentEmployee.registrationNumber}
+                                        as="select"
+                                        name="is_active"
+                                        value={currentEmployee.is_active}
                                         onChange={handleChange}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>Ülke</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        name="country"
-                                        value={currentEmployee.country}
-                                        onChange={handleChange}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>İl</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        name="province"
-                                        value={currentEmployee.province}
-                                        onChange={handleChange}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>İlçe</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        name="district"
-                                        value={currentEmployee.district}
-                                        onChange={handleChange}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <Form.Label>Adres</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        name="address"
-                                        value={currentEmployee.address}
-                                        onChange={handleChange}
-                                    />
+                                    >
+                                        <option value="1">Evet</option>
+                                        <option value="0">Hayır</option>
+                                    </Form.Control>
                                 </Form.Group>
                             </>
                         )}

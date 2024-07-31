@@ -13,4 +13,20 @@ import lombok.NoArgsConstructor;
 public class UpdatePermissionRequest {
     private int id;
     private EIsActive isActive;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public EIsActive getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(EIsActive isActive) {
+        this.isActive = isActive;
+    }
 }
