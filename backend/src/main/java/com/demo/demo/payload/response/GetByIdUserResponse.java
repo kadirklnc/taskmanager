@@ -21,4 +21,5 @@ public class GetByIdUserResponse {
     private String email;
     private Set<String> role;
     private int is_active;
+    private int totalLeaveDays;
 }

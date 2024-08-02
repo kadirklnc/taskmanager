@@ -1,6 +1,7 @@
 package com.demo.demo.payload.concretes;
 
 
+import com.demo.demo.models.EIsActive;
 import com.demo.demo.models.Permission;
 import com.demo.demo.models.User;
 import com.demo.demo.payload.abstracts.PermissionService;
@@ -21,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,6 +79,8 @@ public class PermissionManager implements PermissionService {
                 user
         );
 
+        permission.calculateDaysBetweenDates();
+
         permissionRepository.save(permission);
         return ResponseEntity.ok(new MessageResponse("Permission created successfully"));
 
@@ -87,17 +91,37 @@ public class PermissionManager implements PermissionService {
         Permission permission = permissionRepository.findById(updatePermissionRequest.getId())
                 .orElseThrow(() -> new RuntimeException("Permission not found"));
 
-        permission.setIs_active(updatePermissionRequest.getIsActive());
+        EIsActive newStatus = updatePermissionRequest.getIsActive();
 
+
+
+        if (newStatus == EIsActive.ACCEPT && permission.getIs_active() != EIsActive.ACCEPT) {
+            User user = permission.getUser();
+            long days = ChronoUnit.DAYS.between(permission.getStartdate().toInstant(), permission.getEnddate().toInstant()) + 1;
+            user.setTotalLeaveDays(user.getTotalLeaveDays() - (int) days);
+            userRepository.save(user);
+        }
+
+        permission.setIs_active(newStatus);
         permissionRepository.save(permission);
 
         return ResponseEntity.ok(new MessageResponse("Permission updated successfully"));
-
     }
 
     @Override
     public void delete(int id) {
         this.permissionRepository.deleteById(id);
+    }
+
+
+    public ResponseEntity<?> updateTotalLeaveDays(int userId, int newTotalLeaveDays) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setTotalLeaveDays(newTotalLeaveDays);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new MessageResponse("Total leave days updated successfully"));
     }
 }
 

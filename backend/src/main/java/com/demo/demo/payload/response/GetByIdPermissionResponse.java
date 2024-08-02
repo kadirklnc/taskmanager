@@ -19,5 +19,6 @@ public class GetByIdPermissionResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date endDate;
     private EIsActive isActive;
-    private String username;
+    private String email;
+    private long daysBetweenDates;
 }

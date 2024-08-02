@@ -16,4 +16,5 @@ public interface PermissionService {
     ResponseEntity<?> add(CreatePermissionRequest createPermissionRequest);
     ResponseEntity<?> update(UpdatePermissionRequest updatePermissionRequest);
     void delete(int id);
+    ResponseEntity<?> updateTotalLeaveDays(int userId, int newTotalLeaveDays);
 }

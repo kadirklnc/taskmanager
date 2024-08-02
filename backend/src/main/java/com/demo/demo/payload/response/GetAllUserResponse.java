@@ -19,6 +19,15 @@ public class GetAllUserResponse {
     private String email;
     private Set<String> role;
     private int is_active;
+    private int totalLeaveDays;
+
+    public int getTotalLeaveDays() {
+        return totalLeaveDays;
+    }
+
+    public void setTotalLeaveDays(int totalLeaveDays) {
+        this.totalLeaveDays = totalLeaveDays;
+    }
 
     public int getId() {
         return id;

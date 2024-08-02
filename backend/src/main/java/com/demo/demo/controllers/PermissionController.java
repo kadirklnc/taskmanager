@@ -52,5 +52,11 @@ public class PermissionController {
         return permissionService.update(updateRequest);
     }
 
+    @PostMapping("/update-total-leave-days")
+    @PreAuthorize("hasAuthority('ROLE_MODERATOR')")
+    public ResponseEntity<?> updateTotalLeaveDays(@RequestParam int userId, @RequestParam int newTotalLeaveDays) {
+        return permissionService.updateTotalLeaveDays(userId, newTotalLeaveDays);
+    }
+
 
 }

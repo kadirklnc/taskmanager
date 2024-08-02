@@ -1,6 +1,7 @@
 package com.demo.demo.controllers;
 
 
+import com.demo.demo.payload.abstracts.PermissionService;
 import com.demo.demo.payload.abstracts.UserService;
 import com.demo.demo.payload.request.CreateUserRequest;
 import com.demo.demo.payload.request.PasswordChangeRequest;
@@ -20,6 +21,8 @@ import java.util.List;
 public class AdminController {
 
     private final UserService userService;
+
+    private PermissionService permissionService;
 
 
     public AdminController(UserService userService) {
@@ -66,5 +69,7 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
+
 
 }

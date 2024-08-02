@@ -53,14 +53,14 @@ public class ModelMapperManager implements ModelMapperService{
         modelMapper.addMappings(new PropertyMap<Permission, GetAllPermissionResponse>() {
             @Override
             protected void configure() {
-                map().setUsername(source.getUser().getEmail());
+                map().setEmail(source.getUser().getEmail());
             }
         });
 
         modelMapper.addMappings(new PropertyMap<Permission, GetByIdPermissionResponse>() {
             @Override
             protected void configure() {
-                map().setUsername(source.getUser().getEmail());
+                map().setEmail(source.getUser().getEmail());
                 map().setStartDate(source.getStartdate());
                 map().setEndDate(source.getEnddate());
                 map().setIsActive(source.getIs_active());

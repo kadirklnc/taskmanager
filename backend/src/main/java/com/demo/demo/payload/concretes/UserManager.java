@@ -199,6 +199,8 @@ public class UserManager implements UserService {
             user.setRoles(roles);
         }
 
+        user.setIs_active(updateUserRequest.getIs_active());
+
             userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("User Updated Successfully"));
 

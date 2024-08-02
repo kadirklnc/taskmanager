@@ -31,6 +31,16 @@ public class User {
     private String phone;
     private int is_active;
 
+    private int totalLeaveDays;
+
+    public int getTotalLeaveDays() {
+        return totalLeaveDays;
+    }
+
+    public void setTotalLeaveDays(int totalLeaveDays) {
+        this.totalLeaveDays = totalLeaveDays;
+    }
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),

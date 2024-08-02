@@ -4,6 +4,7 @@ import lombok.Data;
 
 
 import javax.persistence.*;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 @Entity
@@ -27,7 +28,14 @@ public class Permission {
         @Column(nullable = false)
         private EIsActive is_active = EIsActive.WAIT;
 
-        // Constructors
+        private long daysBetweenDates;
+
+        public void calculateDaysBetweenDates() {
+        this.daysBetweenDates = ChronoUnit.DAYS.between(startdate.toInstant(), enddate.toInstant()) + 1;
+        }
+
+
+    // Constructors
         public Permission() {
         }
 
