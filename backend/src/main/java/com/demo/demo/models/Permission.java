@@ -45,6 +45,54 @@ public class Permission {
             this.description = description;
             this.user = user;
             this.is_active = EIsActive.WAIT;
+
         }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Date getStartdate() {
+        return startdate;
+    }
+
+    public void setStartdate(Date startdate) {
+        this.startdate = startdate;
+    }
+
+    public Date getEnddate() {
+        return enddate;
+    }
+
+    public void setEnddate(Date enddate) {
+        this.enddate = enddate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public EIsActive getIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(EIsActive is_active) {
+        this.is_active = is_active;
+    }
 }

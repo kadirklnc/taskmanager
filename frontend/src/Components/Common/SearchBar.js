@@ -3,14 +3,14 @@ import { Form, Button } from 'react-bootstrap';
 import './SearchBar.css';
 
 const SearchBar = ({ placeholder, onSearch }) => {
+    // Function to handle form submission
     const handleSubmit = (e) => {
-        e.preventDefault();
-        const query = e.target.elements.search.value;
-        onSearch(query);
+        e.preventDefault(); // Prevent default form submission behavior
+        const query = e.target.elements.search.value; // Get search value from form
+        onSearch(query); // Call the onSearch callback with the query
     };
 
     return (
-
         <Form className="custom-search-form" onSubmit={handleSubmit}>
             <Form.Control
                 type="search"
@@ -19,10 +19,10 @@ const SearchBar = ({ placeholder, onSearch }) => {
                 className="custom-search-input"
                 aria-label="Search"
             />
-            <Button variant="outline-success" type="submit" className="custom-search-button">Ara</Button>
+            <Button variant="outline-success" type="submit" className="custom-search-button">
+                Ara
+            </Button>
         </Form>
-
-
     );
 }
 
