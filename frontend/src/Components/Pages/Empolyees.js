@@ -48,16 +48,12 @@ const Employees = () => {
     };
 
     const handleSave = async () => {
-        console.log('testttttttt')
         if (!currentEmployee) return;
 
         try {
             const token = localStorage.getItem('token');
             const data = {};
-            
-            console.log(currentEmployee)
 
-            // Compare currentEmployee with originalEmployee and only add changed fields to data
             for (const key in currentEmployee) {
                 if (currentEmployee[key] !== originalEmployee[key]) {
                     data[key] = key === 'date' ? formatDateToDatabase(currentEmployee[key]) : currentEmployee[key];
@@ -71,23 +67,21 @@ const Employees = () => {
                 response = await axios.put(`http://localhost:8080/api/admin/update/${currentEmployee.id}`, data, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
-                        // 'Content-Type': 'application/json'
+                        'Content-Type': 'application/json'
                     }
                 });
             } else {
                 // Create new employee
                 const { id, ...employeeWithoutId } = currentEmployee;
-                console.log("test",employeeWithoutId)
                 response = await axios.post('http://localhost:8080/api/admin/add', employeeWithoutId, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
-                        // 'Content-Type': 'application/json'
+                        'Content-Type': 'application/json'
                     }
                 });
             }
 
             if (response.status === 200 || response.status === 201) {
-                // Update the employee list
                 const updatedEmployees = currentEmployee.id
                     ? employees.map(employee => employee.id === currentEmployee.id ? { ...currentEmployee } : employee)
                     : [...employees, response.data];
@@ -110,16 +104,14 @@ const Employees = () => {
     const formatDateToDisplay = (dateString) => {
         if (!dateString) return '';
         const [year, month, day] = dateString.split('-');
-        return `${year}-${month}-${day}`;
+        return `${day}-${month}-${year}`;
     };
-    
+
     const formatDateToDatabase = (dateString) => {
         if (!dateString) return '';
         const [day, month, year] = dateString.split('-');
         return `${year}-${month}-${day}`;
     };
-    
-    
 
     return (
         <div className="employee-list-container">
@@ -129,15 +121,15 @@ const Employees = () => {
                     <Button variant="outline-success">İçe Aktar</Button>
                     <Button variant="success" onClick={() => {
                         setCurrentEmployee({
-                             id: null, //yeni calisan diye id null olur
+                            id: null, // New employee, so id is null
                             name: '',
                             surname: '',
-                            password:'',
+                            password: '',
                             phone: '',
                             email: '',
                             date: '',
                             department: '',
-                            gender:'',
+                            gender: '',
                             is_active: '',
                         });
                         setOriginalEmployee(null);
@@ -156,7 +148,6 @@ const Employees = () => {
                             <th>Adı Soyadı</th>
                             <th>Telefon No</th>
                             <th>E-posta</th>
-                            
                             <th>Doğum Tarihi</th>
                             <th>Departman</th>
                             <th>Cinsiyet</th>
