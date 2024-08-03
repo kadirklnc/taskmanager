@@ -16,6 +16,11 @@ const Employees = () => {
         const fetchEmployees = async () => {
             try {
                 const token = localStorage.getItem('token');
+                if (!token) {
+                    console.error('No token found in localStorage');
+                    return;
+                }
+
                 const response = await axios.get('http://localhost:8080/api/admin/getAll', {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -48,10 +53,18 @@ const Employees = () => {
     };
 
     const handleSave = async () => {
-        if (!currentEmployee) return;
+        if (!currentEmployee) {
+            console.error('Current employee is null');
+            return;
+        }
 
         try {
             const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('No token found in localStorage');
+                return;
+            }
+
             const data = {};
 
             for (const key in currentEmployee) {
@@ -59,6 +72,8 @@ const Employees = () => {
                     data[key] = key === 'date' ? formatDateToDatabase(currentEmployee[key]) : currentEmployee[key];
                 }
             }
+
+            console.log('Data to be sent:', data);  // Log the data to be sent for debugging
 
             let response;
 
@@ -91,7 +106,18 @@ const Employees = () => {
                 console.error('Failed to save employee:', response);
             }
         } catch (error) {
-            console.error('Error saving employee data:', error);
+            if (error.response) {
+                // Request made and server responded
+                console.error('Error response data:', error.response.data);
+                console.error('Error response status:', error.response.status);
+                console.error('Error response headers:', error.response.headers);
+            } else if (error.request) {
+                // Request made but no response received
+                console.error('Error request:', error.request);
+            } else {
+                // Something else happened while setting up the request
+                console.error('Error message:', error.message);
+            }
         }
     };
 
@@ -132,7 +158,7 @@ const Employees = () => {
                             gender: '',
                             is_active: '',
                         });
-                        setOriginalEmployee(null);
+                        setOriginalEmployee({});
                         setShowModal(true);
                     }}>
                         + Yeni Çalışan Oluştur
