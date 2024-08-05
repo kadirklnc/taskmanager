@@ -1,26 +1,68 @@
 .header-container {
     display: flex;
-    justify-content: space-between; 
-    align-items: center; /* Vertically centers items */
-    padding: 10px 20px; /* Adds horizontal padding */
-    background-color: #fff; /* Optional: background color for visibility */
-    border-bottom: 1px solid rgb(192, 192, 192);
-}
-
-.header-left,
-.header-right {
-    font-size: 2rem; /* Adjust font size as needed */
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    height: 70px
 }
 
 .header-left {
-    
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .header-right {
-    /* Additional styles for the right side if needed */
+    display: flex;
+    align-items: center;
+    position: relative; /* Ensure the dropdown menu positions relative to this container */
+}
+
+.header-username {
+    margin-right: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.profile-icon-container {
+    position: relative; /* Ensure the dropdown menu is positioned relative to this container */
+    cursor: pointer;
 }
 
 .header-icon {
-    margin-left: 10px; /* Space between text and icon */
-    font-size: 1.2rem; /* Adjust icon size as needed */
+    font-size: 20px;
+    color: #333; /* Icon color */
+}
+
+.dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%; /* Position below the profile icon */
+    right: 0; /* Align menu to the right edge of the profile icon */
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure menu appears above other elements */
+    width: 150px; /* Adjust width as needed */
+    padding: 0; /* Remove default padding */
+}
+
+.dropdown-item {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    display: block;
+    font-size: 14px; /* Adjust font size as needed */
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown-item:active {
+    background-color: #e2e2e2;
 }

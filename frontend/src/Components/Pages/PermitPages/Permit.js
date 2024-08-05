@@ -1,77 +1,115 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Button, Table, Modal, Form } from 'react-bootstrap';
+import axios from 'axios';
 import './Permit.css';
 
 const LeaveRequest = () => {
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [leaveRequests, setLeaveRequests] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const handleShowRequestModal = () => setShowRequestModal(true);
-  const handleCloseRequestModal = () => setShowRequestModal(false);
-
-  const remainingLeave = 1;
-  const totalLeave = 0;
-  const nextEntitlementDate = '22 Temmuz 2025';
-
-  const handleAddLeaveRequest = (newRequest) => {
-    setLeaveRequests([...leaveRequests, newRequest]);
-    handleCloseRequestModal();
+  // Function to fetch leave requests from API
+  const fetchLeaveRequests = async () => {
+    try {
+      const token = localStorage.getItem('token'); // Adjust if using context
+      const response = await axios.get('http://localhost:8080/api/permission/getAll', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      setLeaveRequests(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setError(error);
+      console.error('Error fetching leave requests:', error);
+    }
   };
+
+  useEffect(() => {
+    fetchLeaveRequests();
+  }, []);
+
+  // Function to handle adding a new leave request
+  const handleAddLeaveRequest = async (newRequest) => {
+    try {
+      const token = localStorage.getItem('token'); // Adjust if using context
+      const response = await axios.post('http://localhost:8080/api/permission/add', newRequest, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.status === 200 || response.status === 201) {
+        setLeaveRequests([...leaveRequests, response.data]);
+        // handleClose(); // Updated this line
+      } else {
+        console.error('Failed to save leave request:', response);
+      }
+    } catch (error) {
+      console.error('Error saving leave request data:', error);
+      if (error.response) {
+        console.error('Error response data:', error.response.data);
+        console.error('Error response status:', error.response.status);
+        console.error('Error response headers:', error.response.headers);
+      } else if (error.request) {
+        console.error('Error request:', error.request);
+      } else {
+        console.error('Error message:', error.message);
+      }
+    }
+  };
+  
 
   return (
     <div>
       <Card className="mt-3">
         <Card.Body>
           <Card.Title>Yıllık İzin</Card.Title>
-          <div className="d-flex align-items-center">
-            <div className="circle-progress">
-              <div className="progress-label">
-                Kalan
-                <div className="days-left">{remainingLeave} Gün</div>
-              </div>
-            </div>
-            <div className="ml-4">
-              <p><strong>Kalan İzin Süresi:</strong> {remainingLeave} Gün</p>
-              <p><strong>Yıllık Hak Edilen İzin Süresi:</strong> {totalLeave} Gün</p>
-              <p><strong>Sonraki Hakedis Tarihi:</strong> {nextEntitlementDate}</p>
-            </div>
-          </div>
-          <Button variant="success" className="mt-3" onClick={handleShowRequestModal}>+ İzin Talebi</Button>
+          <Button variant="success" className="mt-3" onClick={() => setShowRequestModal(true)}>
+            + İzin Talebi
+          </Button>
         </Card.Body>
       </Card>
 
       <RequestModal 
         show={showRequestModal} 
-        handleClose={handleCloseRequestModal} 
-        handleAddLeaveRequest={handleAddLeaveRequest} 
+        handleClose={() => setShowRequestModal(false)} 
+        handleSave={handleAddLeaveRequest} 
       />
 
       <Card className="mt-3">
         <Card.Body>
           <Card.Title>İzin Talepleri</Card.Title>
-          {leaveRequests.length === 0 ? (
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p>Error loading data.</p>
+          ) : leaveRequests.length === 0 ? (
             <p>Henüz izin talebi yok.</p>
           ) : (
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>Talep Tarihi</th>
-                  <th>İzin Tipi</th>
-                  <th>Durumu</th>
-                  <th>Bitiş Tarihi</th>
+                  <th>ID</th>
                   <th>Başlangıç Tarihi</th>
-                  <th>Süresi</th>
+                  <th>Bitiş Tarihi</th>
+                  <th>Durum</th>
+                  <th>E-posta</th>
+                  <th>Gün Sayısı</th>
                 </tr>
               </thead>
               <tbody>
-                {leaveRequests.map((request, index) => (
-                  <tr key={index}>
-                    <td>{request.date}</td>
-                    <td>{request.leaveType}</td>
-                    <td>{request.status}</td>
-                    <td>{request.endDate}</td>
-                    <td>{request.startDate}</td>
-                    <td>{request.duration} Gün</td>
+                {leaveRequests.map((request) => (
+                  <tr key={request.id}>
+                    <td>{request.id}</td>
+                    <td>{new Date(request.startDate).toLocaleDateString()}</td>
+                    <td>{new Date(request.endDate).toLocaleDateString()}</td>
+                    <td>{request.isActive ? 'Aktif' : 'Pasif'}</td>
+                    <td>{request.email}</td>
+                    <td>{request.daysBetweenDates}</td>
                   </tr>
                 ))}
               </tbody>
@@ -83,19 +121,24 @@ const LeaveRequest = () => {
   );
 };
 
-const RequestModal = ({ show, handleClose, handleAddLeaveRequest }) => {
-  const [date, setDate] = useState('');
-  const [leaveType, setLeaveType] = useState('');
-  const [status, setStatus] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [duration, setDuration] = useState('');
-  const [description, setDescription] = useState('');
+const RequestModal = ({ show, handleClose, handleSave }) => {
+  const [formData, setFormData] = useState({
+    startDate: '',
+    endDate: '',
+    description: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newRequest = { date, leaveType, status, startDate, endDate, duration, description };
-    handleAddLeaveRequest(newRequest);
+    handleSave(formData);
   };
 
   return (
@@ -106,56 +149,33 @@ const RequestModal = ({ show, handleClose, handleAddLeaveRequest }) => {
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group>
-            <Form.Label>İzin Kullanan Kişi </Form.Label>
-            <Form.Control
-              type="text"
-              value={leaveType}
-              onChange={(e) => setLeaveType(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>İzin Türü </Form.Label>
-            <Form.Control
-              type="text"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Başlangıç Zamanı </Form.Label>
+            <Form.Label>Başlangıç Tarihi</Form.Label>
             <Form.Control
               type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
+              name="startDate"
+              value={formData.startDate}
+              onChange={handleChange}
               required
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Bitiş Zamanı</Form.Label>
+            <Form.Label>Bitiş Tarihi</Form.Label>
             <Form.Control
               type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Süresi (Gün)</Form.Label>
-            <Form.Control
-              type="number"
-              value={duration}
-              onChange={(e) => setDuration(e.target.value)}
+              name="endDate"
+              value={formData.endDate}
+              onChange={handleChange}
               required
             />
           </Form.Group>
           <Form.Group>
             <Form.Label>Açıklama</Form.Label>
             <Form.Control
-              type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              as="textarea"
+              rows={3}
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
             />
           </Form.Group>
           <Button variant="primary" type="submit">

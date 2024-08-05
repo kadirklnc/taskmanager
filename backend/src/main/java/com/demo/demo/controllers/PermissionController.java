@@ -11,7 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/api/permission")
 public class PermissionController {
@@ -23,37 +23,37 @@ public class PermissionController {
     }
 
     @GetMapping("/getAll")
-    @PreAuthorize("hasAuthority('ROLE_MODERATOR')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<GetAllPermissionResponse> getAll(){
         return permissionService.getAllPermission();
     }
 
     @GetMapping("/getById/{id}")
-    @PreAuthorize("hasAuthority('ROLE_MODERATOR')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public GetByIdPermissionResponse getByIdPermissionResponse(@PathVariable int id){
         return permissionService.getPermissionsByUserId(id);
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasAuthority('ROLE_MODERATOR')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public void add(@RequestBody CreatePermissionRequest createPermissionRequest){
         this.permissionService.add(createPermissionRequest);
     }
 
     @DeleteMapping("/delete-status/{id}")
-    @PreAuthorize("hasAuthority('ROLE_MODERATOR')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public void delete(int id){
         this.permissionService.delete(id);
     }
 
     @PutMapping("/update-status")
-    @PreAuthorize("hasAuthority('ROLE_MODERATOR')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> updatePermissionStatus(@RequestBody UpdatePermissionRequest updateRequest) {
         return permissionService.update(updateRequest);
     }
 
     @PostMapping("/update-total-leave-days")
-    @PreAuthorize("hasAuthority('ROLE_MODERATOR')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<?> updateTotalLeaveDays(@RequestParam int userId, @RequestParam int newTotalLeaveDays) {
         return permissionService.updateTotalLeaveDays(userId, newTotalLeaveDays);
     }
