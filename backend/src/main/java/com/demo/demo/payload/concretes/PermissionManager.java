@@ -11,6 +11,7 @@ import com.demo.demo.payload.request.UpdateTotalLeaveDays;
 import com.demo.demo.payload.response.GetAllPermissionResponse;
 
 import com.demo.demo.payload.response.GetByIdPermissionResponse;
+import com.demo.demo.payload.response.GetByUserIdPermissionResponse;
 import com.demo.demo.payload.response.MessageResponse;
 import com.demo.demo.repository.PermissionRepository;
 import com.demo.demo.repository.UserRepository;
@@ -54,12 +55,31 @@ public class PermissionManager implements PermissionService {
     }
 
     @Override
-    public GetByIdPermissionResponse getPermissionsByUserId(int id) {
+    public GetByIdPermissionResponse getPermissionsById(int id) {
         Permission permission = this.permissionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Permission not found with id " + id));
 
         GetByIdPermissionResponse response = this.modelMapperService.customModelMapper().map(permission, GetByIdPermissionResponse.class);
         return response;
+    }
+
+    @Override
+    public List<GetByUserIdPermissionResponse> getPermissionsByUserId(int userId) {
+
+        List<Permission> permissions = permissionRepository.findByUserId(userId);
+
+        if (permissions.isEmpty()) {
+            throw new RuntimeException("User with ID " + userId + " not found");
+        }
+
+        return permissions.stream()
+                .map(permission -> {
+                    GetByUserIdPermissionResponse response = modelMapperService.customModelMapper().map(permission, GetByUserIdPermissionResponse.class);
+                    response.setUserId(permission.getUser().getId());
+                    response.setEmail(permission.getUser().getEmail());
+                    return response;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override

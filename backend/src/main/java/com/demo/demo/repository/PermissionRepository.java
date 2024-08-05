@@ -9,5 +9,7 @@ import java.util.List;
 
 @Repository
 public interface PermissionRepository extends JpaRepository<Permission,Integer> {
-    List<GetAllPermissionResponse> findByUserId(int userId);
+    List<Permission> findByUserId(int userId);
+
+
 }

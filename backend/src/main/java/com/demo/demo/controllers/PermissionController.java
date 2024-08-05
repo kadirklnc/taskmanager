@@ -7,6 +7,7 @@ import com.demo.demo.payload.request.UpdateTotalLeaveDays;
 import com.demo.demo.payload.request.UpdateUserRequest;
 import com.demo.demo.payload.response.GetAllPermissionResponse;
 import com.demo.demo.payload.response.GetByIdPermissionResponse;
+import com.demo.demo.payload.response.GetByUserIdPermissionResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,13 @@ public class PermissionController {
     @GetMapping("/getById/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public GetByIdPermissionResponse getByIdPermissionResponse(@PathVariable int id){
-        return permissionService.getPermissionsByUserId(id);
+        return permissionService.getPermissionsById(id);
+    }
+
+    @GetMapping("/getByUserId/{userId}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public List<GetByUserIdPermissionResponse> getByUserIdPermissionResponse(@PathVariable int userId){
+        return permissionService.getPermissionsByUserId(userId);
     }
 
     @PostMapping("/add")
