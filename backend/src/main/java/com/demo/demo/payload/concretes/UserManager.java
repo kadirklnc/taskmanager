@@ -1,5 +1,6 @@
 package com.demo.demo.payload.concretes;
 
+
 import com.demo.demo.models.ERole;
 import com.demo.demo.models.Role;
 import com.demo.demo.models.User;
@@ -144,9 +145,6 @@ public class UserManager implements UserService {
         }
 
         if (updateUserRequest.getName() != null && !updateUserRequest.getName().trim().isEmpty()) {
-            user.setName(updateUserRequest.getName());
-        }
-        if (updateUserRequest.getGender() != null && !updateUserRequest.getName().trim().isEmpty()) {
             user.setName(updateUserRequest.getName());
         }
 

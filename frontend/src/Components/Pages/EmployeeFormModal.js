@@ -12,7 +12,7 @@ const EmployeeFormModal = ({ showModal, handleClose, handleChange, handleSave, c
             <Form>
                 {currentEmployee && (
                     <>
-                        <Form.Group>
+                        <Form.Group controlId="formName">
                             <Form.Label>Adı</Form.Label>
                             <Form.Control
                                 type="text"
@@ -21,7 +21,7 @@ const EmployeeFormModal = ({ showModal, handleClose, handleChange, handleSave, c
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        <Form.Group>
+                        <Form.Group controlId="formSurname">
                             <Form.Label>Soyadı</Form.Label>
                             <Form.Control
                                 type="text"
@@ -30,7 +30,7 @@ const EmployeeFormModal = ({ showModal, handleClose, handleChange, handleSave, c
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        <Form.Group>
+                        <Form.Group controlId="formPhone">
                             <Form.Label>Telefon No</Form.Label>
                             <Form.Control
                                 type="text"
@@ -39,26 +39,25 @@ const EmployeeFormModal = ({ showModal, handleClose, handleChange, handleSave, c
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        <Form.Group>
+                        <Form.Group controlId="formEmail">
                             <Form.Label>E-posta</Form.Label>
                             <Form.Control
-                                type="text"
+                                type="email"
                                 name="email"
                                 value={currentEmployee.email || ''}
                                 onChange={handleChange}
                             />
-
-                            <Form.Group>
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    name="password"
-                                    value={currentEmployee.password || ''}
-                                    onChange={handleChange}
-                                />
-                            </Form.Group>
                         </Form.Group>
-                        <Form.Group>
+                        <Form.Group controlId="formPassword">
+                            <Form.Label>Şifre</Form.Label>
+                            <Form.Control
+                                type="password"
+                                name="password"
+                                value={currentEmployee.password || ''}
+                                onChange={handleChange}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formDate">
                             <Form.Label>Doğum Tarihi</Form.Label>
                             <Form.Control
                                 type="date"
@@ -67,7 +66,7 @@ const EmployeeFormModal = ({ showModal, handleClose, handleChange, handleSave, c
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        <Form.Group>
+                        <Form.Group controlId="formDepartment">
                             <Form.Label>Departman</Form.Label>
                             <Form.Control
                                 type="text"
@@ -76,20 +75,22 @@ const EmployeeFormModal = ({ showModal, handleClose, handleChange, handleSave, c
                                 onChange={handleChange}
                             />
                         </Form.Group>
-                        <Form.Group>
+                        <Form.Group controlId="formGender">
                             <Form.Label>Cinsiyet</Form.Label>
                             <Form.Control
                                 as="select"
                                 name="gender"
-                                value={currentEmployee.gender || ''} 
+                                value={currentEmployee.gender || ''}
                                 onChange={handleChange}
                             >
-                                <option value="male">Erkek</option>
-                                <option value="female">Kadın</option>
+                                <option value="">Seçiniz</option>
+                                <option value="Erkek">Erkek</option>
+                                <option value="Kadin">Kadın</option>
+                                <option value="other">Diğer</option>
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Aktif</Form.Label>
+                        <Form.Group controlId="formIsActive">
+                            <Form.Label>Aktif Durumu</Form.Label>
                             <Form.Control
                                 as="select"
                                 name="is_active"

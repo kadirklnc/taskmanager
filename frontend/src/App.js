@@ -1,4 +1,3 @@
-// src/App.js
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,7 +11,7 @@ import HomePage from './Components/Pages/HomePage';
 import Permit from './Components/Pages/PermitPages/Permit';
 import Report from './Components/Pages/Report';
 import SignUp from './Components/LoginForm/SignUp';
-import Employee from './Components/Pages/Empolyees';
+import Employees from './Components/Pages/Empolyees';
 import Departmans from './Components/Pages/Departments';
 import PermitRouter from './Components/Pages/PermitPages/PermitRouter';
 import PermitAllow from './Components/Pages/PermitPages/PermitAllow';
@@ -82,7 +81,9 @@ const router = createBrowserRouter([
         path: 'employes',
         element: (
           <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN']}>
-            <Employee />
+            <div className='employee-container'>
+              <Employees />
+            </div>
           </ProtectedRoute>
         )
       },
@@ -135,6 +136,3 @@ function App() {
 }
 
 export default App;
-
-
-

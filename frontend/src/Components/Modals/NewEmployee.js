@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Modal, Button, Form, ModalTitle } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Modal, Button, Form } from 'react-bootstrap';
+import axios from 'axios';
 
-const NewEmployee = ({ show, handleClose }) => {
-    const [showForm, setShowForm] = useState(false);
+const NewEmployee = ({ showModal, handleClose, currentEmployee, setEmployees, employees }) => {
     const [employeeData, setEmployeeData] = useState({
         name: '',
         surname: '',
@@ -14,20 +14,85 @@ const NewEmployee = ({ show, handleClose }) => {
         is_active: ''
     });
 
+    useEffect(() => {
+        if (currentEmployee) {
+            setEmployeeData({
+                name: currentEmployee.name || '',
+                surname: currentEmployee.surname || '',
+                phone: currentEmployee.phone || '',
+                email: currentEmployee.email || '',
+                date: currentEmployee.date || '',
+                department: currentEmployee.department || '',
+                gender: currentEmployee.gender || '',
+                is_active: currentEmployee.is_active || ''
+            });
+        } else {
+            setEmployeeData({
+                name: '',
+                surname: '',
+                phone: '',
+                email: '',
+                date: '',
+                department: '',
+                gender: '',
+                is_active: ''
+            });
+        }
+    }, [currentEmployee]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setEmployeeData(prevState => ({ ...prevState, [name]: value }));
+        setEmployeeData(prevState => ({
+            ...prevState,
+            [name]: name === 'is_active' ? parseInt(value) : value
+        }));
     };
 
-    const handleSave = () => {
-        // Save employee data logic here
-        handleClose();
+    const handleSave = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('No token found in localStorage');
+                return;
+            }
+
+            const data = { ...employeeData };
+            let response;
+
+            if (currentEmployee && currentEmployee.id) {
+                response = await axios.put(`http://localhost:8080/api/admin/update/${currentEmployee.id}`, data, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            } else {
+                response = await axios.post('http://localhost:8080/api/admin/add', data, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            }
+
+            if (response.status === 200 || response.status === 201) {
+                const updatedEmployees = currentEmployee && currentEmployee.id
+                    ? employees.map(employee => employee.id === currentEmployee.id ? response.data : employee)
+                    : [...employees, response.data];
+                setEmployees(updatedEmployees);
+                handleClose();
+            } else {
+                console.error('Failed to save employee:', response);
+            }
+        } catch (error) {
+            console.error('Error saving employee data:', error);
+        }
     };
 
     return (
-        <Modal show={show} onHide={handleClose} size="lg">
+        <Modal show={showModal} onHide={handleClose}>
             <Modal.Header closeButton>
-                <ModalTitle>Çalışan Oluştur</ModalTitle>
+                <Modal.Title>{currentEmployee ? 'Çalışanı Düzenle' : 'Yeni Çalışan Oluştur'}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
@@ -61,7 +126,7 @@ const NewEmployee = ({ show, handleClose }) => {
                     <Form.Group>
                         <Form.Label>E-posta</Form.Label>
                         <Form.Control
-                            type="text"
+                            type="email"
                             name="email"
                             value={employeeData.email}
                             onChange={handleChange}
@@ -70,7 +135,7 @@ const NewEmployee = ({ show, handleClose }) => {
                     <Form.Group>
                         <Form.Label>Doğum Tarihi</Form.Label>
                         <Form.Control
-                            type="date"
+                            type="text"
                             name="date"
                             value={employeeData.date}
                             onChange={handleChange}
@@ -88,25 +153,21 @@ const NewEmployee = ({ show, handleClose }) => {
                     <Form.Group>
                         <Form.Label>Cinsiyet</Form.Label>
                         <Form.Control
-                            as="select"
+                            type="text"
                             name="gender"
                             value={employeeData.gender}
                             onChange={handleChange}
-                        >
-                            <option value="male">Seciniz</option>
-                            <option value="male">Erkek</option>
-                            <option value="female">Kadın</option>
-                            
-                        </Form.Control>
+                        />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Aktif</Form.Label>
+                        <Form.Label>Aktif Durumu</Form.Label>
                         <Form.Control
                             as="select"
                             name="is_active"
                             value={employeeData.is_active}
                             onChange={handleChange}
                         >
+                            <option value="">Seçiniz</option>
                             <option value="1">Evet</option>
                             <option value="0">Hayır</option>
                         </Form.Control>
@@ -126,4 +187,3 @@ const NewEmployee = ({ show, handleClose }) => {
 };
 
 export default NewEmployee;
-

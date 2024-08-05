@@ -4,14 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import SearchBar from '../Common/SearchBar';
 import EmployeeFormModal from './EmployeeFormModal';
-
+import './Employees.css';
 const Employees = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [employees, setEmployees] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [currentEmployee, setCurrentEmployee] = useState(null);
     const [originalEmployee, setOriginalEmployee] = useState(null);
-
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
@@ -31,20 +30,16 @@ const Employees = () => {
                 console.error('Error fetching employees:', error);
             }
         };
-
         fetchEmployees();
     }, []);
-
     const handleSearch = (query) => {
         setSearchTerm(query.toLowerCase());
     };
-
     const filteredEmployees = employees.filter(employee =>
         Object.values(employee).some(value =>
             value ? value.toString().toLowerCase().includes(searchTerm) : false
         )
     );
-
     const handleSelectEmployee = (id) => {
         const selectedEmployee = employees.find(emp => emp.id === parseInt(id));
         setCurrentEmployee({ ...selectedEmployee });
@@ -53,6 +48,7 @@ const Employees = () => {
     };
 
     const handleSave = async () => {
+        if (!currentEmployee) return;
         if (!currentEmployee) {
             console.error('Current employee is null');
             return;
@@ -95,7 +91,6 @@ const Employees = () => {
                     }
                 });
             }
-
             if (response.status === 200 || response.status === 201) {
                 const updatedEmployees = currentEmployee.id
                     ? employees.map(employee => employee.id === currentEmployee.id ? { ...currentEmployee } : employee)
@@ -106,6 +101,7 @@ const Employees = () => {
                 console.error('Failed to save employee:', response);
             }
         } catch (error) {
+            console.error('Error saving employee data:', error);
             if (error.response) {
                 // Request made and server responded
                 console.error('Error response data:', error.response.data);
@@ -126,7 +122,6 @@ const Employees = () => {
         const updatedValue = name === 'is_active' ? parseInt(value) : value;
         setCurrentEmployee(prevState => ({ ...prevState, [name]: updatedValue }));
     };
-
     const formatDateToDisplay = (dateString) => {
         if (!dateString) return '';
         const [year, month, day] = dateString.split('-');
@@ -136,11 +131,10 @@ const Employees = () => {
     const formatDateToDatabase = (dateString) => {
         if (!dateString) return '';
         const [day, month, year] = dateString.split('-');
-        return `${year}-${month}-${day}`;
+        return `${day}-${month}-${year}`;
     };
-
     return (
-        <div className="employee-list-container">
+        <div className="employee-list-page">
             <div className="employee-list-header">
                 <h3>Çalışanlar ({filteredEmployees.length})</h3>
                 <div className="employee-list-actions">
@@ -158,6 +152,7 @@ const Employees = () => {
                             gender: '',
                             is_active: '',
                         });
+                        setOriginalEmployee(null);
                         setOriginalEmployee({});
                         setShowModal(true);
                     }}>
@@ -212,5 +207,4 @@ const Employees = () => {
         </div>
     );
 };
-
 export default Employees;
