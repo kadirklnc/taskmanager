@@ -3,6 +3,7 @@ package com.demo.demo.controllers;
 import com.demo.demo.payload.abstracts.PermissionService;
 import com.demo.demo.payload.request.CreatePermissionRequest;
 import com.demo.demo.payload.request.UpdatePermissionRequest;
+import com.demo.demo.payload.request.UpdateTotalLeaveDays;
 import com.demo.demo.payload.request.UpdateUserRequest;
 import com.demo.demo.payload.response.GetAllPermissionResponse;
 import com.demo.demo.payload.response.GetByIdPermissionResponse;
@@ -54,8 +55,8 @@ public class PermissionController {
 
     @PostMapping("/update-total-leave-days")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<?> updateTotalLeaveDays(@RequestParam int userId, @RequestParam int newTotalLeaveDays) {
-        return permissionService.updateTotalLeaveDays(userId, newTotalLeaveDays);
+    public ResponseEntity<?> updateTotalLeaveDays(@RequestBody UpdateTotalLeaveDays totalLeaveDays) {
+        return permissionService.updateTotalLeaveDays(totalLeaveDays);
     }
 
 

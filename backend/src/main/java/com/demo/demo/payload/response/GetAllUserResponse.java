@@ -1,7 +1,9 @@
 package com.demo.demo.payload.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 
@@ -20,6 +22,9 @@ public class GetAllUserResponse {
     private Set<String> role;
     private int is_active;
     private int totalLeaveDays;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDateTime created_at;
 
     public int getTotalLeaveDays() {
         return totalLeaveDays;

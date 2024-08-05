@@ -2,6 +2,7 @@ package com.demo.demo.payload.abstracts;
 
 import com.demo.demo.payload.request.CreatePermissionRequest;
 import com.demo.demo.payload.request.UpdatePermissionRequest;
+import com.demo.demo.payload.request.UpdateTotalLeaveDays;
 import com.demo.demo.payload.response.GetAllPermissionResponse;
 import com.demo.demo.payload.response.GetByIdPermissionResponse;
 import org.springframework.http.ResponseEntity;
@@ -16,5 +17,5 @@ public interface PermissionService {
     ResponseEntity<?> add(CreatePermissionRequest createPermissionRequest);
     ResponseEntity<?> update(UpdatePermissionRequest updatePermissionRequest);
     void delete(int id);
-    ResponseEntity<?> updateTotalLeaveDays(int userId, int newTotalLeaveDays);
+    ResponseEntity<?> updateTotalLeaveDays(UpdateTotalLeaveDays totalLeaveDays);
 }

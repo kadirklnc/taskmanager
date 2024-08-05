@@ -4,8 +4,9 @@ package com.demo.demo.models;
 import javax.persistence.*;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,6 +31,8 @@ public class User {
     private String date;
     private String phone;
     private int is_active;
+
+    private LocalDateTime created_at;
 
     private int totalLeaveDays;
 

@@ -197,7 +197,6 @@ public class UserManager implements UserService {
             });
             user.setRoles(roles);
         }
-        user.setIs_active(updateUserRequest.getIs_active());
 
         user.setIs_active(updateUserRequest.getIs_active());
 

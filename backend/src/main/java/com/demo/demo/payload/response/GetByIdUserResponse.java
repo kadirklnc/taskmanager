@@ -1,10 +1,12 @@
 package com.demo.demo.payload.response;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
@@ -22,6 +24,9 @@ public class GetByIdUserResponse {
     private Set<String> role;
     private int is_active;
     private int totalLeaveDays;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDateTime created_at;
 
     public int getId() {
         return id;

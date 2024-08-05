@@ -7,6 +7,7 @@ import com.demo.demo.models.User;
 import com.demo.demo.payload.abstracts.PermissionService;
 import com.demo.demo.payload.request.CreatePermissionRequest;
 import com.demo.demo.payload.request.UpdatePermissionRequest;
+import com.demo.demo.payload.request.UpdateTotalLeaveDays;
 import com.demo.demo.payload.response.GetAllPermissionResponse;
 
 import com.demo.demo.payload.response.GetByIdPermissionResponse;
@@ -15,7 +16,6 @@ import com.demo.demo.repository.PermissionRepository;
 import com.demo.demo.repository.UserRepository;
 import com.demo.demo.security.services.UserDetailsImpl;
 import com.demo.demo.utilities.mapper.ModelMapperService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -114,11 +114,11 @@ public class PermissionManager implements PermissionService {
     }
 
 
-    public ResponseEntity<?> updateTotalLeaveDays(int userId, int newTotalLeaveDays) {
-        User user = userRepository.findById(userId)
+    public ResponseEntity<?> updateTotalLeaveDays(UpdateTotalLeaveDays totalLeaveDays) {
+        User user = userRepository.findById(totalLeaveDays.getId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        user.setTotalLeaveDays(newTotalLeaveDays);
+        user.setTotalLeaveDays(totalLeaveDays.getNewTotalLeaveDays());
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("Total leave days updated successfully"));
