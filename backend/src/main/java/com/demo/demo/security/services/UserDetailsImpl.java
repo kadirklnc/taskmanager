@@ -21,13 +21,16 @@ public class UserDetailsImpl implements UserDetails {
 
     private String password;
 
+    private int is_active;
+
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(int id, String email, String password,
+    public UserDetailsImpl(int id, String email, String password, int isActive,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.is_active = isActive;
         this.authorities = authorities;
     }
 
@@ -40,7 +43,16 @@ public class UserDetailsImpl implements UserDetails {
                 user.getId(),
                 user.getEmail(),
                 user.getPassword(),
+                user.getIs_active(),
                 authorities);
+    }
+
+    public int getIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(int is_active) {
+        this.is_active = is_active;
     }
 
     @Override
