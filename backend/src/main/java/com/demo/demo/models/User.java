@@ -4,7 +4,6 @@ package com.demo.demo.models;
 import javax.persistence.*;
 
 import lombok.Data;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -13,7 +12,6 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @Data
-
 public class User {
 
     @Id
@@ -36,19 +34,21 @@ public class User {
 
     private int totalLeaveDays;
 
-    public int getTotalLeaveDays() {
-        return totalLeaveDays;
-    }
 
-    public void setTotalLeaveDays(int totalLeaveDays) {
-        this.totalLeaveDays = totalLeaveDays;
-    }
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
+    }
+
+
 
     public User() {
         // Default constructor for JPA
@@ -64,6 +64,14 @@ public class User {
         this.date = date;
         this.phone = phone;
         this.is_active = is_active;
+    }
+
+    public int getTotalLeaveDays() {
+        return totalLeaveDays;
+    }
+
+    public void setTotalLeaveDays(int totalLeaveDays) {
+        this.totalLeaveDays = totalLeaveDays;
     }
 
     public int getId() {

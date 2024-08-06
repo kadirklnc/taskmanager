@@ -33,6 +33,11 @@ public class Permission {
 
         private LocalDateTime created_at;
 
+    @PrePersist
+    protected void onCreate() {
+        created_at = LocalDateTime.now();
+    }
+
 
     public void calculateDaysBetweenDates() {
         this.daysBetweenDates = ChronoUnit.DAYS.between(startdate.toInstant(), enddate.toInstant()) + 1;
