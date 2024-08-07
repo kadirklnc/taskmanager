@@ -9,16 +9,23 @@ const LeaveRequest = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Function to fetch leave requests from API
   const fetchLeaveRequests = async () => {
     try {
-      const token = localStorage.getItem('token'); // Adjust if using context
-      const response = await axios.get('http://localhost:8080/api/permission/getAll', {
+      const token = localStorage.getItem('token');
+      const userId = localStorage.getItem('id');
+      const response = await axios.get(`http://localhost:8080/api/permission/getByUserId/${userId}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
       });
-      setLeaveRequests(response.data);
+
+      if (Array.isArray(response.data)) {
+        setLeaveRequests(response.data);
+      } else {
+        setLeaveRequests([]);
+        console.error('Unexpected response format:', response.data);
+      }
+
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -31,20 +38,21 @@ const LeaveRequest = () => {
     fetchLeaveRequests();
   }, []);
 
-  // Function to handle adding a new leave request
   const handleAddLeaveRequest = async (newRequest) => {
     try {
-      const token = localStorage.getItem('token'); // Adjust if using context
+      const token = localStorage.getItem('token');
+      const userId = localStorage.getItem('id');
+      newRequest.userId = userId;
       const response = await axios.post('http://localhost:8080/api/permission/add', newRequest, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
-  
+
       if (response.status === 200 || response.status === 201) {
         setLeaveRequests([...leaveRequests, response.data]);
-        // handleClose(); // Updated this line
+        setShowRequestModal(false);
       } else {
         console.error('Failed to save leave request:', response);
       }
@@ -61,7 +69,19 @@ const LeaveRequest = () => {
       }
     }
   };
-  
+
+  const getStatus = (isActive) => {
+    switch (isActive) {
+      case 'ACCEPT':
+        return 'KABUL EDİLDİ';
+      case 'REFUSE':
+        return 'REDDEDİLDİ';
+      case 'WAIT':
+        return 'BEKLENİYOR';
+      default:
+        return 'BİLİNMEYEN DURUM';
+    }
+  };
 
   return (
     <div>
@@ -88,12 +108,12 @@ const LeaveRequest = () => {
           ) : error ? (
             <p>Error loading data.</p>
           ) : leaveRequests.length === 0 ? (
-            <p>Henüz izin talebi yok.</p>
+            <p>Henüz izin talebiniz yok.</p>
           ) : (
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>ID</th>
+                  {/* <th>ID</th> */}
                   <th>Başlangıç Tarihi</th>
                   <th>Bitiş Tarihi</th>
                   <th>Durum</th>
@@ -102,16 +122,20 @@ const LeaveRequest = () => {
                 </tr>
               </thead>
               <tbody>
-                {leaveRequests.map((request) => (
-                  <tr key={request.id}>
-                    <td>{request.id}</td>
-                    <td>{new Date(request.startDate).toLocaleDateString()}</td>
-                    <td>{new Date(request.endDate).toLocaleDateString()}</td>
-                    <td>{request.isActive ? 'Aktif' : 'Pasif'}</td>
-                    <td>{request.email}</td>
-                    <td>{request.daysBetweenDates}</td>
-                  </tr>
-                ))}
+                {leaveRequests.map((request) => {
+                  const startDate = new Date(request.startDate).toLocaleDateString();
+                  const endDate = new Date(request.endDate).toLocaleDateString();
+                  return (
+                    <tr key={request.id}>
+                      {/* <td>{request.id}</td> */}
+                      <td>{startDate}</td>
+                      <td>{endDate}</td>
+                      <td>{getStatus(request.isActive)}</td>
+                      <td>{request.email}</td>
+                      <td>{request.daysBetweenDates}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </Table>
           )}

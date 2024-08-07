@@ -27,7 +27,7 @@ const Login = () => {
             if (roles.includes('ROLE_USER')) {
                 navigate('/homepage');
             } else if (roles.includes('ROLE_MODERATOR')) {
-                navigate('/moderator');
+                navigate('/homepage');
             } else if (roles.includes('ROLE_ADMIN')) {
                 navigate('/homepage');
             }
