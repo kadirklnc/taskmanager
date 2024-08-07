@@ -67,17 +67,14 @@ public class AuthManager implements AuthService {
     @Override
     public ResponseEntity<?> registerUser(SignupRequest signupRequest) {
 
-        // Check if email already exists
         userBusinessRules.checkIfEmailExists(signupRequest.getEmail());
 
-        // Ensure is_active is not null, set default to 1
         Integer isActive = signupRequest.getIs_active();
         if (isActive == null) {
-            isActive = 1; // Default value
+            isActive = 1;
         }
 
 
-        // Create User entity
         User user = new User(
                 signupRequest.getEmail(),
                 encoder.encode(signupRequest.getPassword()),
@@ -89,7 +86,6 @@ public class AuthManager implements AuthService {
                 signupRequest.getPhone(),
                 signupRequest.getIs_active());
 
-        // Set roles
         Set<String> strRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
 

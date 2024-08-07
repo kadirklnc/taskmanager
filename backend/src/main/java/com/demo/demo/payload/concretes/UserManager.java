@@ -72,17 +72,14 @@ public class UserManager implements UserService {
     @Override
     public ResponseEntity<?> add(CreateUserRequest createUserRequest) {
 
-        // Check if email already exists
         userBusinessRules.checkIfEmailExists(createUserRequest.getEmail());
 
-        // Ensure is_active is not null, set default to 1
+
         Integer isActive = createUserRequest.getIs_active();
         if (isActive == null) {
-            isActive = 1; // Default value
+            isActive = 1;
         }
 
-
-        // Create User entity
         User user = new User(
                 createUserRequest.getEmail(),
                 encoder.encode(createUserRequest.getPassword()),
@@ -94,7 +91,6 @@ public class UserManager implements UserService {
                 createUserRequest.getPhone(),
                 createUserRequest.getIs_active());
 
-        // Set roles
         Set<String> strRoles = createUserRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
