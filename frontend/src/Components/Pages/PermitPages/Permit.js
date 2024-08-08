@@ -117,6 +117,7 @@ const LeaveRequest = () => {
                   <th>Başlangıç Tarihi</th>
                   <th>Bitiş Tarihi</th>
                   <th>Durum</th>
+                  <th>Açıklama</th>
                   <th>E-posta</th>
                   <th>Gün Sayısı</th>
                 </tr>
@@ -131,6 +132,7 @@ const LeaveRequest = () => {
                       <td>{startDate}</td>
                       <td>{endDate}</td>
                       <td>{getStatus(request.isActive)}</td>
+                      <td>{request.description}</td>
                       <td>{request.email}</td>
                       <td>{request.daysBetweenDates}</td>
                     </tr>

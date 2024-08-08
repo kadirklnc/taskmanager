@@ -21,8 +21,6 @@ const Header = () => {
         <header className="header-container">
             <div className="header-left">Home Page</div>
             <div className="header-right">
-                {username ? (
-                    <>
                         <span className="header-username" onClick={toggleDropdown}>
                             Hoş Geldin {username}
                         </span>
@@ -36,8 +34,6 @@ const Header = () => {
                                 </div>
                             )}
                         </div>
-                    </>
-                ) : null}
             </div>
         </header>
     );

@@ -4,20 +4,18 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import './HomePage.css';
 import '../Common/Main.css';
-import RequestModal from '../Modals/RequestModal';
-import NewDepartment from '../Modals/NewDepartment';
-import NewEmployee from '../Modals/NewEmployee';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
 
 const HomePage = () => {
   const { authState } = useContext(AuthContext);
-  const [showRequestModal, setShowRequestModal] = useState(false);
   const [showDepartmentModal, setShowDepartmentModal] = useState(false);
   const [showEmployeeModal, setShowEmployeeModal] = useState(false);
   const [leaveRequests, setLeaveRequests] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const fetchLeaveRequests = async () => {
     try {
@@ -47,13 +45,10 @@ const HomePage = () => {
     fetchLeaveRequests();
   }, []);
 
-  const handleShowRequestModal = () => setShowRequestModal(true);
-  const handleCloseRequestModal = () => setShowRequestModal(false);
-
-  const handleShowDepartmentModal = () => setShowDepartmentModal(true);
+  const handleShowRequestModal = () => navigate('/homepage/permit');
+  const handleShowDepartmentModal = () => navigate('/homepage/departments');;
   const handleCloseDepartmentModal = () => setShowDepartmentModal(false);
-
-  const handleShowEmployeeModal = () => setShowEmployeeModal(true);
+  const handleShowEmployeeModal = () => navigate('/homepage/employees');;
   const handleCloseEmployeeModal = () => setShowEmployeeModal(false);
 
   const isAdmin = authState.roles.includes('ROLE_ADMIN');
@@ -78,18 +73,18 @@ const HomePage = () => {
       <div className="button-container">
         {isUser && (
           <Button size="sm" className="btn-new-button" onClick={handleShowRequestModal}>
-            + Yeni Talep Oluştur
+            İzin Talep İşlemleri
           </Button>
         )}
         {' '}
         {isAdmin && (
           <>
             <Button size="sm" className="btn-new-button" onClick={handleShowDepartmentModal}>
-              + Yeni Departman Oluştur
+             Departman İşlemleri
             </Button>
             {' '}
             <Button size="sm" className="btn-new-button" onClick={handleShowEmployeeModal}>
-              + Yeni Çalışan Oluştur
+             Çalışan İşlemleri
             </Button>
           </>
         )}
@@ -190,10 +185,6 @@ const HomePage = () => {
           </Card>
         </>
       )}
-
-      <RequestModal show={showRequestModal} handleClose={handleCloseRequestModal} />
-      <NewDepartment show={showDepartmentModal} handleClose={handleCloseDepartmentModal} />
-      <NewEmployee show={showEmployeeModal} handleClose={handleCloseEmployeeModal} />
     </div>
   );
 };
