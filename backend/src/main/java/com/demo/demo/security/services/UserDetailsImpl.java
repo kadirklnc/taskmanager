@@ -17,18 +17,14 @@ public class UserDetailsImpl implements UserDetails {
     private int id;
     private String email;
     private String password;
-    private String name ;
-    private String surname ;
     private int is_active;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(int id, String email, String password, String name , String surname, int isActive,
+    public UserDetailsImpl(int id, String email, String password, int isActive,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.name = name;
-        this.surname = surname;
         this.is_active = isActive;
         this.authorities = authorities;
     }
@@ -42,8 +38,6 @@ public class UserDetailsImpl implements UserDetails {
                 user.getId(),
                 user.getEmail(),
                 user.getPassword(),
-                user.getName(),
-                user.getSurname(),
                 user.getIs_active(),
                 authorities);
     }
@@ -77,7 +71,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name + " " + surname;
+        return email;
     }
 
     @Override
