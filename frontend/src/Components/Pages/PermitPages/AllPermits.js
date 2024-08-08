@@ -30,6 +30,20 @@ const AllPermits = () => {
     fetchLeaveRequests();
   }, []);
 
+
+  const getStatus = (isActive) => {
+    switch (isActive) {
+      case 'ACCEPT':
+        return 'KABUL EDİLDİ';
+      case 'REFUSE':
+        return 'REDDEDİLDİ';
+      case 'WAIT':
+        return 'BEKLENİYOR';
+      default:
+        return 'BİLİNMEYEN DURUM';
+    }
+  };
+
   return (
     <div>
       
@@ -61,7 +75,7 @@ const AllPermits = () => {
                     <td>{request.id}</td>
                     <td>{new Date(request.startDate).toLocaleDateString()}</td>
                     <td>{new Date(request.endDate).toLocaleDateString()}</td>
-                    <td>{request.isActive ? 'Aktif' : 'Pasif'}</td>
+                    <td>{getStatus(request.isActive)}</td>
                     <td>{request.email}</td>
                     <td>{request.daysBetweenDates}</td>
                   </tr>

@@ -59,10 +59,10 @@ function SideBar() {
                             </>
                         ) : (<></>)}
 
-                        <NavLink exact to="/homepage/employes" activeClassName="activeClicked">
+                        <NavLink exact to="/homepage/employees" activeClassName="activeClicked">
                             <CDBSidebarMenuItem icon="users">Çalışanlar</CDBSidebarMenuItem>
                         </NavLink>
-                        <NavLink exact to="/homepage/departmans" activeClassName="activeClicked">
+                        <NavLink exact to="/homepage/departments" activeClassName="activeClicked">
                             <CDBSidebarMenuItem icon="chart-line">Departmanlar</CDBSidebarMenuItem>
                         </NavLink>
                         <NavLink exact to="/homepage/organization" activeClassName="activeClicked">

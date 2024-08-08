@@ -78,7 +78,7 @@ const router = createBrowserRouter([
         ]
       },
       {
-        path: 'employes',
+        path: 'employees',
         element: (
           <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN']}>
             <div className='employee-container'>
@@ -88,7 +88,7 @@ const router = createBrowserRouter([
         )
       },
       {
-        path: 'departmans',
+        path: 'departments',
         element: (
           <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN']}>
             <Departmans />
