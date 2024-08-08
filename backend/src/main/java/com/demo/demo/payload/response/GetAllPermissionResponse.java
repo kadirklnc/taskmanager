@@ -23,6 +23,7 @@ public class GetAllPermissionResponse {
     private EIsActive isActive;
     private String email;
     private long daysBetweenDates;
+    private String description;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDateTime created_at;

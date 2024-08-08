@@ -17,6 +17,7 @@ public class GetByUserIdPermissionResponse {
     private EIsActive isActive;
     private String email;
     private long daysBetweenDates;
+    private String description;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDateTime created_at;
@@ -77,5 +78,13 @@ public class GetByUserIdPermissionResponse {
 
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

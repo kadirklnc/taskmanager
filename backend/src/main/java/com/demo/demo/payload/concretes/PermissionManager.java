@@ -77,6 +77,7 @@ public class PermissionManager implements PermissionService {
                     GetByUserIdPermissionResponse response = modelMapperService.customModelMapper().map(permission, GetByUserIdPermissionResponse.class);
                     response.setUserId(permission.getUser().getId());
                     response.setEmail(permission.getUser().getEmail());
+                    response.setDescription(permission.getDescription());
                     return response;
                 })
                 .collect(Collectors.toList());
