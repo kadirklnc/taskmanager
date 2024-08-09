@@ -3,6 +3,8 @@ package com.demo.demo.controllers;
 
 import com.demo.demo.payload.abstracts.UserService;
 import com.demo.demo.payload.request.PasswordChangeRequest;
+import com.demo.demo.payload.response.GetByIdUserResponse;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

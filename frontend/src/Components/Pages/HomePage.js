@@ -53,6 +53,7 @@ const HomePage = () => {
 
   const isAdmin = authState.roles.includes('ROLE_ADMIN');
   const isUser = authState.roles.includes('ROLE_USER');
+  const isModerator = authState.roles.includes('ROLE_MODERATOR');
 
   const getStatus = (status) => {
     switch (status) {
@@ -150,7 +151,7 @@ const HomePage = () => {
                     const startDate = new Date(request.startDate).toLocaleDateString();
                     const endDate = new Date(request.endDate).toLocaleDateString();
                     return (
-                      <tr key={request.id}>
+                      <tr key={request.userId}>
                         <td>{startDate}</td>
                         <td>{endDate}</td>
                         <td>{getStatus(request.isActive)}</td>

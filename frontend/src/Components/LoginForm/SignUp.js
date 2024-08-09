@@ -36,7 +36,7 @@ const SignUp = () => {
         try {
             const response = await axios.post('http://localhost:8080/api/auth/register', data);
             console.log(response.data);
-            navigate('/homepage');
+            navigate('/');
         } catch (error) {
             console.error('Signup error:', error);
             setErrors({ submit: 'Signup failed. Please try again.' });

@@ -94,10 +94,10 @@ const LeaveRequest = () => {
         </Card.Body>
       </Card>
 
-      <RequestModal 
-        show={showRequestModal} 
-        handleClose={() => setShowRequestModal(false)} 
-        handleSave={handleAddLeaveRequest} 
+      <RequestModal
+        show={showRequestModal}
+        handleClose={() => setShowRequestModal(false)}
+        handleSave={handleAddLeaveRequest}
       />
 
       <Card className="mt-3">
@@ -204,12 +204,15 @@ const RequestModal = ({ show, handleClose, handleSave }) => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Kaydet
-          </Button>
+          <div className='mt-3'>
+            <Button variant="success" type="submit">
+              Kaydet
+            </Button>
+          </div >
         </Form>
       </Modal.Body>
     </Modal>
+
   );
 };
 

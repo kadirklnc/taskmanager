@@ -31,6 +31,7 @@ const Login = () => {
             } else if (roles.includes('ROLE_ADMIN')) {
                 navigate('/homepage');
             }
+            
         } catch (error) {
             console.error('Login error:', error);
             setError('Login failed. Please check your email and password.');

@@ -36,13 +36,13 @@ public class AdminController {
     }
 
     @GetMapping("/getById/{id}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
     public GetByIdUserResponse getByIdUser(@PathVariable int id){
         return userService.getById(id);
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')  ")
     public void add(@RequestBody CreateUserRequest createUserRequest){
         this.userService.add(createUserRequest);
     }

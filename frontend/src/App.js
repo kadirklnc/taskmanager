@@ -34,7 +34,7 @@ const router = createBrowserRouter([
   {
     path: '/homepage',
     element: (
-      <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN']}>
+      <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN','ROLE_MODERATOR']}>
         <Main />
       </ProtectedRoute>
     ),
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
       {
         path: 'permit',
         element: (
-          <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN']}>
+          <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN','ROLE_MODERATOR']}>
             <PermitRouter />
           </ProtectedRoute>
         ),
@@ -80,7 +80,7 @@ const router = createBrowserRouter([
       {
         path: 'employees',
         element: (
-          <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN']}>
+          <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN','ROLE_MODERATOR']}>
             <div className='employee-container'>
               <Employees />
             </div>
@@ -90,7 +90,7 @@ const router = createBrowserRouter([
       {
         path: 'departments',
         element: (
-          <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN']}>
+          <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN','ROLE_MODERATOR']}>
             <Departmans />
           </ProtectedRoute>
         )
@@ -114,7 +114,7 @@ const router = createBrowserRouter([
       {
         path: 'report',
         element: (
-          <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN']}>
+          <ProtectedRoute requiredRoles={['ROLE_USER', 'ROLE_ADMIN','ROLE_MODERATOR']}>
             <Report />
           </ProtectedRoute>
         )

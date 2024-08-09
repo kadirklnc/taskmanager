@@ -37,13 +37,13 @@ public class PermissionController {
     }
 
     @GetMapping("/getByUserId/{userId}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER') or hasAuthority('ROLE_MODERATOR')")
     public List<GetByUserIdPermissionResponse> getByUserIdPermissionResponse(@PathVariable int userId){
         return permissionService.getPermissionsByUserId(userId);
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER') or hasAuthority('ROLE_MODERATOR')")
     public void add(@RequestBody CreatePermissionRequest createPermissionRequest){
         this.permissionService.add(createPermissionRequest);
     }
