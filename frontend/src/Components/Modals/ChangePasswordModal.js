@@ -17,24 +17,34 @@ const ChangePasswordModal = ({ show, handleClose }) => {
     }
     try {
       const token = localStorage.getItem('token');
-      await axios.put('http://localhost:8080/api/user/change-password', {
-        newPass,
-        oldPass
-      }, {
-        headers: {
-          'Authorization': `Bearer ${token}`
+      console.log('Token:', token);
+      console.log('Request Payload:', { oldPass, newPass });
+  
+      const response = await axios.put(
+        'http://localhost:8080/api/user/change-password',
+        {
+          newPass,
+          oldPass
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
         }
-      });
+      );
+      console.log('Response:', response.data);
       setSuccess('Şifreniz başarıyla değiştirildi.');
       setError(null);
       setOldPass('');
       setNewPass('');
       setConfirmPass('');
     } catch (err) {
+      console.error('Error:', err.response || err);
       setError('Şifre değiştirme işlemi başarısız oldu.');
       setSuccess(null);
     }
   };
+  
 
   return (
     <Modal show={show} onHide={handleClose}>

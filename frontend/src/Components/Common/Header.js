@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Import axios for API requests
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios'; 
 import './Header.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Header = () => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
-    const [firstName, setFirstName] = useState(''); // State to store the first name
-    const [lastName, setLastName] = useState(''); // State to store the last name
-    const userId = localStorage.getItem('id'); // Get the user ID from local storage
-    const token = localStorage.getItem('token'); // Get the token from local storage
+    const [firstName, setFirstName] = useState(''); 
+    const [lastName, setLastName] = useState(''); 
+    const userId = localStorage.getItem('id'); 
+    const token = localStorage.getItem('token'); 
+    const dropdownRef = useRef(null);
 
     const toggleDropdown = () => {
         setDropdownVisible(prev => !prev);
@@ -29,8 +30,8 @@ const Header = () => {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                setFirstName(response.data.name); // Assume the response contains a 'name' field
-                setLastName(response.data.surname)
+                setFirstName(response.data.name); 
+                setLastName(response.data.surname);
             } catch (err) {
                 console.error(err);
             }
@@ -41,6 +42,19 @@ const Header = () => {
         }
     }, [userId, token]);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setDropdownVisible(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
         <header className="header-container">
             <div className="header-left">Home Page</div>
@@ -48,7 +62,7 @@ const Header = () => {
                 <span className="header-username" onClick={toggleDropdown}>
                     Hoş Geldin {firstName} {lastName}
                 </span>
-                <div className="profile-icon-container" onClick={toggleDropdown}>
+                <div className="profile-icon-container" onClick={toggleDropdown} ref={dropdownRef}>
                     <i className="fa-solid fa-user header-icon"></i>
                     {dropdownVisible && (
                         <div className="dropdown-menu">
