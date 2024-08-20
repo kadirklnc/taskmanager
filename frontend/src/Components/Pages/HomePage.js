@@ -73,18 +73,18 @@ const HomePage = () => {
       <h1 className="page-title">Ana Sayfa</h1>
       <div className="button-container">
         {isUser && (
-          <Button size="sm" className="btn-new-button" onClick={handleShowRequestModal}>
+          <Button variant="success" size="sm" className="btn-new-button" onClick={handleShowRequestModal}>
             İzin Talep İşlemleri
           </Button>
         )}
         {' '}
         {isAdmin && (
           <>
-            <Button size="sm" className="btn-new-button" onClick={handleShowDepartmentModal}>
+            <Button variant="success" size="sm" className="btn-new-button" onClick={handleShowDepartmentModal}>
              Departman İşlemleri
             </Button>
             {' '}
-            <Button size="sm" className="btn-new-button" onClick={handleShowEmployeeModal}>
+            <Button variant="success" size="sm" className="btn-new-button" onClick={handleShowEmployeeModal}>
              Çalışan İşlemleri
             </Button>
           </>

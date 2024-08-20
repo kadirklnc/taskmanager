@@ -188,7 +188,7 @@ const Employees = () => {
                                 <td>{employee.gender}</td>
                                 <td>{employee.is_active ? 'Evet' : 'Hayır'}</td>
                                 <td>
-                                    <Button variant="info" onClick={() => handleSelectEmployee(employee.id)}>
+                                    <Button variant="success" onClick={() => handleSelectEmployee(employee.id)}>
                                         Düzenle
                                     </Button>
                                 </td>

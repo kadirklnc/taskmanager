@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Modal, Button, Form, Alert } from 'react-bootstrap';
 import axios from 'axios';
+import { AuthContext } from '../../Context/AuthContext';
 
 const ChangePasswordModal = ({ show, handleClose }) => {
   const [oldPass, setOldPass] = useState('');
@@ -9,6 +10,8 @@ const ChangePasswordModal = ({ show, handleClose }) => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
+  const { authState } = useContext(AuthContext);
+
   const handleChangePassword = async (e) => {
     e.preventDefault();
     if (newPass !== confirmPass) {
@@ -16,23 +19,18 @@ const ChangePasswordModal = ({ show, handleClose }) => {
       return;
     }
     try {
-      const token = localStorage.getItem('token');
-      console.log('Token:', token);
-      console.log('Request Payload:', { oldPass, newPass });
-  
       const response = await axios.put(
         'http://localhost:8080/api/user/change-password',
         {
-          newPass,
-          oldPass
+          oldPass,
+          newPass
         },
         {
           headers: {
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${authState.token}`
           }
         }
       );
-      console.log('Response:', response.data);
       setSuccess('Şifreniz başarıyla değiştirildi.');
       setError(null);
       setOldPass('');
@@ -44,7 +42,6 @@ const ChangePasswordModal = ({ show, handleClose }) => {
       setSuccess(null);
     }
   };
-  
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -85,7 +82,7 @@ const ChangePasswordModal = ({ show, handleClose }) => {
               required
             />
           </Form.Group>
-          <Button variant="primary" type="submit" className="mt-4">
+          <Button variant="success" type="submit" className="mt-4">
             Şifreyi Değiştir
           </Button>
         </Form>

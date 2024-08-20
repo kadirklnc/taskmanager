@@ -83,10 +83,10 @@ const EmployeeFormModal = ({ showModal, handleClose, handleChange, handleSave, c
                                 value={currentEmployee.gender || ''}
                                 onChange={handleChange}
                             >
-                                <option value="">Seçiniz</option>
+                               
                                 <option value="Erkek">Erkek</option>
                                 <option value="Kadin">Kadın</option>
-                                <option value="other">Diğer</option>
+                                
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formIsActive">
