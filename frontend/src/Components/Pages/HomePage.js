@@ -148,8 +148,14 @@ const HomePage = () => {
                 </thead>
                 <tbody>
                   {leaveRequests.map((request) => {
-                    const startDate = new Date(request.startDate).toLocaleDateString();
-                    const endDate = new Date(request.endDate).toLocaleDateString();
+                    const parseDate = (dateString) => {
+                      if (!dateString) return 'Invalid Date';
+                      const [day, month, year] = dateString.split('-');
+                      return new Date(`${year}-${month}-${day}`).toLocaleDateString('tr-TR');
+                    };
+
+                    const startDate = parseDate(request.startDate);
+                    const endDate = parseDate(request.endDate);
                     return (
                       <tr key={request.userId}>
                         <td>{startDate}</td>

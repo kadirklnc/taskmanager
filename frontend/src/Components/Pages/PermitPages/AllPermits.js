@@ -46,10 +46,10 @@ const AllPermits = () => {
 
   return (
     <div>
-      
+
 
       <Card className="mt-3">
-        <Card.Body>
+        <Card.Body >
           <Card.Title>İzin Talepleri</Card.Title>
           {isLoading ? (
             <p>Loading...</p>
@@ -58,7 +58,7 @@ const AllPermits = () => {
           ) : leaveRequests.length === 0 ? (
             <p>Henüz izin talebi yok.</p>
           ) : (
-            <Table striped bordered hover>
+            <Table striped bordered hover className="mt-3">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -70,17 +70,29 @@ const AllPermits = () => {
                 </tr>
               </thead>
               <tbody>
-                {leaveRequests.map((request) => (
-                  <tr key={request.id}>
-                    <td>{request.id}</td>
-                    <td>{new Date(request.startDate).toLocaleDateString()}</td>
-                    <td>{new Date(request.endDate).toLocaleDateString()}</td>
-                    <td>{getStatus(request.isActive)}</td>
-                    <td>{request.email}</td>
-                    <td>{request.daysBetweenDates}</td>
-                  </tr>
-                ))}
+                {leaveRequests.map((request) => {
+                  const parseDate = (dateString) => {
+                    if (!dateString) return 'Geçersiz Tarih'; 
+                    const [day, month, year] = dateString.split('-'); 
+                    return new Date(`${year}-${month}-${day}`).toLocaleDateString('tr-TR'); // YYYY-MM-DD formatına çevirir ve Türkçe tarih formatında döndürür
+                  };
+
+                  const startDate = parseDate(request.startDate);
+                  const endDate = parseDate(request.endDate);
+
+                  return (
+                    <tr key={request.id}>
+                      <td>{request.id}</td>
+                      <td>{startDate}</td>
+                      <td>{endDate}</td>
+                      <td>{getStatus(request.isActive)}</td>
+                      <td>{request.email}</td>
+                      <td>{request.daysBetweenDates}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
+
             </Table>
           )}
         </Card.Body>

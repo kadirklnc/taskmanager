@@ -31,6 +31,7 @@ const ChangePasswordModal = ({ show, handleClose }) => {
           }
         }
       );
+      
       setSuccess('Şifreniz başarıyla değiştirildi.');
       setError(null);
       setOldPass('');

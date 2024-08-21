@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Table, Modal, Form } from 'react-bootstrap';
+import { Card, Button, Table } from 'react-bootstrap';
 import axios from 'axios';
 import './Permit.css';
+import RequestModal from './RequestModal'; // Modal'ı import edin
 
 const LeaveRequest = () => {
   const [showRequestModal, setShowRequestModal] = useState(false);
@@ -102,7 +103,7 @@ const LeaveRequest = () => {
 
       <Card className="mt-3">
         <Card.Body>
-          <Card.Title>İzin Talepleri</Card.Title>
+          <Card.Title >İzin Talepleri</Card.Title>
           {isLoading ? (
             <p>Loading...</p>
           ) : error ? (
@@ -110,10 +111,9 @@ const LeaveRequest = () => {
           ) : leaveRequests.length === 0 ? (
             <p>Henüz izin talebiniz yok.</p>
           ) : (
-            <Table striped bordered hover>
+            <Table striped bordered hover className="mt-3">
               <thead>
                 <tr>
-                  {/* <th>ID</th> */}
                   <th>Başlangıç Tarihi</th>
                   <th>Bitiş Tarihi</th>
                   <th>Durum</th>
@@ -124,11 +124,18 @@ const LeaveRequest = () => {
               </thead>
               <tbody>
                 {leaveRequests.map((request) => {
-                  const startDate = new Date(request.startDate).toLocaleDateString();
-                  const endDate = new Date(request.endDate).toLocaleDateString();
+                  // Function to parse 'dd-MM-yyyy' format
+                  const parseDate = (dateString) => {
+                    if (!dateString) return 'Invalid Date';
+                    const [day, month, year] = dateString.split('-');
+                    return new Date(`${year}-${month}-${day}`).toLocaleDateString('tr-TR');
+                  };
+
+                  const startDate = parseDate(request.startDate);
+                  const endDate = parseDate(request.endDate);
+
                   return (
                     <tr key={request.id}>
-                      {/* <td>{request.id}</td> */}
                       <td>{startDate}</td>
                       <td>{endDate}</td>
                       <td>{getStatus(request.isActive)}</td>
@@ -139,80 +146,12 @@ const LeaveRequest = () => {
                   );
                 })}
               </tbody>
+
             </Table>
           )}
         </Card.Body>
       </Card>
     </div>
-  );
-};
-
-const RequestModal = ({ show, handleClose, handleSave }) => {
-  const [formData, setFormData] = useState({
-    startDate: '',
-    endDate: '',
-    description: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleSave(formData);
-  };
-
-  return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>İzin Talebi</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group>
-            <Form.Label>Başlangıç Tarihi</Form.Label>
-            <Form.Control
-              type="date"
-              name="startDate"
-              value={formData.startDate}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Bitiş Tarihi</Form.Label>
-            <Form.Control
-              type="date"
-              name="endDate"
-              value={formData.endDate}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Açıklama</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <div className='mt-3'>
-            <Button variant="success" type="submit">
-              Kaydet
-            </Button>
-          </div >
-        </Form>
-      </Modal.Body>
-    </Modal>
-
   );
 };
 
