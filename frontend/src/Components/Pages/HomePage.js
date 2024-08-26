@@ -42,14 +42,17 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    fetchLeaveRequests();
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetchLeaveRequests();
+    }
   }, []);
+  
 
   const handleShowRequestModal = () => navigate('/homepage/permit');
   const handleShowDepartmentModal = () => navigate('/homepage/departments');;
-  const handleCloseDepartmentModal = () => setShowDepartmentModal(false);
   const handleShowEmployeeModal = () => navigate('/homepage/employees');;
-  const handleCloseEmployeeModal = () => setShowEmployeeModal(false);
+  
 
   const isAdmin = authState.roles.includes('ROLE_ADMIN');
   const isUser = authState.roles.includes('ROLE_USER');

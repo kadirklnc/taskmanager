@@ -1,34 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Table, Button } from 'react-bootstrap';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Departments.css'; // Import the new CSS file
+import './Departments.css';
 import SearchBar from '../Common/SearchBar';
+import { FaCaretDown } from 'react-icons/fa';
 
 const Departmans = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const departments = [
-    {
-      name: 'Yönetim',
-      position: 'Manager',
-      department: 'Izmir Vucaj',
-      email: '1 kiși',
-    },
-    // Add more department data here
-  ];
+  const [departments, setDepartments] = useState([]);
+  const [expandedDepartment, setExpandedDepartment] = useState(null);
+  const dropdownRef = useRef(null);
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          console.error('No token found in localStorage');
+          return;
+        }
+
+        const response = await axios.get('http://localhost:8080/api/admin/getAll', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setDepartments(response.data);
+      } catch (error) {
+        console.error('Error fetching department data:', error);
+      }
+    };
+
+    fetchDepartments();
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setExpandedDepartment(null);
+        setIsDropdownOpen(false);
+        document.body.classList.remove('blurred');
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleSearch = (query) => {
     setSearchTerm(query.toLowerCase());
   };
 
-  const filteredDepartments = departments.filter(department =>
-    department.name.toLowerCase().includes(searchTerm) ||
-    department.position.toLowerCase().includes(searchTerm) ||
-    department.department.toLowerCase().includes(searchTerm) ||
-    department.email.toLowerCase().includes(searchTerm) ||
-    department.phone.includes(searchTerm) ||
-    department.startDate.toLowerCase().includes(searchTerm) ||
-    department.reportsTo.toLowerCase().includes(searchTerm)
+  const groupedDepartments = departments.reduce((acc, department) => {
+    if (!acc[department.department]) {
+      acc[department.department] = {
+        name: department.department,
+        workers: [],
+      };
+    }
+    acc[department.department].workers.push(`${department.name} ${department.surname}` || 'N/A');
+    return acc;
+  }, {});
+
+  const groupedDepartmentsArray = Object.values(groupedDepartments);
+
+  const filteredDepartments = groupedDepartmentsArray.filter((department) =>
+    department.name.toLowerCase().includes(searchTerm)
   );
+
+  const handleToggle = (department) => {
+    const newExpandedDepartment = expandedDepartment === department ? null : department;
+    setExpandedDepartment(newExpandedDepartment);
+    setIsDropdownOpen(newExpandedDepartment !== null);
+
+    // Add or remove the blur effect on the body when dropdown is toggled
+    if (newExpandedDepartment) {
+      document.body.classList.add('blurred');
+    } else {
+      document.body.classList.remove('blurred');
+    }
+  };
 
   return (
     <div className="department-list-container">
@@ -44,19 +100,34 @@ const Departmans = () => {
         <thead>
           <tr>
             <th>Departman Adı</th>
-            <th>Bağlı Olduğu Departman</th>
-            <th>Departman Yöneticisi</th>
             <th>Çalışanlar</th>
           </tr>
         </thead>
         <tbody>
           {filteredDepartments.map((department, index) => (
             <tr key={index}>
-              <td>{department.name}</td>
-              <td>{department.position}</td>
-              <td>{department.department}</td>
-              <td>{department.email}</td>
-
+              <td>{department.name || 'N/A'}</td>
+              <td>
+                <div ref={dropdownRef} className={`dropdown-wrapper ${isDropdownOpen ? 'active' : ''}`}>
+                  <span>
+                    {department.workers.length > 0 ? department.workers[0] : 'N/A'}
+                  </span>
+                  <FaCaretDown
+                    className="dropdown-icon"
+                    onClick={() => handleToggle(department.name)}
+                    style={{ cursor: 'pointer', marginLeft: '10px' }}
+                  />
+                  {expandedDepartment === department.name && (
+                    <div className="dropdown-menu1">
+                      <div className="dropdown-scroll">
+                        {department.workers.map((worker, idx) => (
+                          <div key={idx} className="dropdown-item">{worker}</div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </td>
             </tr>
           ))}
         </tbody>

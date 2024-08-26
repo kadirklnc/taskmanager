@@ -60,6 +60,13 @@ const PermitAllow = () => {
     }
   };
 
+  // Function to parse dates
+  const parseDate = (dateString) => {
+    if (!dateString) return 'Invalid Date';
+    const [day, month, year] = dateString.split('-');
+    return new Date(`${year}-${month}-${day}`).toLocaleDateString('tr-TR');
+  };
+
   return (
     <div>
       <Card className="mt-3">
@@ -88,8 +95,8 @@ const PermitAllow = () => {
                 {leaveRequests.map((request) => (
                   <tr key={request.id}>
                     <td>{request.id}</td>
-                    <td>{new Date(request.startDate).toLocaleDateString()}</td>
-                    <td>{new Date(request.endDate).toLocaleDateString()}</td>
+                    <td>{parseDate(request.startDate)}</td>
+                    <td>{parseDate(request.endDate)}</td>
                     <td>{getStatus(request.isActive)}</td>
                     <td>{request.email}</td>
                     <td>{request.daysBetweenDates}</td>

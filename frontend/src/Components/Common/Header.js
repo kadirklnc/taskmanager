@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios'; 
+import axios from 'axios';
 import './Header.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Header = () => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
-    const [firstName, setFirstName] = useState(''); 
-    const [lastName, setLastName] = useState(''); 
-    const userId = localStorage.getItem('id'); 
-    const token = localStorage.getItem('token'); 
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [loading, setLoading] = useState(true);
+    const userId = localStorage.getItem('id');
+    const token = localStorage.getItem('token');
     const dropdownRef = useRef(null);
+
 
     const toggleDropdown = () => {
         setDropdownVisible(prev => !prev);
@@ -30,10 +32,13 @@ const Header = () => {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                setFirstName(response.data.name); 
+                setFirstName(response.data.name);
                 setLastName(response.data.surname);
             } catch (err) {
                 console.error(err);
+            }
+            finally {
+                setLoading(false); // name,surname icin Yüklenme durumu tamamlandı
             }
         };
 
@@ -60,7 +65,7 @@ const Header = () => {
             <div className="header-left">Home Page</div>
             <div className="header-right">
                 <span className="header-username" onClick={toggleDropdown}>
-                    Hoş Geldin {firstName} {lastName}
+                    {loading ? "Yukleniyor...": `Hoş Geldin ${firstName} ${lastName}`}
                 </span>
                 <div className="profile-icon-container" onClick={toggleDropdown} ref={dropdownRef}>
                     <i className="fa-solid fa-user header-icon"></i>

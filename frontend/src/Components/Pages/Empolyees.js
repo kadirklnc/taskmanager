@@ -5,6 +5,7 @@ import axios from 'axios';
 import SearchBar from '../Common/SearchBar';
 import EmployeeFormModal from './EmployeeFormModal';
 import './Employees.css';
+
 const Employees = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [employees, setEmployees] = useState([]);
@@ -131,7 +132,7 @@ const Employees = () => {
     const formatDateToDatabase = (dateString) => {
         if (!dateString) return '';
         const [day, month, year] = dateString.split('-');
-        return `${day}-${month}-${year}`;
+        return `${year}-${month}-${day}`;
     };
     return (
         <div className="employee-list-page">
