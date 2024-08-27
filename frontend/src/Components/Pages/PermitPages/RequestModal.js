@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+
+import { useNavigate } from 'react-router-dom';
 import { Modal, Button, Form } from 'react-bootstrap';
 
 const RequestModal = ({ show, handleClose, handleSave }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     description: '',
     endDate: '',
@@ -20,6 +23,8 @@ const RequestModal = ({ show, handleClose, handleSave }) => {
     e.preventDefault();
     handleSave(formData);
     handleClose();
+    
+    navigate(0);
   };
 
   return (

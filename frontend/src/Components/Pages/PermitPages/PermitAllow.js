@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { Card, Table, Button } from 'react-bootstrap';
 import axios from 'axios';
+
+import { AuthContext } from '../../../Context/AuthContext';
 import './Permit.css';
 
 const PermitAllow = () => {
   const [leaveRequests, setLeaveRequests] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  const { authState } = useContext(AuthContext);
+  const isAdmin = authState.roles.includes('ROLE_ADMIN');
 
   // Function to fetch leave requests from API
   const fetchLeaveRequests = async () => {
@@ -69,6 +74,7 @@ const PermitAllow = () => {
 
   return (
     <div>
+      {isAdmin &&
       <Card className="mt-3">
         <Card.Body>
           <Card.Title>İzin Talepleri</Card.Title>
@@ -110,7 +116,7 @@ const PermitAllow = () => {
             </Table>
           )}
         </Card.Body>
-      </Card>
+      </Card>}
     </div>
   );
 };

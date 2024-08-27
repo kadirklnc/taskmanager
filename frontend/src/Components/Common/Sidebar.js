@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import {
     CDBSidebar,
     CDBSidebarContent,
@@ -9,11 +9,17 @@ import {
 } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
 import '../Common/Sidebar.css';
+import { AuthContext } from '../../Context/AuthContext';
 
 function SideBar() {
+    
+  const { authState } = useContext(AuthContext);
     const [showSubMenu, setShowSubMenu] = useState(false);
 
     const toggleSubMenu = () => setShowSubMenu(!showSubMenu);
+    const isAdmin = authState.roles.includes('ROLE_ADMIN');
+    const isUser = authState.roles.includes('ROLE_USER');
+    const isMod = authState.roles.includes('ROLE_MODERATOR');
 
     return (
         <div className="sidebar-container">
@@ -44,9 +50,11 @@ function SideBar() {
                                 <NavLink exact to="/homepage/permit" activeClassName="activeClicked">
                                     <CDBSidebarMenuItem className='subMenuTest'>İzin Taleplerim</CDBSidebarMenuItem>
                                 </NavLink>
-                                <NavLink exact to="/homepage/permit/person" activeClassName="activeClicked">
+                                {isAdmin && <NavLink exact to="/homepage/permit/person" activeClassName="activeClicked">
                                     <CDBSidebarMenuItem className='subMenuTest'>İzin Onaylari</CDBSidebarMenuItem>
-                                </NavLink>
+                                </NavLink> } 
+                                {(isAdmin || isMod)&&
+                                <>  
                                 <NavLink exact to="/homepage/permit/people" activeClassName="activeClicked">
                                     <CDBSidebarMenuItem className='subMenuTest'>İzinli Çalışanlar</CDBSidebarMenuItem>
                                 </NavLink>
@@ -56,29 +64,28 @@ function SideBar() {
                                 <NavLink exact to="/homepage/permit/all" activeClassName="activeClicked">
                                     <CDBSidebarMenuItem className='subMenuTest'>Tüm İzinler</CDBSidebarMenuItem>
                                 </NavLink>
+                                </>
+                                }
                             </>
                         ) : (<></>)}
 
                         <NavLink exact to="/homepage/employees" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="users">Çalışanlar</CDBSidebarMenuItem>
+                        {(isAdmin || isMod) &&
+                            <CDBSidebarMenuItem icon="users">Çalışanlar</CDBSidebarMenuItem>}
                         </NavLink>
+
                         <NavLink exact to="/homepage/departments" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="chart-line">Departmanlar</CDBSidebarMenuItem>
+                        {(isAdmin || isMod) &&
+                            <CDBSidebarMenuItem icon="chart-line">Departmanlar</CDBSidebarMenuItem>}
                         </NavLink>
+
                         <NavLink exact to="/homepage/organization" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="sitemap">Organization</CDBSidebarMenuItem>
-                        </NavLink>
-                        <NavLink exact to="/homepage/inventory" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="boxes">Envanter ve Zimmet</CDBSidebarMenuItem>
-                        </NavLink>
-                        <NavLink exact to="/homepage/travel" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="plane">Seyahat İşlemleri</CDBSidebarMenuItem>
-                        </NavLink>
-                        <NavLink exact to="/homepage/expense" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="money-bill">Avans ve Harcama</CDBSidebarMenuItem>
+                        {(isAdmin || isMod)&&
+                            <CDBSidebarMenuItem icon="sitemap">Organization</CDBSidebarMenuItem>}
                         </NavLink>
                         <NavLink exact to="/homepage/report" activeClassName="activeClicked">
-                            <CDBSidebarMenuItem icon="chart-bar">Raporlar</CDBSidebarMenuItem>
+                        {(isAdmin || isMod) &&
+                            <CDBSidebarMenuItem icon="chart-bar">Raporlar</CDBSidebarMenuItem>}
                         </NavLink>
                         <NavLink exact to="/homepage/settings" activeClassName="activeClicked">
                             <CDBSidebarMenuItem icon="cog">Ayarlar</CDBSidebarMenuItem>
