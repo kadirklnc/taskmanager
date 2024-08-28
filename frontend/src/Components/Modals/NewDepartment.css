@@ -1,0 +1,20 @@
+.new-department-modal .modal-dialog { /*  Automatic Class Application:  <Modal> generates .modal-dialog and .modal-content */
+  
+    max-width: 40%; /* Adjust the width as needed */
+  }
+  
+  .new-department-nav {
+    margin-bottom: 1.5rem; /* Add spacing below the navigation */
+  }
+  
+  .new-department-form {
+    padding: 1rem; /* Add padding to the form */
+  }
+  
+  .new-department-form-group {
+    margin-bottom: 1.0rem; /* Add spacing between form groups */
+    
+  }
+  
+
+  

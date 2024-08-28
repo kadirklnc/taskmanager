@@ -64,7 +64,10 @@ const RequestModal = ({ show, handleClose, handleSave }) => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Button variant="success" type="submit" className='mt-3'>
+          <Button variant="secondary" onClick={handleClose} className="mt-4">
+                İptal
+            </Button>
+          <Button variant="success" type="submit" className='mt-4'>
             Kaydet
           </Button>
         </Form>

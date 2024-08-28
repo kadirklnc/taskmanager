@@ -83,6 +83,9 @@ const ChangePasswordModal = ({ show, handleClose }) => {
               required
             />
           </Form.Group>
+          <Button variant="secondary" onClick={handleClose} className="mt-4">
+                İptal
+            </Button>
           <Button variant="success" type="submit" className="mt-4">
             Şifreyi Değiştir
           </Button>

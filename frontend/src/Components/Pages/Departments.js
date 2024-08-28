@@ -5,9 +5,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Departments.css';
 import SearchBar from '../Common/SearchBar';
 import { FaCaretDown } from 'react-icons/fa';
+import NewDepartment from '../Modals/NewDepartment';
+
+
 
 const Departmans = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const [departments, setDepartments] = useState([]);
   const [expandedDepartment, setExpandedDepartment] = useState(null);
   const dropdownRef = useRef(null);
@@ -92,7 +96,7 @@ const Departmans = () => {
         <h3>Departmanlar ({filteredDepartments.length})</h3>
         <div className="department-list-actions">
           <Button variant="outline-success">İçe Aktar</Button>
-          <Button variant="success">+ Yeni Departman Oluştur</Button>
+          <Button variant="success" onClick={() => setShowModal(true)}>+ Yeni Departman Oluştur</Button>
         </div>
       </div>
       <SearchBar onSearch={handleSearch} placeholder="Departman Ara" />
@@ -132,6 +136,7 @@ const Departmans = () => {
           ))}
         </tbody>
       </Table>
+      <NewDepartment show={showModal} handleClose={() => setShowModal(false)} />
     </div>
   );
 };

@@ -107,7 +107,7 @@ const EmployeeFormModal = ({ showModal, handleClose, handleChange, handleSave, c
         </Modal.Body>
         <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-                Kapat
+                İptal
             </Button>
             <Button variant="success" onClick={handleSave}>
                 Kaydet
