@@ -12,6 +12,8 @@ const Employees = () => {
     const [showModal, setShowModal] = useState(false);
     const [currentEmployee, setCurrentEmployee] = useState(null);
     const [originalEmployee, setOriginalEmployee] = useState(null);
+    // const userId = localStorage.getItem('id');
+
     useEffect(() => {
         const fetchEmployees = async () => {
             try {
@@ -33,14 +35,17 @@ const Employees = () => {
         };
         fetchEmployees();
     }, []);
+
     const handleSearch = (query) => {
         setSearchTerm(query.toLowerCase());
     };
+
     const filteredEmployees = employees.filter(employee =>
         Object.values(employee).some(value =>
             value ? value.toString().toLowerCase().includes(searchTerm) : false
         )
     );
+
     const handleSelectEmployee = (id) => {
         const selectedEmployee = employees.find(emp => emp.id === parseInt(id));
         setCurrentEmployee({ ...selectedEmployee });
@@ -50,10 +55,6 @@ const Employees = () => {
 
     const handleSave = async () => {
         if (!currentEmployee) return;
-        if (!currentEmployee) {
-            console.error('Current employee is null');
-            return;
-        }
 
         try {
             const token = localStorage.getItem('token');
@@ -69,8 +70,6 @@ const Employees = () => {
                     data[key] = key === 'date' ? formatDateToDatabase(currentEmployee[key]) : currentEmployee[key];
                 }
             }
-
-            console.log('Data to be sent:', data);  // Log the data to be sent for debugging
 
             let response;
 
@@ -92,6 +91,7 @@ const Employees = () => {
                     }
                 });
             }
+
             if (response.status === 200 || response.status === 201) {
                 const updatedEmployees = currentEmployee.id
                     ? employees.map(employee => employee.id === currentEmployee.id ? { ...currentEmployee } : employee)
@@ -103,18 +103,37 @@ const Employees = () => {
             }
         } catch (error) {
             console.error('Error saving employee data:', error);
-            if (error.response) {
-                // Request made and server responded
-                console.error('Error response data:', error.response.data);
-                console.error('Error response status:', error.response.status);
-                console.error('Error response headers:', error.response.headers);
-            } else if (error.request) {
-                // Request made but no response received
-                console.error('Error request:', error.request);
-            } else {
-                // Something else happened while setting up the request
-                console.error('Error message:', error.message);
+        }
+    };
+
+    const handleDeleteEmployee = async (id) => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                console.error('No token found in localStorage');
+                return;
             }
+
+            if (id == null || id === '') {
+                console.error('Invalid ID');
+                return;
+            }
+
+            const response = await axios.delete(`http://localhost:8080/api/admin/deleteuser/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (response.status === 200) {
+                // Remove the deleted employee from the state
+                const updatedEmployees = employees.filter(employee => employee.id !== id);
+                setEmployees(updatedEmployees);
+            } else {
+                console.error('Failed to delete employee:', response);
+            }
+        } catch (error) {
+            console.error('Error deleting employee:', error);
         }
     };
 
@@ -123,6 +142,7 @@ const Employees = () => {
         const updatedValue = name === 'is_active' ? parseInt(value) : value;
         setCurrentEmployee(prevState => ({ ...prevState, [name]: updatedValue }));
     };
+
     const formatDateToDisplay = (dateString) => {
         if (!dateString) return '';
         const [year, month, day] = dateString.split('-');
@@ -134,6 +154,7 @@ const Employees = () => {
         const [day, month, year] = dateString.split('-');
         return `${year}-${month}-${day}`;
     };
+
     return (
         <div className="employee-list-page">
             <div className="employee-list-header">
@@ -188,11 +209,17 @@ const Employees = () => {
                                 <td>{employee.department}</td>
                                 <td>{employee.gender}</td>
                                 <td>{employee.is_active ? 'Evet' : 'Hayır'}</td>
-                                <td>
-                                    <Button variant="success" onClick={() => handleSelectEmployee(employee.id)}>
-                                        Düzenle
-                                    </Button>
+                                <td className='actions-cell'>
+                                    <div className="action-buttons">
+                                        <Button variant="success" className="succes-button-employee" onClick={() => handleSelectEmployee(employee.id)}>
+                                            Düzenle
+                                        </Button>
+                                        <Button variant="danger" className="danger-button-employee" onClick={() => handleDeleteEmployee(employee.id)}>
+                                            Sil
+                                        </Button>
+                                    </div>
                                 </td>
+
                             </tr>
                         ))}
                     </tbody>
@@ -208,4 +235,5 @@ const Employees = () => {
         </div>
     );
 };
+
 export default Employees;

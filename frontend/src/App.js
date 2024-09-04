@@ -21,6 +21,7 @@ import AllPermits from './Components/Pages/PermitPages/AllPermits';
 import MyPage from './Components/Pages/MyPage';
 import ProtectedRoute from './ProtectedRoute';
 import { AuthProvider } from './Context/AuthContext';
+import Organization from './Components/Pages/Organization';
 
 const router = createBrowserRouter([
   {
@@ -97,7 +98,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'organization',
-        element: <HomePage />
+        element: <Organization />
       },
       {
         path: 'inventory',

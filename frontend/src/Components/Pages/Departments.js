@@ -7,16 +7,14 @@ import SearchBar from '../Common/SearchBar';
 import { FaCaretDown } from 'react-icons/fa';
 import NewDepartment from '../Modals/NewDepartment';
 
-
-
 const Departmans = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [departments, setDepartments] = useState([]);
   const [expandedDepartment, setExpandedDepartment] = useState(null);
   const dropdownRef = useRef(null);
-
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
 
   useEffect(() => {
     const fetchDepartments = async () => {
@@ -74,7 +72,7 @@ const Departmans = () => {
   const groupedDepartmentsArray = Object.values(groupedDepartments);
 
   const filteredDepartments = groupedDepartmentsArray.filter((department) =>
-    department.name.toLowerCase().includes(searchTerm)
+    department.name ? department.name.toLowerCase().includes(searchTerm) : false
   );
 
   const handleToggle = (department) => {
@@ -82,7 +80,6 @@ const Departmans = () => {
     setExpandedDepartment(newExpandedDepartment);
     setIsDropdownOpen(newExpandedDepartment !== null);
 
-    // Add or remove the blur effect on the body when dropdown is toggled
     if (newExpandedDepartment) {
       document.body.classList.add('blurred');
     } else {

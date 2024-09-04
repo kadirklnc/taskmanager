@@ -1,0 +1,18 @@
+.organization-container {
+     /* margin: 20px; */
+     padding: 20px;
+     background: #ffffff;
+     border-radius: 8px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     position: relative;
+     height:auto;
+     /* border:1px solid red; */
+  }
+  
+  .organization-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  

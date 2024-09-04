@@ -3,6 +3,7 @@ import { Modal, Button, Form, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { AuthContext } from '../../Context/AuthContext';
 
+
 const ChangePasswordModal = ({ show, handleClose }) => {
   const [oldPass, setOldPass] = useState('');
   const [newPass, setNewPass] = useState('');

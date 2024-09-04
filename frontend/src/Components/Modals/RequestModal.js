@@ -4,7 +4,6 @@ import { Modal, Button, Form, ModalTitle } from 'react-bootstrap';
 
 const RequestModal = ({ show, handleClose }) => {
   const [showForm, setShowForm] = useState(false);
-
   const handleOptionClick = () => {
     setShowForm(true);
   };
@@ -37,8 +36,8 @@ const RequestModal = ({ show, handleClose }) => {
             <Form.Label>Açıklama</Form.Label>
             <Form.Control as="textarea" rows={3} placeholder="Açıklama" />
           </Form.Group>
-
         </Form>
+
       </Modal.Body>
       <Modal.Footer>
         <Button variant="primary" type="submit" onClick={handleClose}>

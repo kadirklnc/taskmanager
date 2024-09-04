@@ -30,7 +30,7 @@ const SignUp = () => {
             email,
             username,
             password,
-            role: ['user'] 
+            role: ['user']
         };
 
         try {
@@ -51,35 +51,27 @@ const SignUp = () => {
                         <div className="col-md-10 col-lg-6 order-2 order-lg-1 d-flex flex-column align-items-center">
                             <h1 className="text-center fw-bold mb-5 mx-1 mx-md-4 mt-4">Kayıt Ol</h1>
 
+
                             <div className="mb-4">
-                                <label htmlFor="username" className="form-label">Kullanıcı Adı *</label>
+                                <label htmlFor="username" className="form-label">E-posta *</label>
                                 <div className="d-flex flex-row align-items-center">
-                                    <i className="bi bi-person me-3" style={{ fontSize: '1.5rem' }}></i>
+                                    <i className="bi bi-envelope me-3"
+                                        style={{ fontSize: '1.5rem' }}></i>
                                     <input
                                         type="text"
                                         id="username"
                                         className={`form-control ${errors.username ? 'is-invalid' : ''}`}
-                                        placeholder="Kullanıcı Adınızı Giriniz"
+                                        placeholder="E-postanızı giriniz"
                                         value={username}
                                         onChange={(e) => setUsername(e.target.value)}
                                     />
                                 </div>
                             </div>
 
-                            <div className="mb-4">
-                                <label htmlFor="email" className="form-label">E-posta *</label>
-                                <div className="d-flex flex-row align-items-center">
-                                    <i className="bi bi-envelope me-3" style={{ fontSize: '1.5rem' }}></i>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-                                        placeholder="E-posta"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                </div>
-                            </div>
+
+
+
+
 
                             <div className="mb-4">
                                 <label htmlFor="password" className="form-label">Şifre *</label>

@@ -1,0 +1,5 @@
+.sifre-degistir-button,
+.oturumu-kapat-button {
+    width: 140px; /* Genişliği ihtiyacınıza göre ayarlayın */
+    margin: 5px; /* Butonlar arasındaki mesafe */
+}

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Table } from 'react-bootstrap';
+import { Card, Button, Table, Dropdown } from 'react-bootstrap';
 import axios from 'axios';
 import './Permit.css';
-import RequestModal from './RequestModal'; // Modal'ı import edin
+import RequestModal from './RequestModal'; // Import the modal
 
 const LeaveRequest = () => {
   const [showRequestModal, setShowRequestModal] = useState(false);
@@ -16,7 +16,7 @@ const LeaveRequest = () => {
       const userId = localStorage.getItem('id');
       const response = await axios.get(`http://localhost:8080/api/permission/getByUserId/${userId}`, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -46,7 +46,7 @@ const LeaveRequest = () => {
       newRequest.userId = userId;
       const response = await axios.post('http://localhost:8080/api/permission/add', newRequest, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
@@ -68,6 +68,24 @@ const LeaveRequest = () => {
       } else {
         console.error('Error message:', error.message);
       }
+    }
+  };
+
+  const handleDeleteRequest = async (id) => {
+    try {
+      console.log('Deleting request with ID:', id); // Add this for debugging
+      const userId = localStorage.getItem('id');
+      const token = localStorage.getItem('token');
+      await axios.delete(`http://localhost:8080/api/permission/delete-status/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Update the leaveRequests state after deletion
+      setLeaveRequests(leaveRequests.filter((request) => request.id !== id));
+    } catch (error) {
+      console.error('Error deleting leave request:', error);
     }
   };
 
@@ -103,7 +121,7 @@ const LeaveRequest = () => {
 
       <Card className="mt-3">
         <Card.Body>
-          <Card.Title >İzin Talepleri</Card.Title>
+          <Card.Title>İzin Talepleri</Card.Title>
           {isLoading ? (
             <p>Loading...</p>
           ) : error ? (
@@ -114,17 +132,18 @@ const LeaveRequest = () => {
             <Table striped bordered hover className="mt-3">
               <thead>
                 <tr>
+                  <th>Talep Tarihi</th>
                   <th>Başlangıç Tarihi</th>
                   <th>Bitiş Tarihi</th>
                   <th>Durum</th>
                   <th>Açıklama</th>
                   <th>E-posta</th>
                   <th>Gün Sayısı</th>
+                  <th>Aksiyonlar</th>
                 </tr>
               </thead>
               <tbody>
                 {leaveRequests.map((request) => {
-                  // Function to parse 'dd-MM-yyyy' format
                   const parseDate = (dateString) => {
                     if (!dateString) return 'Invalid Date';
                     const [day, month, year] = dateString.split('-');
@@ -136,17 +155,20 @@ const LeaveRequest = () => {
 
                   return (
                     <tr key={request.id}>
+                      <td>{request.created_at}</td>
                       <td>{startDate}</td>
                       <td>{endDate}</td>
                       <td>{getStatus(request.isActive)}</td>
                       <td>{request.description}</td>
                       <td>{request.email}</td>
                       <td>{request.daysBetweenDates}</td>
+                      <td>
+                       
+                      </td>
                     </tr>
                   );
                 })}
               </tbody>
-
             </Table>
           )}
         </Card.Body>

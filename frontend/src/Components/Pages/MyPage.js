@@ -4,7 +4,7 @@ import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import userProfileImage from '../../assets/userprofile.png';
 import ChangePasswordModal from '../Modals/ChangePasswordModal';
-
+import './MyPage.css';
 
 const MyPage = () => {
   const [userData, setUserData] = useState(null);
@@ -60,8 +60,8 @@ const MyPage = () => {
             <Card.Body>
               <Card.Title>{name} {surname}</Card.Title>
               <Card.Text>{email}</Card.Text>
-              <Button variant="success" onClick={() => setShowChangePassword(true)}>Şifre Değiştir</Button>
-              <Button variant="danger" className="mt-2" onClick={handleLogout}>Logout</Button>
+              <Button variant="success" className='sifre-degistir-button' onClick={() => setShowChangePassword(true)}>Şifre Değiştir</Button>
+              <Button variant="danger" className="oturumu-kapat-button" onClick={handleLogout}>Oturumu Kapat</Button>
             </Card.Body>
           </Card>
         </Col>

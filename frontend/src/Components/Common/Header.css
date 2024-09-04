@@ -66,3 +66,6 @@
 .dropdown-item:active {
     background-color: #e2e2e2;
 }
+.header-logo{
+    width:120px;
+}
