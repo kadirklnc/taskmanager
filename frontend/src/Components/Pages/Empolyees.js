@@ -114,26 +114,38 @@ const Employees = () => {
                 return;
             }
 
-            if (id == null || id === '') {
+            if (id == null || id === '' || isNaN(id)) {
                 console.error('Invalid ID');
                 return;
             }
 
-            const response = await axios.delete(`http://localhost:8080/api/admin/deleteuser/${id}`, {
+            // Convert id to string
+            const employeeId = String(Math.floor(Math.abs(Number(id))));
+
+            console.log('Attempting to delete employee with ID:', employeeId);
+
+            const response = await axios.delete(`http://localhost:8080/api/admin/deleteuser/${employeeId}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
 
+            console.log('Delete response:', response);
+
             if (response.status === 200) {
-                // Remove the deleted employee from the state
-                const updatedEmployees = employees.filter(employee => employee.id !== id);
+                console.log('Employee deleted successfully');
+                const updatedEmployees = employees.filter(employee => employee.id !== Number(employeeId));
                 setEmployees(updatedEmployees);
             } else {
                 console.error('Failed to delete employee:', response);
             }
         } catch (error) {
             console.error('Error deleting employee:', error);
+            if (error.response) {
+                console.error('Error response:', error.response.data);
+                console.error('Error status:', error.response.status);
+                console.error('Error headers:', error.response.headers);
+            }
         }
     };
 

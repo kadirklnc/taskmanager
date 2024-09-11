@@ -25,7 +25,8 @@
     "react-router-dom": "^6.25.1",
     "react-scripts": "5.0.1",
     "react-split": "^2.0.14",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "chart.js": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

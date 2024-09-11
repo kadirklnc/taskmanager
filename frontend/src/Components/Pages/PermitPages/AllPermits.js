@@ -50,7 +50,7 @@ const AllPermits = () => {
 
       <Card className="mt-3">
         <Card.Body >
-          <Card.Title>İzin Talepleri</Card.Title>
+          <Card.Title>Tüm İzinler</Card.Title>
           {isLoading ? (
             <p>Loading...</p>
           ) : error ? (
