@@ -1,1 +1,136 @@
- 
+.report-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 23px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    height: auto;
+}
+
+.report-title {
+    text-align: left;
+    color: #333;
+    font-size:32px;
+    margin-bottom: 40px;
+    
+}
+
+.report-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.report-section {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.report-section h2 {
+    color: #333;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.data-bar-container, .data-column-container {
+    height: 200px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+}
+
+.data-bar, .data-column {
+    position: relative;
+    width: 40%;
+    text-align: center;
+}
+
+.data-bar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.column {
+    width: 100%;
+    background-color: #4BC0C0;
+    position: absolute;
+    bottom: 0;
+}
+
+.data-label, .data-number {
+    padding: 5px;
+    color: white;
+}
+
+.data-circle-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.data-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.data-circle-content {
+    text-align: center;
+}
+
+.data-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.data-list-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.data-color {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.data-card-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.data-card {
+    text-align: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    width: 45%;
+}
+
+.data-icon {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.data-number {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .report-grid {
+        grid-template-columns: 1fr;
+    }
+}

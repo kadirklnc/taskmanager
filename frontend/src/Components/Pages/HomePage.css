@@ -1,12 +1,13 @@
 .content-container {
-    margin-left: 12px;
-
-    margin-right:25px;
+    /* margin-left: 12px; */
+    padding:20px;
+    /* margin-right:25px; */
 }
 
 .page-title {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     /* Adjust the margin as needed */
+
 }
 
 .custom-card {

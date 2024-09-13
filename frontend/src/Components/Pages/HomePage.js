@@ -73,7 +73,7 @@ const HomePage = () => {
 
   return (
     <div className="content-container">
-      <h1 className="page-title">Ana Sayfa</h1>
+      <h3 className="page-title">Ana Sayfa</h3>
       <div className="button-container">
         {isUser && (
           <Button variant="success" size="sm" className="btn-new-button" onClick={handleShowRequestModal}>

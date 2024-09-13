@@ -170,7 +170,7 @@ const Employees = () => {
     return (
         <div className="employee-list-page">
             <div className="employee-list-header">
-                <h3>Çalışanlar ({filteredEmployees.length})</h3>
+                <h3 className="employee-list-header">Çalışanlar ({filteredEmployees.length})</h3>
                 <div className="employee-list-actions">
                     <Button variant="outline-success">İçe Aktar</Button>
                     <Button variant="success" onClick={() => {
