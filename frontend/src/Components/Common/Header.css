@@ -5,12 +5,16 @@
     padding: 10px 20px;
     background-color: #f8f9fa;
     border-bottom: 1px solid #dee2e6;
-    height: 70px
+    height: 70px;
 }
 
 .header-left {
-    font-size: 18px;
-    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    width: 120px; /* Adjust the size of the logo as needed */
 }
 
 .header-right {
@@ -26,28 +30,28 @@
 }
 
 .profile-icon-container {
-    position: relative; /* Ensure the dropdown menu is positioned relative to this container */
+    position: relative;
     cursor: pointer;
 }
 
 .header-icon {
     font-size: 20px;
-    color: #333; /* Icon color */
+    color: #333;
 }
 
-.dropdown-menu{
+.dropdown-menu {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 100%; /* Position below the profile icon */
-    right: 0; /* Align menu to the right edge of the profile icon */
+    top: 100%;
+    right: 0;
     background-color: white;
     border: 1px solid #ffffff;
     border-radius: 4px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensure menu appears above other elements */
-    width: 150px; /* Adjust width as needed */
-    padding: 0; /* Remove default padding */
+    z-index: 1000;
+    width: 150px;
+    padding: 0;
 }
 
 .dropdown-item {
@@ -55,7 +59,7 @@
     text-decoration: none;
     color: #333;
     display: block;
-    font-size: 14px; /* Adjust font size as needed */
+    font-size: 14px;
     transition: background-color 0.3s ease;
 }
 
@@ -65,7 +69,4 @@
 
 .dropdown-item:active {
     background-color: #e2e2e2;
-}
-.header-logo{
-    width:120px;
 }

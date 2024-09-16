@@ -139,7 +139,7 @@ const LeaveRequest = () => {
                   <th>Açıklama</th>
                   <th>E-posta</th>
                   <th>Gün Sayısı</th>
-                  <th>Aksiyonlar</th>
+                  {/* <th>Aksiyonlar</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -162,9 +162,9 @@ const LeaveRequest = () => {
                       <td>{request.description}</td>
                       <td>{request.email}</td>
                       <td>{request.daysBetweenDates}</td>
-                      <td>
+                      
                        
-                      </td>
+                    
                     </tr>
                   );
                 })}

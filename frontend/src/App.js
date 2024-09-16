@@ -22,6 +22,7 @@ import MyPage from './Components/Pages/MyPage';
 import ProtectedRoute from './ProtectedRoute';
 import { AuthProvider } from './Context/AuthContext';
 import Organization from './Components/Pages/Organization';
+import Settings from './Components/Pages/Settings';
 
 const router = createBrowserRouter([
   {
@@ -122,7 +123,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'settings',
-        element: <HomePage />
+        element: <Settings></Settings>
       }
     ]
   }

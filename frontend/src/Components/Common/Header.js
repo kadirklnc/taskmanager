@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './Header.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import image from '../../assets/Dailychart.png';
-
+import logo from '../../assets/Dailychart.png'; // Add your logo image here
 
 const Header = () => {
     const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -13,7 +12,6 @@ const Header = () => {
     const userId = localStorage.getItem('id');
     const token = localStorage.getItem('token');
     const dropdownRef = useRef(null);
-
 
     const toggleDropdown = () => {
         setDropdownVisible(prev => !prev);
@@ -38,8 +36,7 @@ const Header = () => {
                 setLastName(response.data.surname);
             } catch (err) {
                 console.error(err);
-            }
-            finally {
+            } finally {
                 setLoading(false); // name,surname icin Yüklenme durumu tamamlandı
             }
         };
@@ -65,10 +62,11 @@ const Header = () => {
     return (
         <header className="header-container">
             <div className="header-left">
+                {/* <img src={logo} alt="Logo" className="header-logo" /> */}
             </div>
             <div className="header-right">
                 <span className="header-username" onClick={toggleDropdown}>
-                    {loading ? "Yukleniyor..." : `Hoş Geldin ${firstName} ${lastName}`}
+                    {loading ? "Yükleniyor..." : `Hoş Geldin ${firstName} ${lastName}`}
                 </span>
                 <div className="profile-icon-container" onClick={toggleDropdown} ref={dropdownRef}>
                     <i className="fa-solid fa-user header-icon"></i>
