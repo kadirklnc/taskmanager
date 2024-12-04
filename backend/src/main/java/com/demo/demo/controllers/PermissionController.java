@@ -4,7 +4,6 @@ import com.demo.demo.payload.abstracts.PermissionService;
 import com.demo.demo.payload.request.CreatePermissionRequest;
 import com.demo.demo.payload.request.UpdatePermissionRequest;
 import com.demo.demo.payload.request.UpdateTotalLeaveDays;
-import com.demo.demo.payload.request.UpdateUserRequest;
 import com.demo.demo.payload.response.GetAllPermissionResponse;
 import com.demo.demo.payload.response.GetByIdPermissionResponse;
 import com.demo.demo.payload.response.GetByUserIdPermissionResponse;

@@ -1,8 +1,6 @@
 package com.demo.demo.security.jwt;
 
-import com.demo.demo.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
 import org.slf4j.Logger;
@@ -13,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.security.Key;
 import java.util.Date;
 
 @Component
@@ -25,6 +22,7 @@ public class JwtUtils {
 
     private SecretKey jwtSecret = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
+    @SuppressWarnings("deprecation")
     public String generateJwtToken(Authentication authentication) {
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
 
@@ -37,6 +35,7 @@ public class JwtUtils {
     }
 
 
+    @SuppressWarnings("deprecation")
     public boolean validateJwtToken(String authToken) {
         try {
             logger.info("Validating token: {}", authToken); // Log the token

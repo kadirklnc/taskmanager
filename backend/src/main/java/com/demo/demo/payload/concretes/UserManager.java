@@ -75,11 +75,6 @@ public class UserManager implements UserService {
         userBusinessRules.checkIfEmailExists(createUserRequest.getEmail());
 
 
-        Integer isActive = createUserRequest.getIs_active();
-        if (isActive == null) {
-            isActive = 1;
-        }
-
         User user = new User(
                 createUserRequest.getEmail(),
                 encoder.encode(createUserRequest.getPassword()),

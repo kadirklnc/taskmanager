@@ -1,7 +1,6 @@
 package com.demo.demo.controllers;
 
 
-import com.demo.demo.payload.abstracts.PermissionService;
 import com.demo.demo.payload.abstracts.UserService;
 import com.demo.demo.payload.request.CreateUserRequest;
 import com.demo.demo.payload.request.PasswordChangeRequest;
@@ -21,9 +20,6 @@ import java.util.List;
 public class AdminController {
 
     private final UserService userService;
-
-    private PermissionService permissionService;
-
 
     public AdminController(UserService userService) {
         this.userService = userService;

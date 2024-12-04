@@ -69,12 +69,6 @@ public class AuthManager implements AuthService {
 
         userBusinessRules.checkIfEmailExists(signupRequest.getEmail());
 
-        Integer isActive = signupRequest.getIs_active();
-        if (isActive == null) {
-            isActive = 1;
-        }
-
-
         User user = new User(
                 signupRequest.getEmail(),
                 encoder.encode(signupRequest.getPassword()),

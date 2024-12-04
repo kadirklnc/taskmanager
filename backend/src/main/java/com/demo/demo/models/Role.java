@@ -2,7 +2,6 @@ package com.demo.demo.models;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
