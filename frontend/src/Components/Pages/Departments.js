@@ -7,14 +7,13 @@ import SearchBar from '../Common/SearchBar';
 import { FaCaretDown } from 'react-icons/fa';
 import NewDepartment from '../Modals/NewDepartment';
 
-const Departmans = () => {
+const Departments = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [departments, setDepartments] = useState([]);
   const [expandedDepartment, setExpandedDepartment] = useState(null);
   const dropdownRef = useRef(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
 
   useEffect(() => {
     const fetchDepartments = async () => {
@@ -87,13 +86,52 @@ const Departmans = () => {
     }
   };
 
+  const handleAddDepartment = async (departmentData) => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Oturum bilgisi bulunamadı. Lütfen tekrar giriş yapın.');
+        return;
+      }
+
+      console.log('Gönderilen veri:', departmentData); // Debug için
+
+      const response = await axios.post('http://localhost:8080/api/admin/add', 
+        departmentData,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      if (response.status === 200 || response.status === 201) {
+        alert('Departman başarıyla eklendi');
+        // Departman listesini güncelle
+        const updatedResponse = await axios.get('http://localhost:8080/api/admin/getAll', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setDepartments(updatedResponse.data);
+        setShowModal(false);
+      }
+    } catch (error) {
+      console.error('Error adding department:', error);
+      alert('Departman eklenirken bir hata oluştu');
+    }
+  };
+
   return (
     <div className="department-list-container">
       <div className="department-list-header">
         <h3>Departmanlar ({filteredDepartments.length})</h3>
         <div className="department-list-actions">
           <Button variant="outline-success">İçe Aktar</Button>
-          <Button variant="success" onClick={() => setShowModal(true)}>+ Yeni Departman Oluştur</Button>
+          <Button variant="success" onClick={() => setShowModal(true)}>
+            + Yeni Departman Oluştur
+          </Button>
         </div>
       </div>
       <SearchBar onSearch={handleSearch} placeholder="Departman Ara" />
@@ -133,9 +171,15 @@ const Departmans = () => {
           ))}
         </tbody>
       </Table>
-      <NewDepartment show={showModal} handleClose={() => setShowModal(false)} />
+      {showModal && (
+        <NewDepartment 
+          show={showModal} 
+          handleClose={() => setShowModal(false)} 
+          onSave={handleAddDepartment}
+        />
+      )}
     </div>
   );
 };
 
-export default Departmans;
+export default Departments;

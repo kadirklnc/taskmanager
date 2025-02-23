@@ -106,7 +106,7 @@ const LeaveRequest = () => {
     <div>
       <Card className="mt-3">
         <Card.Body>
-          <Card.Title>Yıllık İzin</Card.Title>
+          <Card.Title>İzin Al</Card.Title>
           <Button variant="success" className="mt-3" onClick={() => setShowRequestModal(true)}>
             + İzin Talebi
           </Button>
@@ -125,7 +125,7 @@ const LeaveRequest = () => {
           {isLoading ? (
             <p>Loading...</p>
           ) : error ? (
-            <p>Error loading data.</p>
+            <p>İzin talebiniz yok</p>
           ) : leaveRequests.length === 0 ? (
             <p>Henüz izin talebiniz yok.</p>
           ) : (

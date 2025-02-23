@@ -45,8 +45,14 @@ public class AdminController {
 
     @DeleteMapping("/deleteuser/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public void delete(int id){
-        this.userService.delete(id);
+    public ResponseEntity<?> delete(@PathVariable Integer id) {  // int yerine Integer
+        try {
+            this.userService.delete(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Silme işlemi sırasında hata: " + e.getMessage());
+        }
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")

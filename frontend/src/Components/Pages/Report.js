@@ -45,111 +45,104 @@ export default function Report() {
   return (
     <div className="report-container">
       <h3 className="report-title">Raporlar</h3>
-      <div className="report-grid-container">
-        <div className="report-grid">
-          {/* Mevcut rapor bölümleri buraya */}
-          <div className="row row-cols-1 row-cols-md-2 g-3">
-            {/* Gender Distribution */}
-            <div className="col">
-              <div className="card h-100">
-                <div className="card-body">
-                  <h3 className="card-title mb-4">Kadın ve Erkek Çalışan Sayıları</h3>
-                  <div className="progress mb-3" style={{ height: '30px' }}>
-                    <div className="progress-bar bg-danger" role="progressbar" style={{ width: `${femalePercentage}%` }} aria-valuenow={femalePercentage} aria-valuemin="0" aria-valuemax="100">
-                      Kadın {genderData.female}
+      <div className="row g-4">
+        {/* Gender Distribution */}
+        <div className="col-md-6">
+          <div className="card report-card">
+            <div className="card-body">
+              <h3 className="card-title">Cinsiyet Dağılımı</h3>
+              <div className="progress mb-3" style={{ height: '30px' }}>
+                <div 
+                  className="progress-bar female-bar" 
+                  style={{ width: `${femalePercentage}%` }}
+                >
+                  Kadın ({genderData.female})
+                </div>
+              </div>
+              <div className="progress" style={{ height: '30px' }}>
+                <div 
+                  className="progress-bar male-bar" 
+                  style={{ width: `${malePercentage}%` }}
+                >
+                  Erkek ({genderData.male})
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Marital Status */}
+        <div className="col-md-6">
+          <div className="card report-card">
+            <div className="card-body">
+              <h3 className="card-title">Medeni Durum</h3>
+              <div className="row align-items-center">
+                <div className="col-md-6">
+                  <div className="status-circle">
+                    <div>
+                      <h3 className="mb-0">70%</h3>
+                      <p className="mb-0">Evli</p>
                     </div>
                   </div>
-                  <div className="progress" style={{ height: '30px' }}>
-                    <div className="progress-bar bg-primary" role="progressbar" style={{ width: `${malePercentage}%` }} aria-valuenow={malePercentage} aria-valuemin="0" aria-valuemax="100">
-                      Erkek {genderData.male}
-                    </div>
+                </div>
+                <div className="col-md-6">
+                  <div className="d-flex flex-column gap-2">
+                    <div className="status-badge bg-success">Evli: 70</div>
+                    <div className="status-badge bg-secondary">Bekar: 30</div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Marital Status */}
-            <div className="col">
-              <div className="card h-100">
-                <div className="card-body">
-                  <h3 className="card-title mb-4">Evli ve Bekar Çalışan Sayıları</h3>
-                  <div className="row align-items-center">
-                    <div className="col-md-6">
-                      <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style={{ width: '150px', height: '150px' }}>
-                        <div>
-                          <h3 className="mb-0">70%</h3>
-                          <p className="mb-0">Evli</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <ul className="list-unstyled">
-                        <li className="mb-2">
-                          <span className="badge bg-primary me-2">Evli </span> 70
-                        </li>
-                        <li>
-                          <span className="badge bg-secondary me-2">Bekar</span> 30
-                        </li>
-                      </ul>
-                    </div>
+        {/* Work Experience */}
+        <div className="col-md-6">
+          <div className="card report-card">
+            <div className="card-body">
+              <h3 className="card-title">Çalışma Süreleri</h3>
+              <div className="mt-4">
+                <div className="d-flex align-items-center mb-3">
+                  <div className="progress experience-bar flex-grow-1">
+                    <div className="progress-bar bg-success" style={{ width: '20%' }}>20%</div>
                   </div>
+                  <span className="experience-label ms-3">0-1 Yıl</span>
+                </div>
+                <div className="d-flex align-items-center mb-3">
+                  <div className="progress experience-bar flex-grow-1">
+                    <div className="progress-bar bg-info" style={{ width: '50%' }}>50%</div>
+                  </div>
+                  <span className="experience-label ms-3">1-3 Yıl</span>
+                </div>
+                <div className="d-flex align-items-center">
+                  <div className="progress experience-bar flex-grow-1">
+                    <div className="progress-bar bg-warning" style={{ width: '30%' }}>30%</div>
+                  </div>
+                  <span className="experience-label ms-3">3+ Yıl</span>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Work Experience */}
-            <div className="col">
-              <div className="card h-100">
-                <div className="card-body">
-                  <h3 className="card-title mb-4">Çalışma Sürelerine Göre Dağılımı</h3>
-                  <div className="mb-3">
-                    <div className="d-flex align-items-center mb-2">
-                      <div className="progress flex-grow-1 me-2" style={{ height: '25px' }}>
-                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: '20%' }} aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20%</div>
-                      </div>
-                      <span className="text-muted">0-1 Yıl</span>
-                    </div>
-                    <div className="d-flex align-items-center mb-2">
-                      <div className="progress flex-grow-1 me-2" style={{ height: '25px' }}>
-                        <div className="progress-bar bg-primary" role="progressbar" style={{ width: '50%' }} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
-                      </div>
-                      <span className="text-muted">1-3 Yıl</span>
-                    </div>
-                    <div className="d-flex align-items-center">
-                      <div className="progress flex-grow-1 me-2" style={{ height: '25px' }}>
-                        <div className="progress-bar bg-warning" role="progressbar" style={{ width: '30%' }} aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                      </div>
-                      <span className="text-muted">3+ Yıl</span>
-                    </div>
+        {/* Children Count */}
+        <div className="col-md-6">
+          <div className="card report-card">
+            <div className="card-body">
+              <h3 className="card-title">Çocuk Durumu</h3>
+              <div className="row g-3 mt-2">
+                <div className="col-6">
+                  <div className="children-card p-3 text-center">
+                    <div className="emoji-display">👨‍👩‍👧‍👦</div>
+                    <div className="count-display">50</div>
+                    <p className="text-muted mb-0">Çocuklu</p>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            {/* Children */}
-            <div className="col">
-              <div className="card h-100">
-                <div className="card-body">
-                  <h3 className="card-title mb-4">Çalışanların Çocuk Sayıları</h3>
-                  <div className="row text-center">
-                    <div className="col-6">
-                      <div className="card bg-light">
-                        <div className="card-body">
-                          <h1 className="display-4">👨‍👩‍👧‍👦</h1>
-                          <h3>50</h3>
-                          <p className="text-muted">Çocuklu</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-6">
-                      <div className="card bg-light">
-                        <div className="card-body">
-                          <h1 className="display-4">👫</h1>
-                          <h3>50</h3>
-                          <p className="text-muted">Çocuksuz</p>
-                        </div>
-                      </div>
-                    </div>
+                <div className="col-6">
+                  <div className="children-card p-3 text-center">
+                    <div className="emoji-display">👫</div>
+                    <div className="count-display">50</div>
+                    <p className="text-muted mb-0">Çocuksuz</p>
                   </div>
                 </div>
               </div>

@@ -54,7 +54,7 @@ const AllPermits = () => {
           {isLoading ? (
             <p>Loading...</p>
           ) : error ? (
-            <p>Error loading data.</p>
+            <p>.</p>
           ) : leaveRequests.length === 0 ? (
             <p>Henüz izin talebi yok.</p>
           ) : (

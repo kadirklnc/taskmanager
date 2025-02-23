@@ -47,14 +47,16 @@ function SideBar() {
 
                         {showSubMenu ? (
                             <>
-                                <NavLink exact to="/homepage/permit" activeClassName="activeClicked">
-                                    <CDBSidebarMenuItem className='subMenuTest'>İzin Taleplerim</CDBSidebarMenuItem>
-                                </NavLink>
-                                {isAdmin && <NavLink exact to="/homepage/permit/person" activeClassName="activeClicked">
-                                    <CDBSidebarMenuItem className='subMenuTest'>İzin Onaylari</CDBSidebarMenuItem>
-                                </NavLink>}
-                                {(isAdmin || isMod) &&
+                                {!isAdmin && (
+                                    <NavLink exact to="/homepage/permit" activeClassName="activeClicked">
+                                        <CDBSidebarMenuItem className='subMenuTest'>İzin Taleplerim</CDBSidebarMenuItem>
+                                    </NavLink>
+                                )}
+                                {isAdmin && (
                                     <>
+                                        <NavLink exact to="/homepage/permit/person" activeClassName="activeClicked">
+                                            <CDBSidebarMenuItem className='subMenuTest'>İzin Onaylari</CDBSidebarMenuItem>
+                                        </NavLink>
                                         <NavLink exact to="/homepage/permit/people" activeClassName="activeClicked">
                                             <CDBSidebarMenuItem className='subMenuTest'>İzinli Çalışanlar</CDBSidebarMenuItem>
                                         </NavLink>
@@ -65,10 +67,9 @@ function SideBar() {
                                             <CDBSidebarMenuItem className='subMenuTest'>Tüm İzinler</CDBSidebarMenuItem>
                                         </NavLink>
                                     </>
-                                }
+                                )}
                             </>
                         ) : (<></>)}
-
                         <NavLink exact to="/homepage/employees" activeClassName="activeClicked">
                             {(isAdmin || isMod) &&
                                 <CDBSidebarMenuItem icon="users">Çalışanlar</CDBSidebarMenuItem>}
@@ -79,10 +80,10 @@ function SideBar() {
                                 <CDBSidebarMenuItem icon="chart-line">Departmanlar</CDBSidebarMenuItem>}
                         </NavLink>
 
-                        <NavLink exact to="/homepage/organization" activeClassName="activeClicked">
+                        {/* <NavLink exact to="/homepage/organization" activeClassName="activeClicked">
                             {(isAdmin || isMod) &&
                                 <CDBSidebarMenuItem icon="sitemap">Organization</CDBSidebarMenuItem>}
-                        </NavLink>
+                        </NavLink> */}
                         <NavLink exact to="/homepage/report" activeClassName="activeClicked">
                             {(isAdmin || isMod) &&
                                 <CDBSidebarMenuItem icon="chart-bar">Raporlar</CDBSidebarMenuItem>}

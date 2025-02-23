@@ -1,76 +1,77 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, ModalTitle, Nav } from 'react-bootstrap';
-import Countries from '../../countries.json';
-import './NewDepartment.css'; // Import your custom CSS
+import React, { useState } from 'react';
+import { Modal, Button, Form } from 'react-bootstrap';
 
-const NewDepartment = ({ show, handleClose }) => {
-  const [activeTab, setActiveTab] = useState('basic');
-  const [countryList, setCountryList] = useState([]);
+const NewDepartment = ({ show, handleClose, onSave }) => {
+  const [formData, setFormData] = useState({
+    department: '',
+    name: ''
+  });
 
-  useEffect(() => {
-    setCountryList(Countries); // Set countries from JSON to state
-  }, []);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    if (!formData.department.trim() || !formData.name.trim()) {
+      alert('Lütfen tüm alanları doldurunuz');
+      return;
+    }
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
+    // Backend'in beklediği formatta veri gönder
+    onSave({ 
+      department: formData.department.trim(),
+      name: formData.name.trim(),
+      surname: "-",
+      email: "-",
+      password: "-",
+      phone: "-",
+      date: "2024-01-01",
+      gender: "-",
+      is_active: 1,
+      role: ["USER"]
+    });
+
+    // Formu temizle
+    setFormData({
+      department: '',
+      name: ''
+    });
   };
 
   return (
-    <Modal show={show} onHide={handleClose} size="lg" className="new-department-modal">
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <ModalTitle>Yeni Departman Oluştur</ModalTitle>
+        <Modal.Title>Yeni Departman Ekle</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Nav variant="tabs" activeKey={activeTab} onSelect={handleTabChange} className="mb-3 new-department-nav">
-          <Nav.Item>
-            <Nav.Link eventKey="basic">Temel Bilgiler</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey="address">Adres Bilgileri</Nav.Link>
-          </Nav.Item>
-        </Nav>
-        <Form className="new-department-form">
-          {activeTab === 'basic' && (
-            <div>
-              <Form.Group controlId="formDepartmentName" className="new-department-form-group">
-                <Form.Label>Departman Adı</Form.Label>
-                <Form.Control type="text" />
-              </Form.Group>
-              <Form.Group controlId="formDepartmentChef" className="new-department-form-group">
-                <Form.Label>Departman Yöneticisi</Form.Label>
-                <Form.Control as="textarea" rows={1} />
-              </Form.Group>
-            </div>
-          )}
-          {activeTab === 'address' && (
-            <div>
-              <Form.Group controlId="formCountry" className="new-department-form-group">
-                <Form.Label>Ülke</Form.Label>
-                <Form.Control as="select">
-                  <option value="" disabled selected>Ülke Seçiniz</option>
-                  {countryList.map((country, index) => (
-                    <option key={index}>{country.name}</option>
-                  ))}
-                </Form.Control>
-              </Form.Group>
-              <Form.Group controlId="formCity" className="new-department-form-group">
-                <Form.Label>İl</Form.Label>
-                <Form.Control type="text" />
-              </Form.Group>
-              <Form.Group controlId="formAddress" className="new-department-form-group">
-                <Form.Label>Adres</Form.Label>
-                <Form.Control as="textarea" rows={3} />
-              </Form.Group>
-            </div>
-          )}
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3">
+            <Form.Label>Departman Adı</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Departman adını giriniz"
+              value={formData.department}
+              onChange={(e) => setFormData({...formData, department: e.target.value})}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Çalıșan Adı</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Çalıșan adını giriniz"
+              value={formData.name}
+              onChange={(e) => setFormData({...formData, name: e.target.value})}
+              required
+            />
+          </Form.Group>
         </Form>
       </Modal.Body>
-      <Modal.Footer className="new-department-footer">
+      <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           İptal
         </Button>
-        <Button variant="success" type="submit" onClick={handleClose}>
-          Departman Oluştur
+        <Button variant="success" onClick={handleSubmit}>
+          Kaydet
         </Button>
       </Modal.Footer>
     </Modal>

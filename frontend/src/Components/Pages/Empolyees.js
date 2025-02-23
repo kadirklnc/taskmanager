@@ -12,7 +12,6 @@ const Employees = () => {
     const [showModal, setShowModal] = useState(false);
     const [currentEmployee, setCurrentEmployee] = useState(null);
     const [originalEmployee, setOriginalEmployee] = useState(null);
-    // const userId = localStorage.getItem('id');
 
     useEffect(() => {
         const fetchEmployees = async () => {
@@ -64,7 +63,6 @@ const Employees = () => {
             }
 
             const data = {};
-
             for (const key in currentEmployee) {
                 if (currentEmployee[key] !== originalEmployee[key]) {
                     data[key] = key === 'date' ? formatDateToDatabase(currentEmployee[key]) : currentEmployee[key];
@@ -74,7 +72,6 @@ const Employees = () => {
             let response;
 
             if (currentEmployee.id) {
-                // Update existing employee
                 response = await axios.put(`http://localhost:8080/api/admin/update/${currentEmployee.id}`, data, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -82,7 +79,6 @@ const Employees = () => {
                     }
                 });
             } else {
-                // Create new employee
                 const { id, ...employeeWithoutId } = currentEmployee;
                 response = await axios.post('http://localhost:8080/api/admin/add', employeeWithoutId, {
                     headers: {
@@ -110,41 +106,35 @@ const Employees = () => {
         try {
             const token = localStorage.getItem('token');
             if (!token) {
-                console.error('No token found in localStorage');
+                alert('Oturum bilgisi bulunamadı. Lütfen tekrar giriş yapın.');
                 return;
             }
 
-            if (id == null || id === '' || isNaN(id)) {
-                console.error('Invalid ID');
+            if (!window.confirm('Bu çalışanı silmek istediğinizden emin misiniz?')) {
                 return;
             }
 
-            // Convert id to string
-            const employeeId = String(Math.floor(Math.abs(Number(id))));
-
-            console.log('Attempting to delete employee with ID:', employeeId);
-
-            const response = await axios.delete(`http://localhost:8080/api/admin/deleteuser/${employeeId}`, {
+            const response = await axios.delete(`http://localhost:8080/api/admin/deleteuser/${id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
 
-            console.log('Delete response:', response);
-
-            if (response.status === 200) {
-                console.log('Employee deleted successfully');
-                const updatedEmployees = employees.filter(employee => employee.id !== Number(employeeId));
-                setEmployees(updatedEmployees);
-            } else {
-                console.error('Failed to delete employee:', response);
+            if (response.status === 200 || response.status === 204) {
+                setEmployees(prevEmployees => 
+                    prevEmployees.filter(employee => employee.id !== id)
+                );
+                alert('Çalışan başarıyla silindi');
             }
         } catch (error) {
-            console.error('Error deleting employee:', error);
-            if (error.response) {
-                console.error('Error response:', error.response.data);
-                console.error('Error status:', error.response.status);
-                console.error('Error headers:', error.response.headers);
+            console.error('Delete error:', error);
+
+            if (error.response?.status === 403) {
+                alert('Bu işlem için yetkiniz bulunmamaktadır.');
+            } else if (error.response?.status === 500) {
+                alert('Sunucu hatası: Çalışan silinirken bir sorun oluştu.');
+            } else {
+                alert('Silme işlemi başarısız oldu. Lütfen daha sonra tekrar deneyin.');
             }
         }
     };
@@ -175,7 +165,7 @@ const Employees = () => {
                     <Button variant="outline-success">İçe Aktar</Button>
                     <Button variant="success" onClick={() => {
                         setCurrentEmployee({
-                            id: null, // New employee, so id is null
+                            id: null,
                             name: '',
                             surname: '',
                             password: '',
@@ -186,7 +176,6 @@ const Employees = () => {
                             gender: '',
                             is_active: '',
                         });
-                        setOriginalEmployee(null);
                         setOriginalEmployee({});
                         setShowModal(true);
                     }}>

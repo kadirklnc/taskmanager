@@ -52,37 +52,76 @@ const MyPage = () => {
   };
 
   return (
-    <Container fluid>
-      <Row className="mt-4">
-        <Col sm={10} md={4}>
-          <Card className="text-center" style={{ maxWidth: '250px', margin: '0 auto' }}>
-            <Card.Img variant="top" src={userProfileImage} alt="Profile Picture" />
-            <Card.Body>
-              <Card.Title>{name} {surname}</Card.Title>
-              <Card.Text>{email}</Card.Text>
-              <Button variant="success" className='sifre-degistir-button' onClick={() => setShowChangePassword(true)}>Şifre Değiştir</Button>
-              <Button variant="danger" className="oturumu-kapat-button" onClick={handleLogout}>Oturumu Kapat</Button>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col sm={10} md={8}>
-          <Card>
-            <Card.Header as="h5">Temel Bilgiler</Card.Header>
-            <ListGroup variant="flush">
-              <ListGroup.Item><strong>Id:</strong> {id}</ListGroup.Item>
-              <ListGroup.Item><strong>Adı Soyadı:</strong> {name} {surname}</ListGroup.Item>
-              <ListGroup.Item><strong>Telefon No:</strong> {phone}</ListGroup.Item>
-              <ListGroup.Item><strong>E-posta:</strong> {email}</ListGroup.Item>
-              <ListGroup.Item><strong>Doğum Tarihi:</strong> {formatDateToDisplay(date)}</ListGroup.Item>
-              <ListGroup.Item><strong>Cinsiyet:</strong> {gender}</ListGroup.Item>
-              <ListGroup.Item><strong>Departman:</strong> {department}</ListGroup.Item>
-              <ListGroup.Item><strong>Aktif Durumu:</strong> {is_active ? 'Evet' : 'Hayır'}</ListGroup.Item>
-            </ListGroup>
-          </Card>
-        </Col>
-      </Row>
+    <div className="page-container">
+      <div className="page-grid">
+        <div className="profile-card">
+          <div className="profile-section">
+            <img 
+              src={userProfileImage} 
+              alt="Profile Picture" 
+              className="profile-image"
+            />
+            <h4 className="profile-name">{name} {surname}</h4>
+            <p className="profile-email">{email}</p>
+            <div className="button-container">
+              <button 
+                className="btn-password"
+                onClick={() => setShowChangePassword(true)}
+              >
+                Şifre Değiştir
+              </button>
+              <button 
+                className="btn-logout"
+                onClick={handleLogout}
+              >
+                Oturumu Kapat
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="info-card">
+          <div className="info-header">
+            <h5>Temel Bilgiler</h5>
+          </div>
+          <ul className="info-list">
+            <li className="info-item">
+              <span className="info-label">Id:</span>
+              <span className="info-value">{id}</span>
+            </li>
+            <li className="info-item">
+              <span className="info-label">Adı Soyadı:</span>
+              <span className="info-value">{name} {surname}</span>
+            </li>
+            <li className="info-item">
+              <span className="info-label">Telefon No:</span>
+              <span className="info-value">{phone}</span>
+            </li>
+            <li className="info-item">
+              <span className="info-label">E-posta:</span>
+              <span className="info-value">{email}</span>
+            </li>
+            <li className="info-item">
+              <span className="info-label">Doğum Tarihi:</span>
+              <span className="info-value">{formatDateToDisplay(date)}</span>
+            </li>
+            <li className="info-item">
+              <span className="info-label">Cinsiyet:</span>
+              <span className="info-value">{gender}</span>
+            </li>
+            <li className="info-item">
+              <span className="info-label">Departman:</span>
+              <span className="info-value">{department}</span>
+            </li>
+            <li className="info-item">
+              <span className="info-label">Aktif Durumu:</span>
+              <span className="info-value">{is_active ? 'Evet' : 'Hayır'}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
       <ChangePasswordModal show={showChangePassword} handleClose={() => setShowChangePassword(false)} />
-    </Container>
+    </div>
   );
 };
 
