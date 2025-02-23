@@ -43,7 +43,7 @@ const SignUp = () => {
             console.log(response.data);
             navigate('/');
         } catch (error) {
-            console.error('Signup error:', error);
+            console.error('Signup error:', error.response ? error.response.data : error.message);
             setErrors({ submit: 'Kayıt işlemi başarısız. Lütfen tekrar deneyin.' });
         }
     };
