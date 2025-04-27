@@ -1,0 +1,145 @@
+.formContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  background: linear-gradient(to right, 
+    rgba(0, 0, 0, 0.1) 50%,
+    #f8f9fa 50%
+  );
+}
+
+.formContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background-image: url("../../assets/101.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 2.5rem;
+  margin-right: 10%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
+}
+
+.formInputHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.formText {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.formInput {
+  margin-bottom: 1.5rem;
+}
+
+.formInput label {
+  color: #2c3e50;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  padding: 0.8rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #2ecc71;
+  box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
+}
+
+.customButtonGiris {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  background-color: #2ecc71 !important;
+  border: none !important;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.customButtonGiris:hover {
+  background-color: #27ae60 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+}
+
+.errorMessage {
+  color: #e74c3c;
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  padding: 0.8rem;
+  background-color: rgba(231, 76, 60, 0.1);
+  border-radius: 8px;
+}
+
+.signUpPrompt {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: #2c3e50;
+}
+
+.signUpPrompt a {
+  color: #2ecc71 !important;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.signUpPrompt a:hover {
+  color: #27ae60 !important;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .formContainer {
+    justify-content: center;
+    background: none;
+  }
+
+  .formContainer::before {
+    width: 100%;
+    opacity: 0.8;
+  }
+
+  .form-container {
+    margin: 1rem;
+    background: rgba(255, 255, 255, 0.98);
+  }
+}
+
+@media (max-width: 576px) {
+  .form-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .formText {
+    font-size: 1.5rem;
+  }
+}

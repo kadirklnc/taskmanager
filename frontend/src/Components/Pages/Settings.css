@@ -1,0 +1,59 @@
+body.light {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+body.dark {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark .card {
+  background-color: #444;
+  color: #fff;
+}
+
+.dark .card-header {
+  background-color: #555;
+  color: #fff;
+}
+
+.dark .form-control {
+  background-color: #555;
+  color: #fff;
+  border-color: #666;
+}
+
+.dark .form-control::placeholder {
+  color: #aaa;
+}
+
+.dark .form-select {
+  background-color: #555;
+  color: #fff;
+  border-color: #666;
+}
+
+.dark .btn-primary {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.dark .btn-primary:hover {
+  background-color: #004085;
+  border-color: #002752;
+}
+
+.settings-container {
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}

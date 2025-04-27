@@ -1,0 +1,65 @@
+.employee-list-page{
+   
+    padding: 20px;
+   
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.employee-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom:20px;
+   
+}
+
+.employee-list-header h3 {
+    margin: 0;
+}
+
+.employee-list-actions button {
+    margin-left: 10px;
+}
+
+
+
+
+.edit-panel {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #f7f2f2;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.edit-button {
+    margin-top: 20px;
+}
+td > .action-buttons {
+    display: flex;
+    gap: 10px; /* Add spacing between buttons */
+}
+
+.succes-button,
+.danger-button {
+    width: auto; /* Let buttons take up only the necessary width */
+    padding: 5px 10px; /* Adjust padding for consistent size */
+}
+
+td > .name-surname {
+}
+
+.danger-button-employee,
+.succes-button-employee {
+    width:81px;
+}
+.actions-header {
+    text-align: center;
+}
+
+.actions-cell {
+    text-align: center;
+}

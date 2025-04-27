@@ -1,0 +1,154 @@
+.department-list-container {
+    /* margin: 20px; */
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    height:auto;
+    /* border:1px solid red; */
+}
+
+.department-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.department-list-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.table-responsive {
+    margin-top: 10px;
+}
+
+.table-bordered {
+    border: 2px solid #ddd;
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+
+.department-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.department-list-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.table-responsive {
+    margin-top: 20px;
+    max-height: 700px;
+    overflow-y: auto;
+    padding-bottom: 80px; /* Extra space to account for the dropdown */
+}
+
+.table-bordered {
+    border: 2px solid #ddd;
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.scrollable-menu {
+    max-height: 200px;
+    /* İstediğiniz yüksekliği belirleyin */
+    overflow-y: auto;
+}
+
+.employee-dropdown-menu {
+    max-height: 150px;
+    /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-icon {
+    font-size: 18px; /* Adjust the size of the dropdown icon as well */
+  }
+  
+  .dropdown-menu1{
+    font-size: 16px !important;
+    position: absolute;
+    left: 0;
+    top: 0%; /* Position below the icon */
+    z-index: 1000; /* Ensure the dropdown stays above other elements */
+    background: rgb(255, 255, 255);
+    border: 1px solid #ffffff;
+    box-shadow: 8px 8px 8px rgba(3, 104, 22, 0.2);
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+    
+  }
+  
+  .dropdown-scroll {
+    max-height: 140px; /* Increase the height for more visibility */
+    overflow-y: scroll;
+  }
+  .dropdown-item {
+    font-size: 16px; /* Increase the font size */
+    padding: 10px 15px; /* Adjust padding for more space */
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .dropdown-item:last-child {
+    border-bottom: none;
+  }
+  

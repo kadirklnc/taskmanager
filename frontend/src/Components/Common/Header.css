@@ -1,0 +1,72 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    height: 70px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    width: 120px; /* Adjust the size of the logo as needed */
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    position: relative; /* Ensure the dropdown menu positions relative to this container */
+}
+
+.header-username {
+    margin-right: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.profile-icon-container {
+    position: relative;
+    cursor: pointer;
+}
+
+.header-icon {
+    font-size: 20px;
+    color: #333;
+}
+
+.dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 150px;
+    padding: 0;
+}
+
+.dropdown-item {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    display: block;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown-item:active {
+    background-color: #e2e2e2;
+}

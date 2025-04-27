@@ -1,0 +1,23 @@
+.custom-search-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;  /* Gap'i azalttım */
+    margin-bottom: 3rem;
+    width: 30%;
+}
+
+.custom-search-input {
+    height: 38px !important;  /* Bootstrap button'ın default yüksekliği */
+    padding: 0.375rem 0.75rem !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+}
+
+.custom-search-button {
+    margin: 0;
+    height: 38px !important;  /* Input ile aynı yükseklik */
+    padding: 0.375rem 0.75rem !important;
+    display: flex;
+    align-items: center;
+}

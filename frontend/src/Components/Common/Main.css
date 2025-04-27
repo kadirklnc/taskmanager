@@ -1,0 +1,18 @@
+.mainContainer {
+    display: flex;
+  
+    height: 645px;
+}
+
+.sidebar {
+    /* Sidebar için ek stil eklenebilir */
+}
+
+.content {
+    
+    flex-grow: 1;
+    
+ 
+    overflow: scroll;
+}
+

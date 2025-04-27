@@ -1,0 +1,61 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+body.light {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+body.dark {
+  background-color: #343a40;
+  color: #f8f9fa;
+}
+
+.dark .card {
+  background-color: #495057;
+  color: #f8f9fa;
+}
+
+.dark .card-header {
+  background-color: #6c757d;
+  color: #f8f9fa;
+}
+
+.dark .form-control {
+  background-color: #6c757d;
+  color: #f8f9fa;
+  border-color: #495057;
+}
+
+.dark .form-control::placeholder {
+  color: #adb5bd;
+}
+
+.dark .form-select {
+  background-color: #6c757d;
+  color: #f8f9fa;
+  border-color: #495057;
+}
+
+.dark .btn-primary {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.dark .btn-primary:hover {
+  background-color: #004085;
+  border-color: #002752;
+}
+
+/* Diğer genel stil tanımlamaları */

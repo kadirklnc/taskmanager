@@ -1,0 +1,126 @@
+.content-container {
+    /* margin-left: 12px; */
+    padding:20px;
+    /* margin-right:25px; */
+}
+
+.page-title {
+    margin-bottom: 20px;
+    /* Adjust the margin as needed */
+
+}
+
+.custom-card {
+    margin-bottom: 20px;
+    padding: 2px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.custom-card .card-title {
+    margin-bottom: 40px; /* Başlık ve içeriği arasındaki boşluk */
+}
+.circle-container {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 15px;
+    padding: 10px;
+}
+
+.circle-label {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+}
+
+/* Genel buton stilleri (isteğe bağlı) */
+button {
+    margin-bottom: 15px;
+    margin-right:15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    gap:15px;
+    
+}
+
+.btn-new-button {
+    background-color: #0ea620;
+    color: #fff;
+    border: none;
+    
+}
+.btn-new-button:hover{
+    background-color: #13b726;
+    color: #fff;
+    
+}
+
+.homepage-button-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.homepage-btn {
+    padding: 0.3rem 1rem !important;
+    font-size: 0.875rem !important;
+    border-radius: 4px !important;
+    border: none;
+    background-color: #198754 !important;
+    color: white;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: fit-content;
+    white-space: nowrap;
+}
+
+.homepage-btn:hover {
+    background-color: #269863 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* CircularProgressbar bileşeninin stilini özelleştirme */
+.CircularProgressbar {
+    width: 100%;
+    height: 100%;
+}
+
+.CircularProgressbar-path {
+    stroke-width: 8;
+    transition: stroke-dashoffset 0.5s ease 0s;
+}
+
+.CircularProgressbar-trail {
+    stroke-width: 8;
+}
+
+.CircularProgressbar-text {
+    font-weight: 600;
+    dominant-baseline: middle;
+    text-anchor: middle;
+    font-family: Arial, sans-serif;
+}
+
+/* Kart stilini geliştirme */
+.custom-card {
+    margin-bottom: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.custom-card .card-body {
+    padding: 25px;
+}
+
+.custom-card .card-title {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+
+
+

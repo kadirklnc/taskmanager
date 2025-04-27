@@ -1,0 +1,50 @@
+.sidebar-container {
+   display: flex;
+    
+   
+}
+.cdb-sidebar {
+    background-color: #07012b; /* Background color for the entire sidebar */
+}
+
+.item{
+   
+    padding: 0;
+}
+.sidebar-content {
+  
+    
+}
+
+.sidebar-footer {
+   
+}
+
+.sidebar-header {
+    
+}
+
+.sidebar-header a {
+   
+}
+
+.menu-item-with-icon {
+        display: flex;
+        align-items: center; /* Yatayda ortalar */
+        justify-content: space-between;
+        cursor: pointer; /* Simgeye tıklanabilirlik ekler */
+}
+
+
+.sidebar-menu-icon {
+    margin-left: auto; /* Simgeyi sağa hizalar */
+    font-size: 1rem; /* Simge boyutunu ayarlayabilirsiniz */
+    padding-right: 20px; /* Simgeyi sağa yaslar */
+}
+
+.subMenuTest{
+    /* border:1px solid red; */
+    padding: 0px;
+    padding-left:15%;
+    margin:0px;
+}
