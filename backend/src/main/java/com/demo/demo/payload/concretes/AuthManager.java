@@ -13,7 +13,10 @@ import com.demo.demo.repository.RoleRepository;
 import com.demo.demo.repository.UserRepository;
 import com.demo.demo.security.jwt.JwtUtils;
 import com.demo.demo.security.services.UserDetailsImpl;
+import com.demo.demo.utilities.AESUtil;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +33,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class AuthManager implements AuthService {
+    private static final Logger logger = LoggerFactory.getLogger(AuthManager.class);
 
     private AuthenticationManager authenticationManager;
     private JwtUtils jwtUtils;
@@ -37,8 +41,6 @@ public class AuthManager implements AuthService {
     private RoleRepository roleRepository;
     private PasswordEncoder encoder;
     private UserBusinessRules userBusinessRules;
-
-
 
     @Override
     public ResponseEntity<?> authenticateUser(LoginRequest loginRequest) {
@@ -66,52 +68,81 @@ public class AuthManager implements AuthService {
 
     @Override
     public ResponseEntity<?> registerUser(SignupRequest signupRequest) {
+        logger.debug("Starting user registration for email: {}", signupRequest.getEmail());
+        
+        try {
+            // Validate required fields
+            if (signupRequest.getEmail() == null || signupRequest.getEmail().trim().isEmpty()) {
+                return ResponseEntity.badRequest().body(new MessageResponse("Email is required"));
+            }
+            if (signupRequest.getPhone() == null || signupRequest.getPhone().trim().isEmpty()) {
+                return ResponseEntity.badRequest().body(new MessageResponse("Phone number is required"));
+            }
 
-        userBusinessRules.checkIfEmailExists(signupRequest.getEmail());
+            userBusinessRules.checkIfEmailExists(signupRequest.getEmail());
+            logger.debug("Email check passed");
 
-        User user = new User(
-                signupRequest.getEmail(),
-                encoder.encode(signupRequest.getPassword()),
-                signupRequest.getName(),
-                signupRequest.getSurname(),
-                signupRequest.getDepartment(),
-                signupRequest.getGender(),
-                signupRequest.getDate(),
-                signupRequest.getPhone(),
-                signupRequest.getIs_active());
+            String encryptedEmail = null;
+            String encryptedPhone = null;
+            try {
+                logger.debug("Attempting to encrypt email and phone");
+                encryptedEmail = AESUtil.encrypt(signupRequest.getEmail());
+                encryptedPhone = AESUtil.encrypt(signupRequest.getPhone());
+                logger.debug("Encryption successful");
+            } catch (Exception e) {
+                logger.error("Encryption failed: {}", e.getMessage(), e);
+                return ResponseEntity.badRequest().body(new MessageResponse("Encryption error: " + e.getMessage()));
+            }
 
-        Set<String> strRoles = signupRequest.getRole();
-        Set<Role> roles = new HashSet<>();
+            // Create user with encrypted data
+            User user = new User(
+                    encryptedEmail,
+                    encoder.encode(signupRequest.getPassword()),
+                    signupRequest.getName(),
+                    signupRequest.getSurname(),
+                    signupRequest.getDepartment(),
+                    signupRequest.getGender(),
+                    signupRequest.getDate(),
+                    encryptedPhone,
+                    signupRequest.getIs_active());
 
-        if (strRoles == null) {
-            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-                        break;
-                    case "mod":
-                        Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                        break;
-                }
-            });
+            Set<String> strRoles = signupRequest.getRole();
+            Set<Role> roles = new HashSet<>();
+
+            if (strRoles == null) {
+                Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                roles.add(userRole);
+            } else {
+                strRoles.forEach(role -> {
+                    switch (role) {
+                        case "admin":
+                            Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                            roles.add(adminRole);
+                            break;
+                        case "mod":
+                            Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                            roles.add(modRole);
+                            break;
+                        default:
+                            Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                            roles.add(userRole);
+                            break;
+                    }
+                });
+            }
+
+            user.setRoles(roles);
+            userRepository.save(user);
+            logger.debug("User registration completed successfully");
+
+            return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+        } catch (Exception e) {
+            logger.error("User registration failed: {}", e.getMessage(), e);
+            return ResponseEntity.badRequest().body(new MessageResponse("Registration failed: " + e.getMessage()));
         }
-
-        user.setRoles(roles);
-        userRepository.save(user);
-
-        return ResponseEntity.ok(new MessageResponse("User Registered Successfully"));
     }
 }

@@ -13,10 +13,10 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [captchaValue, setCaptchaValue] = useState(null); // reCAPTCHA yanıtını burada saklıyoruz
+    const [captchaValue, setCaptchaValue] = useState(null);
 
     const handleCaptchaChange = (value) => {
-        setCaptchaValue(value); // reCAPTCHA yanıtını state'e alıyoruz
+        setCaptchaValue(value);
     };
 
     const handleLogin = async () => {
@@ -29,7 +29,7 @@ const Login = () => {
             const response = await axios.post('http://localhost:8080/api/auth/login', {
                 email,
                 password,
-                captcha: captchaValue, // CAPTCHA yanıtını sunucuya gönderiyoruz
+                captcha: captchaValue,
             });
 
             const { token, id, roles } = response.data;
@@ -92,19 +92,16 @@ const Login = () => {
                         />
                     </Form.Group>
 
-                    {/* reCAPTCHA Widget */}
                     <ReCAPTCHA
                         sitekey="6LeokSUrAAAAAF-PnGqFHc3CC7oaDS0WVsP9v4Mh"
                         onChange={handleCaptchaChange}
-                        size="normal"  // Normal boyutla görsel doğrulamanın görünmesini sağlıyoruz
+                        size="normal"
                     />
-
 
                     <Button variant="success" className="customButtonGiris" onClick={handleLogin}>
                         Giriş Yap
                     </Button>
 
-                    {/* Hata mesajı */}
                     {error && <p className="errorMessage" style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
 
                     <p className="signUpPrompt" style={{ marginTop: '10px', textAlign: 'center' }}>

@@ -1,0 +1,19 @@
+2025-06-10 00:00:16.580  INFO 39672 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-10 00:00:16.583  INFO 39672 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-10 00:00:16.592  INFO 39672 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+2025-06-10 00:00:16.923 DEBUG 39672 --- [http-nio-8080-exec-1] com.demo.demo.utilities.AESUtil          : Starting encryption for value: ahmed@gmail.com
+2025-06-10 00:00:16.937 DEBUG 39672 --- [http-nio-8080-exec-1] com.demo.demo.utilities.AESUtil          : Encryption successful. Result length: 24
+2025-06-10 00:00:16.937 DEBUG 39672 --- [http-nio-8080-exec-1] com.demo.demo.utilities.AESUtil          : Starting encryption for value: 5058347165
+2025-06-10 00:00:16.937 DEBUG 39672 --- [http-nio-8080-exec-1] com.demo.demo.utilities.AESUtil          : Encryption successful. Result length: 24
+2025-06-10 00:13:09.105  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m58s814ms).
+2025-06-10 00:15:08.836  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m59s749ms).
+2025-06-10 00:17:11.636  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m2s800ms).
+2025-06-10 00:20:02.657  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m51s21ms).
+2025-06-10 00:21:52.143  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m49s486ms).
+2025-06-10 00:24:46.321  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m54s177ms).
+2025-06-10 00:26:51.823  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m5s503ms).
+2025-06-10 00:29:37.910  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m46s87ms).
+2025-06-10 00:31:43.340  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m5s429ms).
+2025-06-10 00:33:56.714  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m13s375ms).
+2025-06-10 00:35:23.474  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m26s759ms).
+2025-06-10 00:37:45.660  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=52s170ms).
