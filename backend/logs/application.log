@@ -31,3 +31,71 @@
 2025-06-10 01:12:36.098  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=58s114ms).
 2025-06-10 01:16:29.707  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m53s592ms).
 2025-06-10 01:17:40.307  WARN 39672 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m10s599ms).
+2025-06-10 01:19:50.182  INFO 39672 --- [Thread-4] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-10 01:19:50.230  INFO 39672 --- [Thread-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-10 01:19:50.241  INFO 39672 --- [Thread-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-10 01:19:50.553  INFO 39672 --- [restartedMain] com.demo.demo.DemoApplication            : Starting DemoApplication using Java 17.0.12 on Izmirs-MacBook-Air.local with PID 39672 (/Users/izmir/Documents/DesktopFiles/taskmanager/backend/target/classes started by test in /Users/izmir/Documents/DesktopFiles/taskmanager/backend)
+2025-06-10 01:19:50.553 DEBUG 39672 --- [restartedMain] com.demo.demo.DemoApplication            : Running with Spring Boot v2.6.3, Spring v5.3.15
+2025-06-10 01:19:50.553  INFO 39672 --- [restartedMain] com.demo.demo.DemoApplication            : No active profile set, falling back to default profiles: default
+2025-06-10 01:19:50.966  INFO 39672 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-10 01:19:50.977  INFO 39672 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 3 JPA repository interfaces.
+2025-06-10 01:19:51.089  INFO 39672 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2025-06-10 01:19:51.089  INFO 39672 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-10 01:19:51.089  INFO 39672 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2025-06-10 01:19:51.096  INFO 39672 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-10 01:19:51.096  INFO 39672 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 537 ms
+2025-06-10 01:19:51.132  INFO 39672 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-10 01:19:51.134  INFO 39672 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2025-06-10 01:19:51.543  INFO 39672 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2025-06-10 01:19:51.544  INFO 39672 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2025-06-10 01:19:51.597  INFO 39672 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-06-10 01:19:51.597  INFO 39672 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-10 01:19:51.668  WARN 39672 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-10 01:19:51.684 DEBUG 39672 --- [restartedMain] c.d.demo.security.jwt.AuthTokenFilter    : Filter 'authTokenFilter' configured for use
+2025-06-10 01:19:51.684 DEBUG 39672 --- [restartedMain] c.d.demo.security.jwt.AuthTokenFilter    : Filter 'authenticationJwtTokenFilter' configured for use
+2025-06-10 01:19:51.755  INFO 39672 --- [restartedMain] com.demo.demo.utilities.AESUtil          : AESUtil initialized with key length: 16
+2025-06-10 01:19:51.845  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/v2/api-docs'] with []
+2025-06-10 01:19:51.845  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/configuration/ui'] with []
+2025-06-10 01:19:51.845  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/swagger-resources/**'] with []
+2025-06-10 01:19:51.845  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/configuration/security'] with []
+2025-06-10 01:19:51.845  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/swagger-ui.html'] with []
+2025-06-10 01:19:51.845  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/webjars/**'] with []
+2025-06-10 01:19:51.872  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@18380ca6, org.springframework.security.web.context.SecurityContextPersistenceFilter@5605dba7, org.springframework.security.web.header.HeaderWriterFilter@40813f33, org.springframework.web.filter.CorsFilter@3293a271, org.springframework.security.web.authentication.logout.LogoutFilter@7382c51f, com.demo.demo.security.jwt.AuthTokenFilter@72b09d6b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@614afe30, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@287b3d8d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@101d4f22, org.springframework.security.web.session.SessionManagementFilter@3692bd00, org.springframework.security.web.access.ExceptionTranslationFilter@1144d780, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4f25c299]
+2025-06-10 01:19:51.948  INFO 39672 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-10 01:19:52.053  INFO 39672 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2025-06-10 01:19:52.114  INFO 39672 --- [restartedMain] com.demo.demo.DemoApplication            : Started DemoApplication in 1.636 seconds (JVM running for 2203.544)
+2025-06-10 01:19:52.115  INFO 39672 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-06-10 01:19:53.500  INFO 39672 --- [Thread-7] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-10 01:19:53.503  INFO 39672 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2025-06-10 01:19:53.504  INFO 39672 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2025-06-10 01:19:53.573  INFO 39672 --- [restartedMain] com.demo.demo.DemoApplication            : Starting DemoApplication using Java 17.0.12 on Izmirs-MacBook-Air.local with PID 39672 (/Users/izmir/Documents/DesktopFiles/taskmanager/backend/target/classes started by test in /Users/izmir/Documents/DesktopFiles/taskmanager/backend)
+2025-06-10 01:19:53.573 DEBUG 39672 --- [restartedMain] com.demo.demo.DemoApplication            : Running with Spring Boot v2.6.3, Spring v5.3.15
+2025-06-10 01:19:53.573  INFO 39672 --- [restartedMain] com.demo.demo.DemoApplication            : No active profile set, falling back to default profiles: default
+2025-06-10 01:19:53.705  INFO 39672 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-10 01:19:53.716  INFO 39672 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 3 JPA repository interfaces.
+2025-06-10 01:19:53.784  INFO 39672 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2025-06-10 01:19:53.785  INFO 39672 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-10 01:19:53.785  INFO 39672 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2025-06-10 01:19:53.792  INFO 39672 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-10 01:19:53.792  INFO 39672 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 218 ms
+2025-06-10 01:19:53.825  INFO 39672 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-10 01:19:53.826  INFO 39672 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2025-06-10 01:19:53.842  INFO 39672 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2025-06-10 01:19:53.842  INFO 39672 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2025-06-10 01:19:53.871  INFO 39672 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-06-10 01:19:53.871  INFO 39672 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-10 01:19:53.939  WARN 39672 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-10 01:19:53.953 DEBUG 39672 --- [restartedMain] c.d.demo.security.jwt.AuthTokenFilter    : Filter 'authTokenFilter' configured for use
+2025-06-10 01:19:53.953 DEBUG 39672 --- [restartedMain] c.d.demo.security.jwt.AuthTokenFilter    : Filter 'authenticationJwtTokenFilter' configured for use
+2025-06-10 01:19:54.017  INFO 39672 --- [restartedMain] com.demo.demo.utilities.AESUtil          : AESUtil initialized with key length: 16
+2025-06-10 01:19:54.085  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/v2/api-docs'] with []
+2025-06-10 01:19:54.086  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/configuration/ui'] with []
+2025-06-10 01:19:54.086  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/swagger-resources/**'] with []
+2025-06-10 01:19:54.086  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/configuration/security'] with []
+2025-06-10 01:19:54.086  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/swagger-ui.html'] with []
+2025-06-10 01:19:54.086  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/webjars/**'] with []
+2025-06-10 01:19:54.115  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5dac18dd, org.springframework.security.web.context.SecurityContextPersistenceFilter@23abb19d, org.springframework.security.web.header.HeaderWriterFilter@2191560, org.springframework.web.filter.CorsFilter@49d2a63b, org.springframework.security.web.authentication.logout.LogoutFilter@4294ed5c, com.demo.demo.security.jwt.AuthTokenFilter@3b11435, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4b57432d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1affd32, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@10926200, org.springframework.security.web.session.SessionManagementFilter@68eaa6a0, org.springframework.security.web.access.ExceptionTranslationFilter@46c5da27, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6486d6e5]
+2025-06-10 01:19:54.166  INFO 39672 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-10 01:19:54.233  INFO 39672 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2025-06-10 01:19:54.276  INFO 39672 --- [restartedMain] com.demo.demo.DemoApplication            : Started DemoApplication in 0.715 seconds (JVM running for 2205.707)
+2025-06-10 01:19:54.277  INFO 39672 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
