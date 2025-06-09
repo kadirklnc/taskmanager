@@ -99,3 +99,34 @@
 2025-06-10 01:19:54.233  INFO 39672 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
 2025-06-10 01:19:54.276  INFO 39672 --- [restartedMain] com.demo.demo.DemoApplication            : Started DemoApplication in 0.715 seconds (JVM running for 2205.707)
 2025-06-10 01:19:54.277  INFO 39672 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-06-10 01:24:29.072  INFO 39672 --- [restartedMain] com.demo.demo.DemoApplication            : Starting DemoApplication using Java 17.0.12 on Izmirs-MacBook-Air.local with PID 39672 (/Users/izmir/Documents/DesktopFiles/taskmanager/backend/target/classes started by test in /Users/izmir/Documents/DesktopFiles/taskmanager/backend)
+2025-06-10 01:24:29.072 DEBUG 39672 --- [restartedMain] com.demo.demo.DemoApplication            : Running with Spring Boot v2.6.3, Spring v5.3.15
+2025-06-10 01:24:29.072  INFO 39672 --- [restartedMain] com.demo.demo.DemoApplication            : No active profile set, falling back to default profiles: default
+2025-06-10 01:24:29.214  INFO 39672 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-10 01:24:29.221  INFO 39672 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 6 ms. Found 3 JPA repository interfaces.
+2025-06-10 01:24:29.283  INFO 39672 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2025-06-10 01:24:29.283  INFO 39672 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-10 01:24:29.283  INFO 39672 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2025-06-10 01:24:29.287  INFO 39672 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-10 01:24:29.287  INFO 39672 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 209 ms
+2025-06-10 01:24:29.311  INFO 39672 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-10 01:24:29.313  INFO 39672 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2025-06-10 01:24:29.402  INFO 39672 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2025-06-10 01:24:29.403  INFO 39672 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2025-06-10 01:24:29.431  INFO 39672 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-06-10 01:24:29.431  INFO 39672 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-10 01:24:29.481  WARN 39672 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-10 01:24:29.492 DEBUG 39672 --- [restartedMain] c.d.demo.security.jwt.AuthTokenFilter    : Filter 'authTokenFilter' configured for use
+2025-06-10 01:24:29.493 DEBUG 39672 --- [restartedMain] c.d.demo.security.jwt.AuthTokenFilter    : Filter 'authenticationJwtTokenFilter' configured for use
+2025-06-10 01:24:29.542  INFO 39672 --- [restartedMain] com.demo.demo.utilities.AESUtil          : AESUtil initialized with key length: 16
+2025-06-10 01:24:29.601  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/v2/api-docs'] with []
+2025-06-10 01:24:29.601  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/configuration/ui'] with []
+2025-06-10 01:24:29.601  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/swagger-resources/**'] with []
+2025-06-10 01:24:29.601  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/configuration/security'] with []
+2025-06-10 01:24:29.601  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/swagger-ui.html'] with []
+2025-06-10 01:24:29.601  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure Ant [pattern='/webjars/**'] with []
+2025-06-10 01:24:29.623  INFO 39672 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@49c9d2e0, org.springframework.security.web.context.SecurityContextPersistenceFilter@793e619f, org.springframework.security.web.header.HeaderWriterFilter@7eb34515, org.springframework.web.filter.CorsFilter@793e7adc, org.springframework.security.web.authentication.logout.LogoutFilter@360d0898, com.demo.demo.security.jwt.AuthTokenFilter@590077f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@61e8e255, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5978890, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1da77acb, org.springframework.security.web.session.SessionManagementFilter@767df8d, org.springframework.security.web.access.ExceptionTranslationFilter@459baabf, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3ce20822]
+2025-06-10 01:24:29.657  INFO 39672 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-10 01:24:29.718  INFO 39672 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2025-06-10 01:24:29.751  INFO 39672 --- [restartedMain] com.demo.demo.DemoApplication            : Started DemoApplication in 0.829 seconds (JVM running for 2481.184)
+2025-06-10 01:24:29.752  INFO 39672 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
