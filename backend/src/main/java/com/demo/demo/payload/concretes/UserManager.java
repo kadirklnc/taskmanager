@@ -23,6 +23,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.List;
@@ -38,6 +40,7 @@ public class UserManager implements UserService {
     private UserBusinessRules userBusinessRules;
     private RoleRepository roleRepository;
     private PasswordEncoder encoder;
+    private static final Logger logger = LoggerFactory.getLogger(UserManager.class);
 
 
 
@@ -46,19 +49,18 @@ public class UserManager implements UserService {
         List<User> users = userRepository.findAll();
         return users.stream()
                 .map(user -> {
-                    try {
-                        user.setPhone(AESUtil.decrypt(user.getPhone()));
-                        user.setEmail(AESUtil.decrypt(user.getEmail()));
-                    } catch (Exception e) {
-                        // handle decryption error (log or set as null)
-                        user.setPhone(null);
-                        user.setEmail(null);
-                    }
                     Set<Role> roles = user.getRoles();
                     GetAllUserResponse response = modelMapperService.roleMapper().map(user, GetAllUserResponse.class);
                     response.setRole(roles != null ? roles.stream()
                             .map(role -> role.getName().name())
                             .collect(Collectors.toSet()) : null);
+                    try {
+                        response.setEmail(AESUtil.decrypt(user.getEmail()));
+                        response.setPhone(AESUtil.decrypt(user.getPhone()));
+                    } catch (Exception e) {
+                        // Log error but continue with encrypted values
+                        e.printStackTrace();
+                    }
                     return response;
                 })
                 .collect(Collectors.toList());
@@ -67,32 +69,35 @@ public class UserManager implements UserService {
     @Override
     public GetByIdUserResponse getById(int id) {
         User user = this.userRepository.findById(id).orElseThrow();
-        try {
-            user.setPhone(AESUtil.decrypt(user.getPhone()));
-            user.setEmail(AESUtil.decrypt(user.getEmail()));
-        } catch (Exception e) {
-            user.setPhone(null);
-            user.setEmail(null);
-        }
         GetByIdUserResponse response = modelMapperService.roleMapper().map(user, GetByIdUserResponse.class);
         Set<Role> roles = user.getRoles();
         response.setRole(roles != null ? roles.stream()
                 .map(role -> role.getName().name())
                 .collect(Collectors.toSet()) : null);
+        try {
+            response.setEmail(AESUtil.decrypt(user.getEmail()));
+            response.setPhone(AESUtil.decrypt(user.getPhone()));
+        } catch (Exception e) {
+            // Log error but continue with encrypted values
+            e.printStackTrace();
+        }
         return response;
     }
 
     @Override
     public ResponseEntity<?> add(CreateUserRequest createUserRequest) {
         userBusinessRules.checkIfEmailExists(createUserRequest.getEmail());
-        String encryptedEmail = null;
-        String encryptedPhone = null;
+
+        String encryptedEmail;
+        String encryptedPhone;
         try {
             encryptedEmail = AESUtil.encrypt(createUserRequest.getEmail());
             encryptedPhone = AESUtil.encrypt(createUserRequest.getPhone());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Encryption error"));
+            logger.error("Error encrypting user data: {}", e.getMessage());
+            return ResponseEntity.badRequest().body(new MessageResponse("Error encrypting data"));
         }
+
         User user = new User(
                 encryptedEmail,
                 encoder.encode(createUserRequest.getPassword()),

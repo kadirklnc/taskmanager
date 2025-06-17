@@ -16,6 +16,7 @@ import com.demo.demo.payload.response.MessageResponse;
 import com.demo.demo.repository.PermissionRepository;
 import com.demo.demo.repository.UserRepository;
 import com.demo.demo.security.services.UserDetailsImpl;
+import com.demo.demo.utilities.AESUtil;
 import com.demo.demo.utilities.mapper.ModelMapperService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -65,13 +66,10 @@ public class PermissionManager implements PermissionService {
 
     @Override
     public List<GetByUserIdPermissionResponse> getPermissionsByUserId(int userId) {
-
         List<Permission> permissions = permissionRepository.findByUserId(userId);
-
         if (permissions.isEmpty()) {
             throw new RuntimeException("User with ID " + userId + " not found");
         }
-
         return permissions.stream()
                 .map(permission -> {
                     GetByUserIdPermissionResponse response = modelMapperService.customModelMapper().map(permission, GetByUserIdPermissionResponse.class);

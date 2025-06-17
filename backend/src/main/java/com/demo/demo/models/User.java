@@ -30,6 +30,8 @@ public class User {
     private String phone;
     private int is_active;
 
+    private String otpSecret; // 2FA için secret key alanı
+
     private LocalDateTime created_at;
 
     private int totalLeaveDays;
@@ -160,5 +162,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getOtpSecret() {
+        return otpSecret;
+    }
+
+    public void setOtpSecret(String otpSecret) {
+        this.otpSecret = otpSecret;
     }
 }

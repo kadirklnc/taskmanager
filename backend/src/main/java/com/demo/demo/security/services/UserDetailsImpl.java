@@ -1,6 +1,7 @@
 package com.demo.demo.security.services;
 
 import com.demo.demo.models.User;
+import com.demo.demo.utilities.AESUtil;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,9 +35,16 @@ public class UserDetailsImpl implements UserDetails {
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
+        String decryptedEmail;
+        try {
+            decryptedEmail = AESUtil.decrypt(user.getEmail());
+        } catch (Exception e) {
+            decryptedEmail = user.getEmail(); // Fallback to encrypted email if decryption fails
+        }
+
         return new UserDetailsImpl(
                 user.getId(),
-                user.getEmail(),
+                decryptedEmail,
                 user.getPassword(),
                 user.getIs_active(),
                 authorities);

@@ -34,11 +34,10 @@ public class JwtUtils {
                 .compact();
     }
 
-
     @SuppressWarnings("deprecation")
     public boolean validateJwtToken(String authToken) {
         try {
-            logger.info("Validating token: {}", authToken); // Log the token
+            logger.info("Validating token: {}", authToken);
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
@@ -59,9 +58,6 @@ public class JwtUtils {
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(token).getBody().getSubject();
     }
-
-
-
 }
 
 
