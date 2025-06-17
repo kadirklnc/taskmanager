@@ -24,6 +24,26 @@ const SignUp = () => {
     const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
     const isValidPhone = (phone) => /^\+?[\d\s-]{10,}$/.test(phone);
 
+    const validatePassword = (password) => {
+        const errors = [];
+        if (!password || password.length < 8) {
+            errors.push("Şifre en az 8 karakter olmalıdır");
+        }
+        if (!/[A-Z]/.test(password)) {
+            errors.push("En az bir büyük harf içermelidir");
+        }
+        if (!/[a-z]/.test(password)) {
+            errors.push("En az bir küçük harf içermelidir");
+        }
+        if (!/\d/.test(password)) {
+            errors.push("En az bir rakam içermelidir");
+        }
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            errors.push("En az bir özel karakter içermelidir");
+        }
+        return errors;
+    };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -38,9 +58,13 @@ const SignUp = () => {
         if (!formData.email || !isValidEmail(formData.email)) {
             newErrors.email = 'Geçerli bir e-posta adresi girin.';
         }
-        if (!formData.password) {
-            newErrors.password = 'Şifre gerekli.';
+        
+        // Şifre karmaşıklığı kontrolü
+        const passwordErrors = validatePassword(formData.password);
+        if (passwordErrors.length > 0) {
+            newErrors.password = passwordErrors.join(', ');
         }
+
         if (!formData.name) {
             newErrors.name = 'İsim gerekli.';
         }
